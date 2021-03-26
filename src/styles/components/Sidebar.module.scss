@@ -1,0 +1,53 @@
+@import '../variables.scss';
+
+.todo__sidebar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-family: $font-main;
+  color: $color-main;
+  width: 100%;
+  max-width: 200px;
+  height: 100%;
+  padding: 50px 20px 50px 20px;
+  border-right: 1px solid #f1f1f1;
+  &_list {
+    position: relative;
+    li {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-items: flex-start;
+      width: 100%;
+      font-family: $font-main;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      letter-spacing: 0.2px;
+      color: $color-main;
+      &.active {
+        background: #fff;
+        padding: 10px 12px;
+        border-radius: 4px;
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.04);
+        margin: 0;
+      }
+      i {
+        display: inline-flex;
+        margin: 0 9px 0 0;
+        img {
+          max-width: 100%;
+          height: auto;
+          opacity: 0.5;
+        }
+      }
+      span {
+        display: inline-flex;
+      }
+    }
+  }
+}

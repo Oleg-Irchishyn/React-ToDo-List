@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
+@import './variables.scss';
+
+* {
+  font-size: 14px;
+  font-family: $font-stack;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  outline: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: $font-stack;
+  height: 100%;
+
+  .container {
+    position: relative;
+    padding: 0 15px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    @include xl-devices {
+      max-width: 1140px;
+    }
+    @include lg-devices {
+      max-width: 960px;
+    }
+    @include md-devices {
+      max-width: 720px;
+    }
+    @include sm-devices {
+      max-width: 540px;
+    }
+  }
+}

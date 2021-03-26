@@ -1,0 +1,16 @@
+@import '../variables.scss';
+
+.formControl.error input,
+.formControl.error textarea {
+  border: 2px rgb(95, 30, 30) solid;
+}
+
+.formControl.error span {
+  color: rgb(95, 30, 30);
+}
+
+.formSummaryError {
+  border: 1px solid rgb(95, 30, 30);
+  padding: 5px;
+  color: rgb(95, 30, 30);
+}

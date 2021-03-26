@@ -1,0 +1,19 @@
+@import '../variables.scss';
+
+.todo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  &__wrapper {
+    position: relative;
+    background: #e5e5e5;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    box-shadow: 1px 1px 26px -16px rgba(0, 0, 0, 0.75);
+  }
+}

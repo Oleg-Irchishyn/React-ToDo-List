@@ -1,0 +1,40 @@
+/*variables*/
+
+$font-stack: 'Jost', 'Source Sans Pro', sans-serif;
+$font-main: 'Jost', sans-serif;
+$font-secondary: 'Source Sans Pro', sans-serif;
+$main-color: #fefefe;
+$color-main: #000;
+
+/*Media quieries mixins*/
+
+@mixin xs-devices {
+  @media screen and (max-width: 575px) {
+    @content;
+  }
+}
+@mixin sm-devices {
+  @media screen and (min-width: 576px) and (max-width: 767px) {
+    @content;
+  }
+}
+@mixin md-devices {
+  @media screen and (min-width: 768px) and (max-width: 991px) {
+    @content;
+  }
+}
+@mixin lg-devices {
+  @media screen and (min-width: 992px) and (max-width: 1199px) {
+    @content;
+  }
+}
+@mixin xl-devices {
+  @media screen and (min-width: 1200px) {
+    @content;
+  }
+}
+@mixin landscape-orientation {
+  @media screen and (max-width: 991px) and (orientation: landscape) {
+    @content;
+  }
+}
