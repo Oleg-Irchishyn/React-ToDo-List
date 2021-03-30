@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from './../../styles/components/Sidebar.module.scss';
+import styles from '../../../styles/components/Sidebar.module.scss';
 import cn from 'classnames';
-import { AppStateType } from '../../redux/store';
-import { sidebarListItems } from '../../redux/selectors/sidebarSelectors';
+import { AppStateType } from '../../../redux/store';
+import { sidebarListItems } from '../../../redux/selectors/sidebarSelectors';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 

@@ -20,6 +20,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     position: relative;
+    width: 100%;
     li {
       position: relative;
       display: flex;
@@ -39,7 +40,7 @@
       cursor: pointer;
       &.active {
         background: #fff;
-        padding: 10px 12px;
+        padding: 10px 0px 10px 10px;
         border-radius: 4px;
         box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.04);
         margin: 0 0 2vh 0;
@@ -86,7 +87,6 @@
     align-items: flex-start;
     justify-content: flex-start;
     position: relative;
-    margin: 4vh 0 0 0;
     li {
       position: relative;
       display: flex;
@@ -104,26 +104,58 @@
       max-width: 100%;
       width: 100%;
       cursor: pointer;
-      i {
-        position: relative;
-        display: inline-flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        margin: 0 9px 0 0;
-        width: 18px;
-        height: 18px;
-        svg {
-          max-width: 100%;
-          height: auto;
+      transition: 0.2s ease;
+      &:hover,
+      &:focus {
+        span {
+          filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.5));
+          transition: 0.2s ease;
         }
       }
       span {
         display: inline-flex;
+        position: relative;
+        padding: 0 0 0 25px;
+        transition: 0.2s ease;
+      }
+      span::before {
+        content: '';
+        position: absolute;
+        left: calc(0% + 8px);
+        top: calc(0% + 4px);
+        background: #767676;
+        width: 2px;
+        height: 10px;
+        transform: rotate(90deg);
+      }
+      span::after {
+        content: '';
+        position: absolute;
+        right: calc(100% - 10px);
+        top: calc(0% + 4px);
+        background: #767676;
+        width: 2px;
+        height: 10px;
       }
     }
     li:last-of-type {
       margin: 0;
     }
+  }
+}
+.todo__sidebar_add_btn_wrapper {
+  position: relative;
+  margin: 4vh 0 0 0;
+  width: 100%;
+  .add_list_popup {
+    position: absolute;
+    max-width: 100%;
+    width: 235px;
+    min-height: 148px;
+    left: 0;
+    top: calc(0% + 30px);
+    background: #ffffff;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
   }
 }
