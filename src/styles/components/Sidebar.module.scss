@@ -15,6 +15,10 @@
   padding: 50px 20px 50px 20px;
   border-right: 1px solid #f1f1f1;
   &_list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
     position: relative;
     li {
       position: relative;
@@ -30,6 +34,9 @@
       letter-spacing: 0.2px;
       color: $color-main;
       margin: 0 0 2vh 0;
+      max-width: 100%;
+      width: 100%;
+      cursor: pointer;
       &.active {
         background: #fff;
         padding: 10px 12px;
@@ -40,6 +47,9 @@
       i {
         position: relative;
         display: inline-flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
         margin: 0 9px 0 0;
         width: 18px;
         height: 18px;
@@ -64,6 +74,53 @@
     }
     li:first-of-type {
       margin: 0 0 4vh 0;
+    }
+    li:last-of-type {
+      margin: 0;
+    }
+  }
+  &_add_btn {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: relative;
+    margin: 4vh 0 0 0;
+    li {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-items: flex-start;
+      width: 100%;
+      font-family: $font-main;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      letter-spacing: 0.2px;
+      color: $color-secondary;
+      margin: 0 0 2vh 0;
+      max-width: 100%;
+      width: 100%;
+      cursor: pointer;
+      i {
+        position: relative;
+        display: inline-flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin: 0 9px 0 0;
+        width: 18px;
+        height: 18px;
+        svg {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+      span {
+        display: inline-flex;
+      }
     }
     li:last-of-type {
       margin: 0;

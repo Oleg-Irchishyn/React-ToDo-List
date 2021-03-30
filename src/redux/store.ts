@@ -1,16 +1,18 @@
 import { createStore, combineReducers, compose, applyMiddleware, Action} from "redux";
 import appReducer from "./reducers/appReducer";
+import sidebarReducer from "./reducers/sidebarReducer";
+
 import thunkMiddleware, { ThunkAction } from "redux-thunk";
-import logger from "redux-logger"
 import { reducer as formReducer } from "redux-form";
 
 
 let rootReducer = combineReducers({
   app: appReducer,
+  sidebar: sidebarReducer,
   form: formReducer
 });
 
-const middlewares = [thunkMiddleware, logger]
+const middlewares = [thunkMiddleware]
 
 type rootReducerType = typeof rootReducer;
 type PropertiesType<Type> = Type extends {[key: string]: infer AC} ? AC : never;
