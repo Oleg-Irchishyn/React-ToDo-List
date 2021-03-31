@@ -6,12 +6,13 @@ import { AppStateType } from '../../../redux/store';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { ColorBadges } from '../../index';
+import closeImg from '../../../assets/images/close.svg';
 
 const AddList: React.FC<MapStatePropsType> = ({ items }) => {
   const [visiblePopup, setVisiblePopup] = React.useState(false);
   const popupRef = React.useRef<HTMLDivElement>(null);
-  const toggleVisiblePopup = () => {
-    setVisiblePopup(!visiblePopup);
+  const showPopup = () => {
+    setVisiblePopup(true);
   };
 
   const handleOutsideClick = React.useCallback((e: any) => {
@@ -33,7 +34,7 @@ const AddList: React.FC<MapStatePropsType> = ({ items }) => {
       <ul className={cn(styles.todo__sidebar_add_btn)}>
         {items.map((item, index) => (
           <li
-            onClick={toggleVisiblePopup}
+            onClick={showPopup}
             key={index}
             className={cn({
               [styles.active]: '',
@@ -44,10 +45,14 @@ const AddList: React.FC<MapStatePropsType> = ({ items }) => {
       </ul>
       {visiblePopup && visiblePopup ? (
         <div className={cn(styles.add_list_popup)} ref={popupRef}>
+          <img
+            alt="clode button"
+            src={closeImg}
+            className={styles.add_list_popup__close_btn}
+            onClick={() => setVisiblePopup(false)}
+          />
           <input type="text" className={styles.input_field} placeholder="Enter folder's name" />
-
           <ColorBadges />
-
           <button className={styles.add_btn}>Add</button>
         </div>
       ) : (

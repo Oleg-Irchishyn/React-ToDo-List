@@ -8,7 +8,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   font-family: $font-main;
-  color: $color-main;
+  color: $color-black;
   width: 100%;
   max-width: 200px;
   height: 100%;
@@ -33,7 +33,7 @@
       font-size: 16px;
       line-height: 19px;
       letter-spacing: 0.2px;
-      color: $color-main;
+      color: $color-black;
       margin: 0 0 2vh 0;
       max-width: 100%;
       width: 100%;
@@ -163,6 +163,14 @@
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.05);
     border-radius: 10px;
     padding: 18px;
+    &__close_btn {
+      position: absolute;
+      right: calc(0% - 10px);
+      top: calc(0% - 10px);
+      max-width: 100%;
+      height: auto;
+      cursor: pointer;
+    }
   }
 
   .input_field {
@@ -224,12 +232,12 @@
     &:hover {
       background: darken($btn-color, 6%);
       transition: 0.2s ease;
-      color: $main-color;
+      color: $color-main;
     }
     &:active {
       background: darken($btn-color, 10%);
       transition: 0.2s ease;
-      color: $main-color;
+      color: $color-main;
     }
   }
 }
