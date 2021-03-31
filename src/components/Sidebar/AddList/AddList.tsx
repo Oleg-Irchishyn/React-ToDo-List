@@ -5,6 +5,7 @@ import { addListButtonItems } from '../../../redux/selectors/sidebarSelectors';
 import { AppStateType } from '../../../redux/store';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { ColorBadges } from '../../index';
 
 const AddList: React.FC<MapStatePropsType> = ({ items }) => {
   const [visiblePopup, setVisiblePopup] = React.useState(false);
@@ -13,15 +14,18 @@ const AddList: React.FC<MapStatePropsType> = ({ items }) => {
     setVisiblePopup(!visiblePopup);
   };
 
-  const handleOutsideClick = (e: any) => {
+  const handleOutsideClick = React.useCallback((e: any) => {
     const path = e.path || (e.composedPath && e.composedPath());
     if (!path.includes(popupRef.current)) {
       setVisiblePopup(false);
     }
-  };
+  }, []);
 
   React.useEffect(() => {
     document.body.addEventListener('click', handleOutsideClick);
+    return () => {
+      document.body.removeEventListener('click', handleOutsideClick);
+    };
   }, []);
 
   return (
@@ -38,9 +42,13 @@ const AddList: React.FC<MapStatePropsType> = ({ items }) => {
           </li>
         ))}
       </ul>
-      {visiblePopup ? (
+      {visiblePopup && visiblePopup ? (
         <div className={cn(styles.add_list_popup)} ref={popupRef}>
-          <h1>Hello World</h1>
+          <input type="text" className={styles.input_field} placeholder="Enter folder's name" />
+
+          <ColorBadges />
+
+          <button className={styles.add_btn}>Add</button>
         </div>
       ) : (
         ''

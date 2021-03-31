@@ -148,6 +148,11 @@
   margin: 4vh 0 0 0;
   width: 100%;
   .add_list_popup {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     position: absolute;
     max-width: 100%;
     width: 235px;
@@ -157,5 +162,74 @@
     background: #ffffff;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.05);
     border-radius: 10px;
+    padding: 18px;
+  }
+
+  .input_field {
+    width: 100%;
+    max-width: 100%;
+    background: #ffffff;
+    border: 1px solid #efefef;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-family: $font-main;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.15px;
+    padding: 8px 11px;
+    color: $color-secondary;
+    transition: 0.2s ease;
+    &:focus,
+    &:hover {
+      border-color: $color-placeholder;
+      transition: 0.2s ease;
+    }
+  }
+
+  .input_field:focus::placeholder,
+  .input_field.active::placeholder {
+    transition: 0.2s ease;
+    opacity: 0;
+  }
+
+  .input_field::placeholder {
+    color: $color-placeholder;
+    letter-spacing: 0.15px;
+    opacity: 1;
+    transition: 0.2s ease;
+  }
+
+  .add_btn {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    font-family: $font-main;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    letter-spacing: 0.15px;
+    color: #ffffff;
+    background: $btn-color;
+    border: transparent;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 100%;
+    min-height: 37px;
+    transition: 0.2s ease;
+    cursor: pointer;
+    &:hover {
+      background: darken($btn-color, 6%);
+      transition: 0.2s ease;
+      color: $main-color;
+    }
+    &:active {
+      background: darken($btn-color, 10%);
+      transition: 0.2s ease;
+      color: $main-color;
+    }
   }
 }
