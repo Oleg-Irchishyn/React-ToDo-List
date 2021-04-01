@@ -37,7 +37,12 @@
       margin: 0 0 2vh 0;
       max-width: 100%;
       width: 100%;
+      transition: 0.2s ease;
       cursor: pointer;
+      &:hover {
+        text-shadow: 0px 0px 8px rgba(0, 0, 0, 81%);
+        transition: 0.2s ease;
+      }
       &.active {
         background: #fff;
         padding: 10px 0px 10px 10px;

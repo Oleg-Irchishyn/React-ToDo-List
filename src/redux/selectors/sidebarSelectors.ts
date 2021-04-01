@@ -1,17 +1,24 @@
-import { AppStateType } from "../store";
+import { AppStateType } from '../store';
 
-export const sidebarListItems = (state: AppStateType) => {
-    return state.sidebar.sidebarListItems;
-  }
+export const getsidebarListItems = (state: AppStateType) => {
+  return state.sidebar.sidebarListItems.map((item) => {
+    item.color = state.sidebar.colors.filter((color) => color.id === item.colorId)[0].hex;
+    return item;
+  });
+};
 
-  export const  addListButtonItems = (state: AppStateType) => {
-    return state.sidebar.addListButtonItems;
-  }
+export const getaddListButtonItems = (state: AppStateType) => {
+  return state.sidebar.addListButtonItems;
+};
 
-  export const getDBcolors = (state: AppStateType)  => {
-    return state.app.colors;
-  }
+export const getallTasksBtnList = (state: AppStateType) => {
+  return state.sidebar.allTasksBtnList;
+};
 
+export const getDBcolors = (state: AppStateType) => {
+  return state.sidebar.colors;
+};
 
-
-  
+export const getselectedColor = (state: AppStateType) => {
+  return state.sidebar.selectedColor;
+};

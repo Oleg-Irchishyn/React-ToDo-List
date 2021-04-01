@@ -1,49 +1,39 @@
 import { ThunkDispatch } from 'redux-thunk';
 import { AppStateType, InferActionsTypes } from '../store';
-const INITIALIZED_SUCCESS = 'SK/APP/INITIALIZED_SUCCESS';
+import DB from '../../assets/db.json';
+const SET_SELECTED_COLOR = 'todo/sidebar/SET_SELECTED_COLOR';
+const SET_NEW_SIDEBAR_LIST = 'todo/sidebar/SET_NEW_SIDEBAR_LIST';
 
 let initialState = {
-  sidebarListItems: [
+  allTasksBtnList: [
     {
       icon: null,
       name: 'All Tasks',
       active: true,
     },
-    {
-      color: '#42B883',
-      name: 'Purchases',
-    },
-    {
-      color: '#64C4ED',
-      name: 'Front-end',
-    },
-    {
-      color: '#FFBBCC',
-      name: 'TV films and series',
-    },
-    {
-      color: '#B6E6BD',
-      name: 'Books',
-    },
-    {
-      color: '#C9D1D3',
-      name: 'Private',
-    },
-  ] as Array<itemsType>,
-
-  addListButtonItems: [
+  ] as Array<allTasksBtnType>,
+  sidebarListItems: DB.lists as Array<itemsType>,
+  addListButtonItems: ([
     {
       icon: null,
       name: 'Add List',
     },
-]   as unknown  as Array<itemsType>
+  ] as unknown) as Array<itemsType>,
+  colors: DB.colors as Array<DBcolorsType>,
+  selectedColor: DB.colors[0].id as string | number,
 };
 
 const sidebarReducer = (state = initialState, action: ActionsTypes): initialStateType => {
   switch (action.type) {
-    case '':
+    case SET_SELECTED_COLOR:
       return {
         ...state,
+        selectedColor: action.payload,
+      };
+    case SET_NEW_SIDEBAR_LIST:
+      return {
+        ...state,
+        sidebarListItems: [...state.sidebarListItems, action.payload],
       };
 
     default:
@@ -51,16 +41,33 @@ const sidebarReducer = (state = initialState, action: ActionsTypes): initialStat
   }
 };
 
-type itemsType = {
-  icon?: JSX.Element;
+export type itemsType = {
+  id: string | number;
+  active?: boolean;
+  name: string;
+  colorId: string | number;
+  color?: string;
+};
+
+type allTasksBtnType = {
+  icon?: JSX.Element | null;
   name: string;
   active?: boolean;
-  color: string;
+};
+
+type DBcolorsType = {
+  id: string | number;
+  hex: string;
+  name: string;
 };
 
 type ActionsTypes = InferActionsTypes<typeof actions>;
 
-export const actions = {};
+export const actions = {
+  setSelectedColor: (color: string | number) =>
+    ({ type: SET_SELECTED_COLOR, payload: color } as const),
+  setNewSidebarList: (obj: itemsType) => ({ type: SET_NEW_SIDEBAR_LIST, payload: obj } as const),
+};
 
 export type initialStateType = typeof initialState;
 

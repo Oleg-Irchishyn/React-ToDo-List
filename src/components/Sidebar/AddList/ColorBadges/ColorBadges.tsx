@@ -1,15 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { getDBcolors } from '../../../../redux/selectors/sidebarSelectors';
+import { getDBcolors, getselectedColor } from '../../../../redux/selectors/sidebarSelectors';
 import { AppStateType } from '../../../../redux/store';
 import styles from '../../../../styles/components/ColorBages.module.scss';
 import cn from 'classnames';
+import { actions } from '../../../../redux/reducers/sidebarReducer';
 
-const ColorBadges: React.FC<MapStatePropsType> = ({ colors }) => {
-  const [selectedColor, selectColor] = React.useState(colors[0].id);
+const ColorBadges: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
+  colors,
+  selectedColor,
+  setSelectedColor,
+}) => {
   const onColorClick = (id: string | number) => {
-    selectColor(id);
+    setSelectedColor(id);
   };
   return (
     <div className={styles.add_list_popup__colors}>
@@ -32,9 +36,17 @@ const ColorBadges: React.FC<MapStatePropsType> = ({ colors }) => {
 
 const mapStateToProps = (state: AppStateType) => ({
   colors: getDBcolors(state),
+  selectedColor: getselectedColor(state),
 });
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
-type MapDispatchPropsType = {};
 
-export default compose<React.ComponentType>(connect(mapStateToProps, {}))(ColorBadges);
+type MapDispatchPropsType = {
+  setSelectedColor: (color: string | number) => void;
+};
+
+export default compose<React.ComponentType>(
+  connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
+    setSelectedColor: actions.setSelectedColor,
+  }),
+)(ColorBadges);

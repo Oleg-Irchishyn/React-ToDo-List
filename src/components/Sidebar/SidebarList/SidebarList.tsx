@@ -2,11 +2,11 @@ import React from 'react';
 import styles from '../../../styles/components/Sidebar.module.scss';
 import cn from 'classnames';
 import { AppStateType } from '../../../redux/store';
-import { sidebarListItems } from '../../../redux/selectors/sidebarSelectors';
+import { getallTasksBtnList, getsidebarListItems } from '../../../redux/selectors/sidebarSelectors';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-const SidebarList: React.FC<MapStatePropsType> = ({ items }) => {
+const SidebarList: React.FC<MapStatePropsType> = ({ items, allTasksBtnList }) => {
   const listIcon = (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -15,22 +15,28 @@ const SidebarList: React.FC<MapStatePropsType> = ({ items }) => {
       />
     </svg>
   );
+
   return (
     <React.Fragment>
       <ul className={cn(styles.todo__sidebar_list)}>
+        {allTasksBtnList.map((item, index) => (
+          <li
+            key={index}
+            className={cn({
+              [styles.active]: item.active && item.active ? true : false,
+            })}>
+            <i>{(item.icon = listIcon)}</i>
+            <span>{item.name}</span>
+          </li>
+        ))}
+
         {items.map((item, index) => (
           <li
             key={index}
             className={cn({
               [styles.active]: item.active && item.active ? true : false,
             })}>
-            <i>
-              {item.icon === null ? (
-                (item.icon = listIcon)
-              ) : (
-                <i style={{ background: `${item.color}` }} className={styles.badge}></i>
-              )}
-            </i>
+            <i>{<i style={{ background: `${item.color}` }} className={styles.badge}></i>}</i>
             <span>{item.name}</span>
           </li>
         ))}
@@ -40,10 +46,12 @@ const SidebarList: React.FC<MapStatePropsType> = ({ items }) => {
 };
 
 const mapStateToProps = (state: AppStateType) => ({
-  items: sidebarListItems(state),
+  items: getsidebarListItems(state),
+  allTasksBtnList: getallTasksBtnList(state),
 });
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
-type MapDispatchPropsType = {};
 
-export default compose<React.ComponentType>(connect(mapStateToProps, {}))(SidebarList);
+export default compose<React.ComponentType>(
+  connect<MapStatePropsType, {}, {}, AppStateType>(mapStateToProps, {}),
+)(SidebarList);
