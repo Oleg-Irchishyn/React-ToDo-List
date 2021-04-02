@@ -9,7 +9,7 @@ let initialState = {
     {
       icon: null,
       name: 'All Tasks',
-      active: true,
+      active: false,
     },
   ] as Array<allTasksBtnType>,
   sidebarListItems: DB.lists as Array<itemsType>,
@@ -21,6 +21,7 @@ let initialState = {
   ] as unknown) as Array<itemsType>,
   colors: DB.colors as Array<DBcolorsType>,
   selectedColor: DB.colors[0].id as string | number,
+  isRemovable: true as boolean,
 };
 
 const sidebarReducer = (state = initialState, action: ActionsTypes): initialStateType => {

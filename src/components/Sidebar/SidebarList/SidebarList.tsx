@@ -2,11 +2,17 @@ import React from 'react';
 import styles from '../../../styles/components/Sidebar.module.scss';
 import cn from 'classnames';
 import { AppStateType } from '../../../redux/store';
-import { getallTasksBtnList, getsidebarListItems } from '../../../redux/selectors/sidebarSelectors';
+import {
+  getallTasksBtnList,
+  getIsRemovable,
+  getsidebarListItems,
+} from '../../../redux/selectors/sidebarSelectors';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import removeSvg from '../../../assets/images/remove.svg';
+import { itemsType } from '../../../redux/reducers/sidebarReducer';
 
-const SidebarList: React.FC<MapStatePropsType> = ({ items, allTasksBtnList }) => {
+const SidebarList: React.FC<MapStatePropsType> = ({ items, allTasksBtnList, isRemovable }) => {
   const listIcon = (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -15,6 +21,16 @@ const SidebarList: React.FC<MapStatePropsType> = ({ items, allTasksBtnList }) =>
       />
     </svg>
   );
+
+  const removeList = (item: itemsType) => {
+    if (window.confirm('Do you want to remove this list?')) {
+      onRemove(item);
+    }
+  };
+
+  const onRemove = (item: itemsType) => {
+    console.log(item);
+  };
 
   return (
     <React.Fragment>
@@ -38,6 +54,14 @@ const SidebarList: React.FC<MapStatePropsType> = ({ items, allTasksBtnList }) =>
             })}>
             <i>{<i style={{ background: `${item.color}` }} className={styles.badge}></i>}</i>
             <span>{item.name}</span>
+            {isRemovable && (
+              <img
+                src={removeSvg}
+                alt="remove icon"
+                className={cn(styles.list_remove_icon)}
+                onClick={(e) => removeList(item)}
+              />
+            )}
           </li>
         ))}
       </ul>
@@ -48,6 +72,7 @@ const SidebarList: React.FC<MapStatePropsType> = ({ items, allTasksBtnList }) =>
 const mapStateToProps = (state: AppStateType) => ({
   items: getsidebarListItems(state),
   allTasksBtnList: getallTasksBtnList(state),
+  isRemovable: getIsRemovable(state),
 });
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;

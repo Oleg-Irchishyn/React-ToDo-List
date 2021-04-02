@@ -1,7 +1,11 @@
 import React, { ChangeEvent } from 'react';
 import styles from '../../../styles/components/Sidebar.module.scss';
 import cn from 'classnames';
-import { getaddListButtonItems, getselectedColor } from '../../../redux/selectors/sidebarSelectors';
+import {
+  getaddListButtonItems,
+  getDBcolors,
+  getselectedColor,
+} from '../../../redux/selectors/sidebarSelectors';
 import { AppStateType } from '../../../redux/store';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -12,11 +16,20 @@ import { actions, itemsType } from '../../../redux/reducers/sidebarReducer';
 
 const AddList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
   items,
+  colors,
   selectedColor,
   setNewSidebarList,
+  setSelectedColor,
 }) => {
   const [visiblePopup, setVisiblePopup] = React.useState(false);
   const [inputValue, setInputValue] = React.useState('');
+
+  const onClosePopup = () => {
+    setInputValue('');
+    setVisiblePopup(false);
+    setSelectedColor(colors[0].id);
+  };
+
   const addListItem = () => {
     if (!inputValue) {
       alert(`Folder's name can't be empty`);
@@ -28,9 +41,9 @@ const AddList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
       colorId: selectedColor,
     };
     setNewSidebarList(newList);
-    setInputValue('');
-    setVisiblePopup(false);
+    onClosePopup();
   };
+
   const popupRef = React.useRef<HTMLDivElement>(null);
   const showPopup = () => {
     setVisiblePopup(true);
@@ -67,10 +80,10 @@ const AddList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
       {visiblePopup && visiblePopup ? (
         <div className={cn(styles.add_list_popup)} ref={popupRef}>
           <img
-            alt="clode button"
+            alt="close button"
             src={closeImg}
             className={styles.add_list_popup__close_btn}
-            onClick={() => setVisiblePopup(false)}
+            onClick={onClosePopup}
           />
           <input
             type="text"
@@ -92,6 +105,7 @@ const AddList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
 };
 
 const mapStateToProps = (state: AppStateType) => ({
+  colors: getDBcolors(state),
   items: getaddListButtonItems(state),
   selectedColor: getselectedColor(state),
 });
@@ -99,10 +113,12 @@ const mapStateToProps = (state: AppStateType) => ({
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 type MapDispatchPropsType = {
   setNewSidebarList: (obj: itemsType) => void;
+  setSelectedColor: (color: string | number) => void;
 };
 
 export default compose<React.ComponentType>(
   connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
     setNewSidebarList: actions.setNewSidebarList,
+    setSelectedColor: actions.setSelectedColor,
   }),
 )(AddList);

@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { initializeAppSelector } from './redux/selectors/appSelectors';
 import { Preloader } from './components/common';
-import { Sidebar } from './components/';
+import { Sidebar, Tasks } from './components/';
 import { AppStateType } from './redux/store';
 import { initializeApp } from './redux/reducers/appReducer';
 import cn from 'classnames';
@@ -33,8 +33,9 @@ const App: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
             container: true,
           })}>
           <Sidebar />
+          <Tasks />
           <Switch>
-            <Route path="*" render={() => <div>404 NOT FOUND</div>} />
+            <Route exact path="/404" render={() => <div>404 NOT FOUND</div>} />
             {/*<Route path="/profile/:userId?" render={() => <SuspendedProfile />} />*/}
           </Switch>
         </div>

@@ -11,6 +11,10 @@ export const getaddListButtonItems = (state: AppStateType) => {
   return state.sidebar.addListButtonItems;
 };
 
+export const getIsRemovable = (state: AppStateType) => {
+  return state.sidebar.isRemovable;
+};
+
 export const getallTasksBtnList = (state: AppStateType) => {
   return state.sidebar.allTasksBtnList;
 };

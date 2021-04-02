@@ -1,0 +1,145 @@
+@import '../variables.scss';
+
+.todo__tasks {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  padding: 57px;
+  background: #fff;
+  &_list {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    .list_title_wrapper {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-start;
+      border-bottom: 1px solid #f2f2f2;
+      width: 100%;
+      padding: 0 0 20px 0;
+      transition: 0.2s ease;
+      &:hover,
+      &:focus {
+        img {
+          opacity: 0.3;
+          transition: 0.2s ease;
+          pointer-events: auto;
+          transition: 0.2s ease;
+        }
+      }
+      .list_title {
+        font-family: $font-secondary;
+        font-size: 32px;
+        line-height: 39px;
+        font-weight: 700;
+        color: $color-blue;
+        text-align: left;
+      }
+      img {
+        margin: 0 0 0 14px;
+        opacity: 0;
+        pointer-events: none;
+        cursor: pointer;
+        height: auto;
+        max-width: 15px;
+        transition: 0.2s ease;
+        &:hover,
+        &:focus {
+          opacity: 0.8;
+          transition: 0.2s ease;
+        }
+      }
+    }
+  }
+}
+
+.tasks_list__items {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 30px 0 0 0;
+  width: 100%;
+  .item {
+    position: relative;
+    margin: 0 0 20px 0;
+    width: 100%;
+    input[type='checkbox'] {
+      display: none;
+      transition: 0.2s ease;
+    }
+    input[type='checkbox'] + label::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: calc(0% - 3px);
+      background: transparent;
+      border-radius: 50%;
+      font-size: 18px;
+      line-height: 21px;
+      text-align: center;
+      width: 20px;
+      height: 20px;
+      border: 2px solid $color-checkbox-border;
+    }
+    input[type='checkbox']:checked + label::before {
+      content: '\2713';
+      position: absolute;
+      background: $btn-color;
+      border: 2px solid $btn-color;
+      color: $color-main;
+    }
+
+    input[type='checkbox']:hover + label::before {
+      @include xl-devices {
+        content: '\2713';
+        background: $color-checkbox-border;
+        transition: 0.2s ease;
+        color: $color-secondary;
+      }
+    }
+
+    input[type='checkbox']:checked:hover + label::before {
+      background: $btn-color;
+      border: 2px solid $btn-color;
+      color: $color-main;
+    }
+    label {
+      position: relative;
+      cursor: pointer;
+      z-index: 2;
+    }
+    input {
+      position: relative;
+      font-family: $font-secondary;
+      font-weight: 500;
+      font-size: 16px;
+      color: $color-black;
+      padding: 0 10px 0 0;
+      margin: 0 0 0 35px;
+      border: none;
+      border-bottom: 1px solid transparent;
+      outline: none;
+      width: calc(100% - 35px);
+      max-width: 100%;
+      box-sizing: border-box;
+      transition: 0.4s ease;
+    }
+    input:focus {
+      border-bottom: 1px solid $color-checkbox-border;
+      transition: 0.4s ease;
+    }
+  }
+  .item:last-of-type {
+    margin: 0;
+  }
+}

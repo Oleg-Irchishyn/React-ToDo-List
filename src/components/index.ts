@@ -1,4 +1,7 @@
-export { default as Sidebar } from "./Sidebar/Sidebar";
-export { default as SidebarList } from "./Sidebar/SidebarList/SidebarList";
-export { default as AddList} from "./Sidebar/AddList/AddList";
-export { default as ColorBadges} from "./Sidebar/AddList/ColorBadges/ColorBadges";
+export { default as Sidebar } from './Sidebar/Sidebar';
+export { default as SidebarList } from './Sidebar/SidebarList/SidebarList';
+export { default as AddList } from './Sidebar/AddList/AddList';
+export { default as ColorBadges } from './Sidebar/AddList/ColorBadges/ColorBadges';
+export { default as Tasks } from './Tasks/Tasks';
+export { default as TasksList } from './Tasks/TasksList/TasksList';
+export { default as TasksListItems } from './Tasks/TasksList/TasksListItems/TasksListItems';
