@@ -12,7 +12,8 @@ import { connect } from 'react-redux';
 import { ColorBadges } from '../../index';
 import closeImg from '../../../assets/images/close.svg';
 import { v4 as uuidv4 } from 'uuid';
-import { actions, itemsType } from '../../../redux/reducers/sidebarReducer';
+import { actions } from '../../../redux/reducers/sidebarReducer';
+import { itemsType } from '../../../redux/types/types';
 
 const AddList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
   items,

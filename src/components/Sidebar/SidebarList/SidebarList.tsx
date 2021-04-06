@@ -10,7 +10,7 @@ import {
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import removeSvg from '../../../assets/images/remove.svg';
-import { itemsType } from '../../../redux/reducers/sidebarReducer';
+import { itemsType } from '../../../redux/types/types';
 
 const SidebarList: React.FC<MapStatePropsType> = ({ items, allTasksBtnList, isRemovable }) => {
   const listIcon = (
