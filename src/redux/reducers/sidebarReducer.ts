@@ -1,7 +1,6 @@
 import { itemsType, DBcolorsType } from '../types/types';
 import { appAPI } from './../../api/api';
 import { BaseThunkType, InferActionsTypes } from '../store';
-import DB from '../../assets/db.json';
 import { FormAction } from 'redux-form';
 const SET_SELECTED_COLOR = 'todo/sidebar/SET_SELECTED_COLOR';
 const SET_NEW_SIDEBAR_LIST = 'todo/sidebar/SET_NEW_SIDEBAR_LIST';
@@ -16,15 +15,15 @@ let initialState = {
       active: false,
     },
   ] as Array<allTasksBtnType>,
-  sidebarListItems: DB.lists as Array<itemsType>,
+  sidebarListItems: [] as Array<itemsType>,
   addListButtonItems: ([
     {
       icon: null,
       name: 'Add List',
     },
   ] as unknown) as Array<itemsType>,
-  colors: DB.colors as Array<DBcolorsType>,
-  selectedColor: DB.colors[0].id as string | number,
+  colors: [] as Array<DBcolorsType>,
+  selectedColor: 1 as string | number,
   isRemovable: true as boolean,
 };
 
@@ -65,12 +64,12 @@ export const actions = {
 };
 
 export const getSidebarLists = (): ThunkType => async (dispatch) => {
-  let data = await appAPI.getTodoLists;
+  let data = await appAPI.getTodoLists();
   dispatch(actions.setSidebarLists(data));
 };
 
 export const getSidebarListsColors = (): ThunkType => async (dispatch) => {
-  let data = await appAPI.getTodoListsColors;
+  let data = await appAPI.getTodoListsColors();
   dispatch(actions.setListsColors(data));
 };
 
