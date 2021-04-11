@@ -1,14 +1,5 @@
-import { createSelector } from "reselect";
-import { AppStateType } from "../store";
+import { AppStateType } from '../store';
 
-const initializeApp = (state: AppStateType) => {
+export const getInitializeApp = (state: AppStateType) => {
   return state.app.initialized;
-}
-
-/*Selectors, created by reselect library*/
-
-export const initializeAppSelector = createSelector(
-  initializeApp, (initializations) => {
-    return initializations = true;
-  }
-)
+};

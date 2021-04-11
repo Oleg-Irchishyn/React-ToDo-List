@@ -1,3 +1,4 @@
+import { itemsType } from './../redux/types/types';
 import axios from 'axios';
 
 const instance = axios.create({
@@ -15,5 +16,12 @@ export const appAPI = {
     return instance.get(`colors`).then((response) => {
       return response.data;
     });
+  },
+  updateTodoLists: (id: string | number, name: string, colorId: string | number) => {
+    return instance
+      .post<itemsType>(`lists`, { id, name, colorId })
+      .then((response) => {
+        return response.data;
+      });
   },
 };

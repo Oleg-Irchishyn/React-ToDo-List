@@ -12,15 +12,15 @@ import { connect } from 'react-redux';
 import { ColorBadges } from '../../index';
 import closeImg from '../../../assets/images/close.svg';
 import { v4 as uuidv4 } from 'uuid';
-import { actions } from '../../../redux/reducers/sidebarReducer';
+import { actions, addNewSidebarList } from '../../../redux/reducers/sidebarReducer';
 import { itemsType } from '../../../redux/types/types';
 
 const AddList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
   items,
   colors,
   selectedColor,
-  setNewSidebarList,
   setSelectedColor,
+  addNewSidebarList,
 }) => {
   const [visiblePopup, setVisiblePopup] = React.useState(false);
   const [inputValue, setInputValue] = React.useState('');
@@ -41,7 +41,8 @@ const AddList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
       name: inputValue,
       colorId: selectedColor,
     };
-    setNewSidebarList(newList);
+    const { id, name, colorId } = newList;
+    addNewSidebarList(id, name, colorId);
     onClosePopup();
   };
 
@@ -62,7 +63,7 @@ const AddList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
     return () => {
       document.body.removeEventListener('click', handleOutsideClick);
     };
-  }, []);
+  }, [handleOutsideClick]);
 
   return (
     <div className={cn(styles.todo__sidebar_add_btn_wrapper)}>
@@ -113,13 +114,13 @@ const mapStateToProps = (state: AppStateType) => ({
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 type MapDispatchPropsType = {
-  setNewSidebarList: (obj: itemsType) => void;
   setSelectedColor: (color: string | number) => void;
+  addNewSidebarList: (id: string | number, name: string, colorId: string | number) => void;
 };
 
 export default compose<React.ComponentType>(
   connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
-    setNewSidebarList: actions.setNewSidebarList,
     setSelectedColor: actions.setSelectedColor,
+    addNewSidebarList,
   }),
 )(AddList);

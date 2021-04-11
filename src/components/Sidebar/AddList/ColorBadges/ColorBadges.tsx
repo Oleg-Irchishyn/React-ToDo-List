@@ -5,13 +5,17 @@ import { getDBcolors, getselectedColor } from '../../../../redux/selectors/sideb
 import { AppStateType } from '../../../../redux/store';
 import styles from '../../../../styles/components/ColorBages.module.scss';
 import cn from 'classnames';
-import { actions } from '../../../../redux/reducers/sidebarReducer';
+import { actions, getSidebarListsColors } from '../../../../redux/reducers/sidebarReducer';
 
 const ColorBadges: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
   colors,
   selectedColor,
   setSelectedColor,
+  getSidebarListsColors,
 }) => {
+  React.useEffect(() => {
+    getSidebarListsColors();
+  }, [getSidebarListsColors]);
   const onColorClick = (id: string | number) => {
     setSelectedColor(id);
   };
@@ -43,10 +47,12 @@ type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 
 type MapDispatchPropsType = {
   setSelectedColor: (color: string | number) => void;
+  getSidebarListsColors: () => void;
 };
 
 export default compose<React.ComponentType>(
   connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
     setSelectedColor: actions.setSelectedColor,
+    getSidebarListsColors,
   }),
 )(ColorBadges);

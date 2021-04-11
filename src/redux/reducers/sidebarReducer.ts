@@ -56,11 +56,11 @@ const sidebarReducer = (state = initialState, action: ActionsTypes): initialStat
 };
 
 export const actions = {
+  setSidebarLists: (lists: any) => ({ type: SET_SIDEBAR_LISTS, payload: lists } as const),
+  setNewSidebarList: (obj: itemsType) => ({ type: SET_NEW_SIDEBAR_LIST, payload: obj } as const),
+  setListsColors: (colors: any) => ({ type: SET_LISTS_COLORS, payload: colors } as const),
   setSelectedColor: (color: string | number) =>
     ({ type: SET_SELECTED_COLOR, payload: color } as const),
-  setNewSidebarList: (obj: itemsType) => ({ type: SET_NEW_SIDEBAR_LIST, payload: obj } as const),
-  setSidebarLists: (lists: any) => ({ type: SET_SIDEBAR_LISTS, payload: lists } as const),
-  setListsColors: (colors: any) => ({ type: SET_LISTS_COLORS, payload: colors } as const),
 };
 
 export const getSidebarLists = (): ThunkType => async (dispatch) => {
@@ -71,6 +71,15 @@ export const getSidebarLists = (): ThunkType => async (dispatch) => {
 export const getSidebarListsColors = (): ThunkType => async (dispatch) => {
   let data = await appAPI.getTodoListsColors();
   dispatch(actions.setListsColors(data));
+};
+
+export const addNewSidebarList = (
+  id: string | number,
+  name: string,
+  colorId: string | number,
+): ThunkType => async (dispatch) => {
+  let data = await appAPI.updateTodoLists(id, name, colorId);
+  dispatch(actions.setNewSidebarList(data));
 };
 
 export type initialStateType = typeof initialState;

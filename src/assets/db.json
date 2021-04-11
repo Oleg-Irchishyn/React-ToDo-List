@@ -24,6 +24,21 @@
       "id": 5,
       "name": "Личное",
       "colorId": 1
+    },
+    {
+      "id": "37582fdf-49c3-4daa-9bec-e1d6ce8ca547",
+      "name": "yolo",
+      "colorId": 4
+    },
+    {
+      "id": "2cfb9011-45fa-4db7-95bf-4c72007a74f1",
+      "name": "chugaister",
+      "colorId": 8
+    },
+    {
+      "id": "3164e5f7-fab5-4145-988b-b30973364f7e",
+      "name": "Natik-Skatik",
+      "colorId": 6
     }
   ],
   "tasks": [

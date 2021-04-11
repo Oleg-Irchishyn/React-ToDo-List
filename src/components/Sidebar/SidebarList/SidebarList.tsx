@@ -11,8 +11,17 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import removeSvg from '../../../assets/images/remove.svg';
 import { itemsType } from '../../../redux/types/types';
+import { getSidebarLists } from '../../../redux/reducers/sidebarReducer';
 
-const SidebarList: React.FC<MapStatePropsType> = ({ items, allTasksBtnList, isRemovable }) => {
+const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
+  items,
+  allTasksBtnList,
+  isRemovable,
+  getSidebarLists,
+}) => {
+  React.useEffect(() => {
+    getSidebarLists();
+  }, [getSidebarLists]);
   const listIcon = (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -76,7 +85,12 @@ const mapStateToProps = (state: AppStateType) => ({
 });
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
+type MapDispatchPropsType = {
+  getSidebarLists: () => void;
+};
 
 export default compose<React.ComponentType>(
-  connect<MapStatePropsType, {}, {}, AppStateType>(mapStateToProps, {}),
+  connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
+    getSidebarLists,
+  }),
 )(SidebarList);
