@@ -5,7 +5,9 @@ import { FormAction } from 'redux-form';
 const SET_SELECTED_COLOR = 'todo/sidebar/SET_SELECTED_COLOR';
 const SET_NEW_SIDEBAR_LIST = 'todo/sidebar/SET_NEW_SIDEBAR_LIST';
 const SET_SIDEBAR_LISTS = 'todo/sidebar/SET_SIDEBAR_LISTS';
+const DELETE_SIDEBAR_LIST = 'todo/sidebar/DELETE_SIDEBAR_LIST';
 const SET_LISTS_COLORS = 'todo/sidebar/SET_LISTS_COLORS';
+const SET_IS_LOADED = 'todo/sidebar/SET_IS_LOADING';
 
 let initialState = {
   allTasksBtnList: [
@@ -25,6 +27,7 @@ let initialState = {
   colors: [] as Array<DBcolorsType>,
   selectedColor: 1 as string | number,
   isRemovable: true as boolean,
+  isLoading: false as boolean,
 };
 
 const sidebarReducer = (state = initialState, action: ActionsTypes): initialStateType => {
@@ -38,6 +41,14 @@ const sidebarReducer = (state = initialState, action: ActionsTypes): initialStat
       return {
         ...state,
         sidebarListItems: [...state.sidebarListItems, action.payload],
+        isLoading: true,
+      };
+    case DELETE_SIDEBAR_LIST:
+      const newSidebarListItems = state.sidebarListItems.filter((item) => item.id !== action.id);
+
+      return {
+        ...state,
+        sidebarListItems: newSidebarListItems,
       };
     case SET_LISTS_COLORS:
       return {
@@ -50,6 +61,11 @@ const sidebarReducer = (state = initialState, action: ActionsTypes): initialStat
         ...state,
         selectedColor: action.payload,
       };
+    case SET_IS_LOADED:
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
     default:
       return state;
   }
@@ -58,9 +74,11 @@ const sidebarReducer = (state = initialState, action: ActionsTypes): initialStat
 export const actions = {
   setSidebarLists: (lists: any) => ({ type: SET_SIDEBAR_LISTS, payload: lists } as const),
   setNewSidebarList: (obj: itemsType) => ({ type: SET_NEW_SIDEBAR_LIST, payload: obj } as const),
+  deleteSidebarList: (id: string | number) => ({ type: DELETE_SIDEBAR_LIST, id } as const),
   setListsColors: (colors: any) => ({ type: SET_LISTS_COLORS, payload: colors } as const),
   setSelectedColor: (color: string | number) =>
     ({ type: SET_SELECTED_COLOR, payload: color } as const),
+  setIsLoaded: (payload: boolean) => ({ type: SET_IS_LOADED, payload } as const),
 };
 
 export const getSidebarLists = (): ThunkType => async (dispatch) => {
@@ -78,8 +96,19 @@ export const addNewSidebarList = (
   name: string,
   colorId: string | number,
 ): ThunkType => async (dispatch) => {
-  let data = await appAPI.updateTodoLists(id, name, colorId);
-  dispatch(actions.setNewSidebarList(data));
+  try {
+    let data = await appAPI.updateTodoLists(id, name, colorId);
+    dispatch(actions.setNewSidebarList(data));
+  } catch (err) {
+    throw new Error(`Promise has not been resolved properly`);
+  } finally {
+    dispatch(actions.setIsLoaded(false));
+  }
+};
+
+export const removeSidebarList = (id: string | number): ThunkType => async (dispatch) => {
+  await appAPI.removeTodoList(id);
+  dispatch(actions.deleteSidebarList(id));
 };
 
 export type initialStateType = typeof initialState;

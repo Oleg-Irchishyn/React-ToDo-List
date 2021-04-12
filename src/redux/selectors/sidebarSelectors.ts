@@ -26,3 +26,7 @@ export const getDBcolors = (state: AppStateType) => {
 export const getselectedColor = (state: AppStateType) => {
   return state.sidebar.selectedColor;
 };
+
+export const getIsLoading = (state: AppStateType) => {
+  return state.sidebar.isLoading;
+};

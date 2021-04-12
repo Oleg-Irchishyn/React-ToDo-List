@@ -24,4 +24,8 @@ export const appAPI = {
         return response.data;
       });
   },
+
+  removeTodoList: (id: string | number) => {
+    return instance.delete(`lists/` + id).then((response) => response.data) as Promise<itemsType>;
+  },
 };

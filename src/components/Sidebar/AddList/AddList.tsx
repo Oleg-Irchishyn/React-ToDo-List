@@ -5,6 +5,7 @@ import {
   getaddListButtonItems,
   getDBcolors,
   getselectedColor,
+  getIsLoading,
 } from '../../../redux/selectors/sidebarSelectors';
 import { AppStateType } from '../../../redux/store';
 import { compose } from 'redux';
@@ -19,6 +20,7 @@ const AddList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
   items,
   colors,
   selectedColor,
+  isLoading,
   setSelectedColor,
   addNewSidebarList,
 }) => {
@@ -96,7 +98,7 @@ const AddList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
           />
           <ColorBadges />
           <button className={styles.add_btn} onClick={addListItem}>
-            Add
+            {isLoading === false ? 'Add' : 'Adding'}
           </button>
         </div>
       ) : (
@@ -110,6 +112,7 @@ const mapStateToProps = (state: AppStateType) => ({
   colors: getDBcolors(state),
   items: getaddListButtonItems(state),
   selectedColor: getselectedColor(state),
+  isLoading: getIsLoading(state),
 });
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;

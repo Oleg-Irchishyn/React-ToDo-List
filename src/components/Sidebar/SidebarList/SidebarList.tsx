@@ -11,13 +11,14 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import removeSvg from '../../../assets/images/remove.svg';
 import { itemsType } from '../../../redux/types/types';
-import { getSidebarLists } from '../../../redux/reducers/sidebarReducer';
+import { getSidebarLists, removeSidebarList } from '../../../redux/reducers/sidebarReducer';
 
 const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
   items,
   allTasksBtnList,
   isRemovable,
   getSidebarLists,
+  removeSidebarList,
 }) => {
   React.useEffect(() => {
     getSidebarLists();
@@ -31,14 +32,11 @@ const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
     </svg>
   );
 
-  const removeList = (item: itemsType) => {
-    if (window.confirm('Do you want to remove this list?')) {
-      onRemove(item);
-    }
-  };
-
   const onRemove = (item: itemsType) => {
-    console.log(item);
+    console.log(item.id);
+    if (window.confirm('Do you want to remove this list?')) {
+      removeSidebarList(item.id);
+    }
   };
 
   return (
@@ -55,7 +53,7 @@ const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
           </li>
         ))}
 
-        {items.map((item, index) => (
+        {items.map((item: itemsType, index) => (
           <li
             key={index}
             className={cn({
@@ -68,7 +66,7 @@ const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
                 src={removeSvg}
                 alt="remove icon"
                 className={cn(styles.list_remove_icon)}
-                onClick={(e) => removeList(item)}
+                onClick={(e) => onRemove(item)}
               />
             )}
           </li>
@@ -87,10 +85,12 @@ const mapStateToProps = (state: AppStateType) => ({
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 type MapDispatchPropsType = {
   getSidebarLists: () => void;
+  removeSidebarList: (id: string | number) => void;
 };
 
 export default compose<React.ComponentType>(
   connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
     getSidebarLists,
+    removeSidebarList,
   }),
 )(SidebarList);
