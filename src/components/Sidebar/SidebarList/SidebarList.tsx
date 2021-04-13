@@ -33,7 +33,6 @@ const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
   );
 
   const onRemove = (item: itemsType) => {
-    console.log(item.id);
     if (window.confirm('Do you want to remove this list?')) {
       removeSidebarList(item.id);
     }

@@ -8,7 +8,7 @@ const instance = axios.create({
 
 export const appAPI = {
   getTodoLists: () => {
-    return instance.get(`lists?_expand=color`).then((response) => {
+    return instance.get(`lists?_expand=color&_embed=tasks`).then((response) => {
       return response.data;
     });
   },
