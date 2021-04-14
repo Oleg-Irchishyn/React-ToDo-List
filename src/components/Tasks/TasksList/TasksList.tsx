@@ -7,8 +7,13 @@ import { AppStateType } from '../../../redux/store';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { getsidebarListItems } from '../../../redux/selectors/sidebarSelectors';
+import { SingleTaskType } from '../../../redux/types/types';
 
-const TasksList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({ lists }) => {
+type ownProps = {
+  task: SingleTaskType;
+};
+
+const TasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = ({ lists }) => {
   return (
     <div className={cn(styles.todo__tasks_list)}>
       <div className={cn(styles.list_title_wrapper)}>
@@ -17,8 +22,9 @@ const TasksList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({ lists }
       </div>
       {
         // @ts-ignore
-        lists[1].tasks.map((el) => (
-          <TasksListItems />
+        lists[1].tasks.map((task) => (
+          // @ts-ignore
+          <TasksListItems key={task.id} task={task} />
         ))
       }
     </div>
@@ -33,5 +39,5 @@ type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 type MapDispatchPropsType = {};
 
 export default compose<React.ComponentType>(
-  connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {}),
+  connect<MapStatePropsType, MapDispatchPropsType, ownProps, AppStateType>(mapStateToProps, {}),
 )(TasksList);

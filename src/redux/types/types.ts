@@ -13,6 +13,13 @@ export type DBcolorsType = {
   name: string;
 };
 
+export type SingleTaskType = {
+  id: string | number;
+  listId: number;
+  text: number;
+  completed: boolean;
+};
+
 type itemsTasksType = {
   id: string | number;
   listId: string | number;

@@ -4,32 +4,31 @@ import styles from '../../../../styles/components/Tasks.module.scss';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../../../redux/store';
-import { getsidebarListItems } from '../../../../redux/selectors/sidebarSelectors';
-import { getSidebarLists } from '../../../../redux/reducers/sidebarReducer';
+import { SingleTaskType } from '../../../../redux/types/types';
 
-const TasksListItems: React.FC<MapStatePropsType & MapDispatchPropsType> = ({ lists }) => {
+type ownProps = {
+  task: SingleTaskType;
+};
+
+const TasksListItems: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = ({
+  task,
+}) => {
   return (
     <div className={cn(styles.tasks_list__items)}>
       <div className={cn(styles.item, styles.item_checkbox)}>
-        <input id="check" type="checkbox" />
-        <label htmlFor="check"></label>
-        <input type="text" value={lists[1].name} />
+        <input id={`task - ${task.id}`} type="checkbox" />
+        <label htmlFor={`task - ${task.id}`}></label>
+        <input type="text" readOnly value={task.text} />
       </div>
     </div>
   );
 };
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
-type MapDispatchPropsType = {
-  getSidebarLists: () => void;
-};
+type MapDispatchPropsType = {};
 
-const mapStateToProps = (state: AppStateType) => ({
-  lists: getsidebarListItems(state),
-});
+const mapStateToProps = (state: AppStateType) => ({});
 
 export default compose<React.ComponentType>(
-  connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
-    getSidebarLists,
-  }),
+  connect<MapStatePropsType, MapDispatchPropsType, ownProps, AppStateType>(mapStateToProps, {}),
 )(TasksListItems);
