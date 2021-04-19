@@ -8,6 +8,7 @@ const SET_SIDEBAR_LISTS = 'todo/sidebar/SET_SIDEBAR_LISTS';
 const DELETE_SIDEBAR_LIST = 'todo/sidebar/DELETE_SIDEBAR_LIST';
 const SET_LISTS_COLORS = 'todo/sidebar/SET_LISTS_COLORS';
 const SET_IS_LOADED = 'todo/sidebar/SET_IS_LOADING';
+const SELECT_ACTIVE_SIDEBAR_LIST = 'todo/sidebar/SELECT_ACTIVE_SIDEBAR_LIST';
 
 let initialState = {
   allTasksBtnList: [
@@ -28,6 +29,7 @@ let initialState = {
   selectedColor: 1 as string | number,
   isRemovable: true as boolean,
   isLoading: false as boolean,
+  activeSidebarList: null as itemsType | null,
 };
 
 const sidebarReducer = (state = initialState, action: ActionsTypes): initialStateType => {
@@ -66,6 +68,11 @@ const sidebarReducer = (state = initialState, action: ActionsTypes): initialStat
         ...state,
         isLoading: action.payload,
       };
+    case SELECT_ACTIVE_SIDEBAR_LIST:
+      return {
+        ...state,
+        activeSidebarList: action.payload,
+      };
     default:
       return state;
   }
@@ -79,6 +86,8 @@ export const actions = {
   setSelectedColor: (color: string | number) =>
     ({ type: SET_SELECTED_COLOR, payload: color } as const),
   setIsLoaded: (payload: boolean) => ({ type: SET_IS_LOADED, payload } as const),
+  selectActiveSidebarList: (obj: itemsType | null) =>
+    ({ type: SELECT_ACTIVE_SIDEBAR_LIST, payload: obj } as const),
 };
 
 export const getSidebarLists = (): ThunkType => async (dispatch) => {

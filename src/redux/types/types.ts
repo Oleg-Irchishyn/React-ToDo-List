@@ -4,7 +4,7 @@ export type itemsType = {
   name: string;
   colorId: string | number;
   color?: string;
-  tasks?: Array<itemsTasksType>;
+  tasks?: Array<itemsTasksType> | undefined;
 };
 
 export type DBcolorsType = {

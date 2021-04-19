@@ -6,19 +6,26 @@ import {
   getallTasksBtnList,
   getIsRemovable,
   getsidebarListItems,
+  getActiveSidebarList,
 } from '../../../redux/selectors/sidebarSelectors';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import removeSvg from '../../../assets/images/remove.svg';
 import { itemsType } from '../../../redux/types/types';
-import { getSidebarLists, removeSidebarList } from '../../../redux/reducers/sidebarReducer';
+import {
+  getSidebarLists,
+  removeSidebarList,
+  actions,
+} from '../../../redux/reducers/sidebarReducer';
 
 const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
   items,
   allTasksBtnList,
   isRemovable,
+  activeListItem,
   getSidebarLists,
   removeSidebarList,
+  selectActiveSidebarList,
 }) => {
   React.useEffect(() => {
     getSidebarLists();
@@ -38,6 +45,10 @@ const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
     }
   };
 
+  const onClickItem = (item: itemsType) => {
+    selectActiveSidebarList(item);
+  };
+
   return (
     <React.Fragment>
       <ul className={cn(styles.todo__sidebar_list)}>
@@ -54,12 +65,16 @@ const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
 
         {items.map((item: itemsType, index) => (
           <li
-            key={index}
+            key={`${item.id}_${index}`}
             className={cn({
-              [styles.active]: item.active && item.active ? true : false,
-            })}>
+              [styles.active]: activeListItem && activeListItem.id === item.id,
+            })}
+            onClick={onClickItem ? () => onClickItem(item) : undefined}>
             <i>{<i style={{ background: `${item.color}` }} className={styles.badge}></i>}</i>
-            <span>{item.name}</span>
+            <span>
+              {item.name}
+              {item.tasks && item.tasks.length > 0 ? `(${item.tasks.length})` : '(0)'}
+            </span>
             {isRemovable && (
               <img
                 src={removeSvg}
@@ -79,17 +94,20 @@ const mapStateToProps = (state: AppStateType) => ({
   items: getsidebarListItems(state),
   allTasksBtnList: getallTasksBtnList(state),
   isRemovable: getIsRemovable(state),
+  activeListItem: getActiveSidebarList(state),
 });
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 type MapDispatchPropsType = {
   getSidebarLists: () => void;
   removeSidebarList: (id: string | number) => void;
+  selectActiveSidebarList: (obj: itemsType | null) => void;
 };
 
 export default compose<React.ComponentType>(
   connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
     getSidebarLists,
     removeSidebarList,
+    selectActiveSidebarList: actions.selectActiveSidebarList,
   }),
 )(SidebarList);
