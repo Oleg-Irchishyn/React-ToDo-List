@@ -9,6 +9,7 @@ const DELETE_SIDEBAR_LIST = 'todo/sidebar/DELETE_SIDEBAR_LIST';
 const SET_LISTS_COLORS = 'todo/sidebar/SET_LISTS_COLORS';
 const SET_IS_LOADED = 'todo/sidebar/SET_IS_LOADING';
 const SELECT_ACTIVE_SIDEBAR_LIST = 'todo/sidebar/SELECT_ACTIVE_SIDEBAR_LIST';
+const CHANGE_ACTIVE_SIDEBAR_LIST_NAME = 'todo/sidebar/CHANGE_ACTIVE_SIDEBAR_LIST_NAME';
 
 let initialState = {
   allTasksBtnList: [
@@ -45,13 +46,14 @@ const sidebarReducer = (state = initialState, action: ActionsTypes): initialStat
         sidebarListItems: [...state.sidebarListItems, action.payload],
         isLoading: true,
       };
-    case DELETE_SIDEBAR_LIST:
+    case DELETE_SIDEBAR_LIST: {
       const newSidebarListItems = state.sidebarListItems.filter((item) => item.id !== action.id);
 
       return {
         ...state,
         sidebarListItems: newSidebarListItems,
       };
+    }
     case SET_LISTS_COLORS:
       return {
         ...state,
@@ -73,6 +75,17 @@ const sidebarReducer = (state = initialState, action: ActionsTypes): initialStat
         ...state,
         activeSidebarList: action.payload,
       };
+    case CHANGE_ACTIVE_SIDEBAR_LIST_NAME:
+      const newSidebarListItems = state.sidebarListItems.map((item) => {
+        if (item.id === action.id) {
+          item.name = action.name;
+        }
+        return item;
+      });
+      return {
+        ...state,
+        sidebarListItems: newSidebarListItems,
+      };
     default:
       return state;
   }
@@ -88,6 +101,8 @@ export const actions = {
   setIsLoaded: (payload: boolean) => ({ type: SET_IS_LOADED, payload } as const),
   selectActiveSidebarList: (obj: itemsType | null) =>
     ({ type: SELECT_ACTIVE_SIDEBAR_LIST, payload: obj } as const),
+  changeSidebarListName: (id: string | number, name: string) =>
+    ({ type: CHANGE_ACTIVE_SIDEBAR_LIST_NAME, id, name } as const),
 };
 
 export const getSidebarLists = (): ThunkType => async (dispatch) => {
