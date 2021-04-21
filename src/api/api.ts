@@ -24,8 +24,12 @@ export const appAPI = {
         return response.data;
       });
   },
-
   removeTodoList: (id: string | number) => {
     return instance.delete(`lists/` + id).then((response) => response.data) as Promise<itemsType>;
+  },
+  renameTodoList: (id: string | number, newName: string) => {
+    return instance
+      .patch<itemsType>(`lists/` + id, { name: newName })
+      .then((response) => response.data);
   },
 };

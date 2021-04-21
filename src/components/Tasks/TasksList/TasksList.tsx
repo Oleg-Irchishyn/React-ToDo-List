@@ -12,7 +12,7 @@ import {
 } from '../../../redux/selectors/sidebarSelectors';
 import { SingleTaskType } from '../../../redux/types/types';
 
-import { actions } from '../../../redux/reducers/sidebarReducer';
+import { setNewSidebarListName } from '../../../redux/reducers/sidebarReducer';
 
 type ownProps = {
   task: SingleTaskType;
@@ -21,7 +21,7 @@ type ownProps = {
 const TasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = ({
   lists,
   activeListItem,
-  changeSidebarListName,
+  setNewSidebarListName,
 }) => {
   const editActiveTaskName = (id: string | number, name: string) => {
     const newActiveListName = window.prompt(
@@ -29,7 +29,7 @@ const TasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> =
       (name = String(activeListItem && activeListItem.name)),
     );
     if (newActiveListName) {
-      changeSidebarListName(id, newActiveListName);
+      setNewSidebarListName(id, newActiveListName);
     }
   };
   return (
@@ -37,7 +37,7 @@ const TasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> =
       {activeListItem && (
         <div className={cn(styles.todo__tasks_list)}>
           <div className={cn(styles.list_title_wrapper)}>
-            {activeListItem && activeListItem.tasks && activeListItem.tasks.length <= 0 ? (
+            {!activeListItem || !activeListItem.tasks || activeListItem.tasks.length <= 0 ? (
               <h2 className={cn(styles.list_title_hollow)}>No tasks</h2>
             ) : (
               <h2 className={cn(styles.list_title)}>{activeListItem && activeListItem.name}</h2>
@@ -70,11 +70,11 @@ const mapStateToProps = (state: AppStateType) => ({
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 type MapDispatchPropsType = {
-  changeSidebarListName: (id: string | number, name: string) => void;
+  setNewSidebarListName: (id: string | number, name: string) => void;
 };
 
 export default compose<React.ComponentType>(
   connect<MapStatePropsType, MapDispatchPropsType, ownProps, AppStateType>(mapStateToProps, {
-    changeSidebarListName: actions.changeSidebarListName,
+    setNewSidebarListName,
   }),
 )(TasksList);

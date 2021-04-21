@@ -6,9 +6,8 @@
       "colorId": 5
     },
     {
-      "id": 2,
-      "name": "Front-end",
-      "colorId": 4
+      "name": "Front-End",
+      "id": 2
     },
     {
       "id": 3,
@@ -34,6 +33,11 @@
       "name": "React JS Todo List Course",
       "colorId": 7,
       "id": 7
+    },
+    {
+      "id": "209dd5c5-8254-4bdd-9d2d-f1c334c0bcf3",
+      "name": "gagaga",
+      "colorId": 6
     }
   ],
   "tasks": [
@@ -120,12 +124,6 @@
       "text": "Сделали удаление и редактирование задач и списков",
       "completed": true,
       "id": 17
-    },
-    {
-      "listId": 8,
-      "text": "tttt",
-      "completed": false,
-      "id": 18
     }
   ],
   "colors": [

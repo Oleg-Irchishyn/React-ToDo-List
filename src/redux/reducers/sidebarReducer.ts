@@ -52,6 +52,7 @@ const sidebarReducer = (state = initialState, action: ActionsTypes): initialStat
       return {
         ...state,
         sidebarListItems: newSidebarListItems,
+        activeSidebarList: null,
       };
     }
     case SET_LISTS_COLORS:
@@ -75,17 +76,19 @@ const sidebarReducer = (state = initialState, action: ActionsTypes): initialStat
         ...state,
         activeSidebarList: action.payload,
       };
-    case CHANGE_ACTIVE_SIDEBAR_LIST_NAME:
+    case CHANGE_ACTIVE_SIDEBAR_LIST_NAME: {
       const newSidebarListItems = state.sidebarListItems.map((item) => {
         if (item.id === action.id) {
           item.name = action.name;
         }
         return item;
       });
+
       return {
         ...state,
         sidebarListItems: newSidebarListItems,
       };
+    }
     default:
       return state;
   }
@@ -133,6 +136,17 @@ export const addNewSidebarList = (
 export const removeSidebarList = (id: string | number): ThunkType => async (dispatch) => {
   await appAPI.removeTodoList(id);
   dispatch(actions.deleteSidebarList(id));
+};
+
+export const setNewSidebarListName = (id: string | number, newName: string): ThunkType => async (
+  dispatch,
+) => {
+  try {
+    await appAPI.renameTodoList(id, newName);
+    dispatch(actions.changeSidebarListName(id, newName));
+  } catch (err) {
+    throw new Error(`Promise has not been resolved properly`);
+  }
 };
 
 export type initialStateType = typeof initialState;
