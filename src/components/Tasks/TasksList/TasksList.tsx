@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import styles from '../../../styles/components/Tasks.module.scss';
 import editIcon from '../../../assets/images/edit.svg';
-import { TasksListItems } from '../../index';
+import { TasksListItems, TasksForm } from '../../index';
 import { AppStateType } from '../../../redux/store';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -57,6 +57,7 @@ const TasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> =
               // @ts-ignore
               <TasksListItems key={task.id} task={task} />
             ))}
+          <TasksForm />
         </div>
       )}
     </React.Fragment>

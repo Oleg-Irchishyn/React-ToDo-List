@@ -1,0 +1,62 @@
+@import '../variables.scss';
+
+.tasks__form {
+  position: relative;
+  padding: 30px 0 0 0;
+  &_new {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 0 0 6px;
+    cursor: pointer;
+    &:hover {
+      .add_icon {
+        filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.5));
+        transition: 0.2s ease;
+      }
+      span {
+        filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.5));
+        transition: 0.2s ease;
+      }
+    }
+    .add_icon {
+      position: relative;
+      width: 10px;
+      height: 10px;
+      display: block;
+      margin: 0 15px 0 0;
+      transition: 0.2s ease;
+    }
+    .add_icon::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 2px;
+      background: $color-secondary;
+    }
+    .add_icon::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 2px;
+      height: 100%;
+      background: $color-secondary;
+    }
+
+    span {
+      font-family: $font-main;
+      font-size: 14px;
+      line-height: 17px;
+      color: $color-secondary;
+      letter-spacing: 0.15px;
+      transition: 0.2s ease;
+    }
+  }
+}
