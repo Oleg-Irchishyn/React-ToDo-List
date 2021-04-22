@@ -8,15 +8,32 @@ const TasksForm: React.FC = () => {
     setVisibleForm(!visibleForm);
     console.log(visibleForm);
   };
+
+  const formRef = React.useRef<HTMLDivElement>(null);
+
+  const handleFormOutsideClick = React.useCallback((e: any) => {
+    const path = e.path || (e.composedPath && e.composedPath());
+    if (!path.includes(formRef.current)) {
+      setVisibleForm(false);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    document.body.addEventListener('click', handleFormOutsideClick);
+    return () => {
+      document.body.removeEventListener('click', handleFormOutsideClick);
+    };
+  }, [handleFormOutsideClick]);
+
   return (
-    <div className={cn(styles.tasks__form)}>
+    <div className={cn(styles.tasks__form)} ref={formRef}>
       {!visibleForm ? (
         <div className={cn(styles.tasks__form_new)} onClick={toggleVisibleForm}>
           <i className={cn(styles.add_icon)}></i>
           <span>New Task</span>
         </div>
       ) : (
-        <div className={cn(styles.tasks__form_blok)}>yo</div>
+        <div className={cn(styles.tasks__form_blok)}></div>
       )}
     </div>
   );
