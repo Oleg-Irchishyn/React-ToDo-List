@@ -57,7 +57,10 @@ const TasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> =
               // @ts-ignore
               <TasksListItems key={task.id} task={task} />
             ))}
-          <TasksForm />
+          {
+            // @ts-ignore
+            <TasksForm /*activeListItem={activeListItem} */ />
+          }
         </div>
       )}
     </React.Fragment>

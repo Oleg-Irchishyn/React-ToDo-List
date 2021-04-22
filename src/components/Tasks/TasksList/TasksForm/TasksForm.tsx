@@ -1,12 +1,14 @@
 import React from 'react';
 import cn from 'classnames';
 import styles from '../../../../styles/components/TasksForm.module.scss';
+import { maxLengthCreator, required } from '../../../../redux/utils/validators/validators';
+import { InjectedFormProps, reduxForm } from 'redux-form';
+import { Input, createField } from '../../../common/FormControls/FormControls';
 
 const TasksForm: React.FC = () => {
   const [visibleForm, setVisibleForm] = React.useState(false);
   const toggleVisibleForm = () => {
     setVisibleForm(!visibleForm);
-    console.log(visibleForm);
   };
 
   const formRef = React.useRef<HTMLDivElement>(null);
@@ -33,10 +35,48 @@ const TasksForm: React.FC = () => {
           <span>New Task</span>
         </div>
       ) : (
-        <div className={cn(styles.tasks__form_blok)}></div>
+        <div className={cn(styles.tasks__form_block)}>
+          <AddNewPostFormRedux onSubmit={onAddTask} />
+        </div>
       )}
     </div>
   );
 };
+
+const onAddTask = (values: AddNewPostFormValuesType) => {
+  console.log(values.newTaskText);
+};
+
+const maxLength30 = maxLengthCreator(30);
+
+const AddNewTaskForm: React.FC<
+  InjectedFormProps<AddNewPostFormValuesType, PropsType> & PropsType
+> = (props) => {
+  return (
+    <form onSubmit={props.handleSubmit}>
+      <div>
+        {createField<AddNewPostFormValuesTypeKeys>('Post Message', 'newTaskText', Input, [
+          required,
+          maxLength30,
+        ])}
+      </div>
+      <div>
+        <button>Add post</button>
+      </div>
+    </form>
+  );
+};
+
+const AddNewPostFormRedux = reduxForm<AddNewPostFormValuesType, PropsType>({
+  form: 'addNewTaskForm',
+})(AddNewTaskForm);
+
+type PropsType = {};
+
+export type AddNewPostFormValuesType = {
+  newTaskText: string | number;
+};
+
+type AddNewPostFormValuesTypeKeys = Extract<keyof AddNewPostFormValuesType, string>;
 
 export default TasksForm;

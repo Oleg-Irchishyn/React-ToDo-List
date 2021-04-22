@@ -1,4 +1,4 @@
-import { itemsType } from './../redux/types/types';
+import { itemsTasksType, itemsType } from './../redux/types/types';
 import axios from 'axios';
 
 const instance = axios.create({
@@ -17,9 +17,26 @@ export const appAPI = {
       return response.data;
     });
   },
+  getTodoListsTasks: () => {
+    return instance.get(`tasks`).then((response) => {
+      return response.data;
+    });
+  },
   updateTodoLists: (id: string | number, name: string, colorId: string | number) => {
     return instance
       .post<itemsType>(`lists`, { id, name, colorId })
+      .then((response) => {
+        return response.data;
+      });
+  },
+  setNewTodoListTask: (
+    id: string | number,
+    listId: string | number,
+    text: string | number,
+    completed: boolean,
+  ) => {
+    return instance
+      .post<itemsTasksType>(`tasks`, { id, listId, text, completed })
       .then((response) => {
         return response.data;
       });

@@ -20,10 +20,10 @@ export type SingleTaskType = {
   completed: boolean;
 };
 
-type itemsTasksType = {
+export type itemsTasksType = {
   id: string | number;
   listId: string | number;
-  text: string;
+  text: string | number;
   completed: boolean;
 };
 
