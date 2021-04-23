@@ -9,6 +9,7 @@ import { getActiveSidebarList } from '../../../../redux/selectors/sidebarSelecto
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { setNewTaskToList } from '../../../../redux/reducers/taskReducer';
+import { v4 as uuidv4 } from 'uuid';
 
 const TasksForm: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
   activeListItem,
@@ -27,6 +28,24 @@ const TasksForm: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
       setVisibleForm(false);
     }
   }, []);
+
+  const onAddTask = (values: AddNewPostFormValuesType) => {
+    console.log(values.newTaskText);
+
+    const newTaskObj = {
+      id: uuidv4(),
+      listId: activeListItem && activeListItem.id,
+      text: values.newTaskText,
+      completed: false,
+    };
+
+    const { id, listId, text, completed } = newTaskObj;
+    setNewTaskToList(id, listId, text, completed);
+
+    // const newTasksList =  activeListItem.tasks.map((item) => {
+
+    // })
+  };
 
   React.useEffect(() => {
     document.body.addEventListener('click', handleFormOutsideClick);
@@ -49,10 +68,6 @@ const TasksForm: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
       )}
     </div>
   );
-};
-
-const onAddTask = (values: AddNewPostFormValuesType) => {
-  console.log(values.newTaskText);
 };
 
 const maxLength30 = maxLengthCreator(30);
@@ -95,7 +110,7 @@ type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 type MapDispatchPropsType = {
   setNewTaskToList: (
     id: string | number,
-    listId: string | number,
+    listId: string | number | null,
     text: string | number,
     completed: boolean,
   ) => void;

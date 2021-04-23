@@ -51,7 +51,7 @@ export const getListsTasks = (): ThunkType => async (dispatch) => {
 
 export const setNewTaskToList = (
   id: string | number,
-  listId: string | number,
+  listId: string | number | null,
   text: string | number,
   completed: boolean,
 ): ThunkType => async (dispatch) => {

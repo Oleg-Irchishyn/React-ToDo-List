@@ -130,6 +130,18 @@
       "text": "Сделали удаление и редактирование задач и списков",
       "completed": true,
       "id": 17
+    },
+    {
+      "id": "dfe179a9-59d6-4a34-a5e5-0859da86cbf0",
+      "listId": 7,
+      "text": "yo",
+      "completed": false
+    },
+    {
+      "id": "30b1c695-1522-415c-a0c3-ed0b76725bfa",
+      "listId": 7,
+      "text": "yyoyooyoy",
+      "completed": false
     }
   ],
   "colors": [

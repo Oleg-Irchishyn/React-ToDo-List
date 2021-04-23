@@ -22,7 +22,7 @@ export type SingleTaskType = {
 
 export type itemsTasksType = {
   id: string | number;
-  listId: string | number;
+  listId: string | number | null;
   text: string | number;
   completed: boolean;
 };
