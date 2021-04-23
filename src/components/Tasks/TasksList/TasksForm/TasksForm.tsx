@@ -5,15 +5,21 @@ import { maxLengthCreator, required } from '../../../../redux/utils/validators/v
 import { InjectedFormProps, reduxForm } from 'redux-form';
 import { Input, createField } from '../../../common/FormControls/FormControls';
 import { AppStateType } from '../../../../redux/store';
-import { getActiveSidebarList } from '../../../../redux/selectors/sidebarSelectors';
+import {
+  getActiveSidebarList,
+  getsidebarListItems,
+} from '../../../../redux/selectors/sidebarSelectors';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { setNewTaskToList } from '../../../../redux/reducers/taskReducer';
+import { setNewTaskToList, actions } from '../../../../redux/reducers/taskReducer';
 import { v4 as uuidv4 } from 'uuid';
+import { itemsTasksType } from '../../../../redux/types/types';
 
 const TasksForm: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
+  items,
   activeListItem,
   setNewTaskToList,
+  addNewTaskToList,
 }) => {
   const [visibleForm, setVisibleForm] = React.useState(false);
   const toggleVisibleForm = () => {
@@ -42,9 +48,16 @@ const TasksForm: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
     const { id, listId, text, completed } = newTaskObj;
     setNewTaskToList(id, listId, text, completed);
 
-    // const newTasksList =  activeListItem.tasks.map((item) => {
+    const newTasksList: any = items.map((item) => {
+      if (item.id === listId) {
+        if (item.tasks) {
+          item.tasks = [...item.tasks, newTaskObj];
+        }
+      }
+      return item;
+    });
 
-    // })
+    addNewTaskToList(newTasksList);
   };
 
   React.useEffect(() => {
@@ -103,6 +116,7 @@ export type AddNewPostFormValuesType = {
 type AddNewPostFormValuesTypeKeys = Extract<keyof AddNewPostFormValuesType, string>;
 
 const mapStateToProps = (state: AppStateType) => ({
+  items: getsidebarListItems(state),
   activeListItem: getActiveSidebarList(state),
 });
 
@@ -114,10 +128,12 @@ type MapDispatchPropsType = {
     text: string | number,
     completed: boolean,
   ) => void;
+  addNewTaskToList: (obj: itemsTasksType) => void;
 };
 
 export default compose<React.ComponentType>(
   connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
     setNewTaskToList,
+    addNewTaskToList: actions.addNewTaskToList,
   }),
 )(TasksForm);
