@@ -95,10 +95,12 @@ const sidebarReducer = (state = initialState, action: ActionsTypes): initialStat
 };
 
 export const actions = {
-  setSidebarLists: (lists: any) => ({ type: SET_SIDEBAR_LISTS, payload: lists } as const),
+  setSidebarLists: (lists: Array<itemsType>) =>
+    ({ type: SET_SIDEBAR_LISTS, payload: lists } as const),
   setNewSidebarList: (obj: itemsType) => ({ type: SET_NEW_SIDEBAR_LIST, payload: obj } as const),
   deleteSidebarList: (id: string | number) => ({ type: DELETE_SIDEBAR_LIST, id } as const),
-  setListsColors: (colors: any) => ({ type: SET_LISTS_COLORS, payload: colors } as const),
+  setListsColors: (colors: Array<DBcolorsType>) =>
+    ({ type: SET_LISTS_COLORS, payload: colors } as const),
   setSelectedColor: (color: string | number) =>
     ({ type: SET_SELECTED_COLOR, payload: color } as const),
   setIsLoaded: (payload: boolean) => ({ type: SET_IS_LOADED, payload } as const),
@@ -125,6 +127,7 @@ export const addNewSidebarList = (
 ): ThunkType => async (dispatch) => {
   try {
     let data = await appAPI.updateTodoLists(id, name, colorId);
+    dispatch(actions.setIsLoaded(true));
     dispatch(actions.setNewSidebarList(data));
   } catch (err) {
     throw new Error(`Promise has not been resolved properly`);

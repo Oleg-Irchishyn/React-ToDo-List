@@ -27,7 +27,7 @@ export type itemsTasksType = {
   completed: boolean;
 };
 
-type itemsColorType = {
+export type itemsColorType = {
   id: number;
   hex: string;
   name: string;
