@@ -1,6 +1,7 @@
 import { getSidebarLists, getSidebarListsColors } from './sidebarReducer';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppStateType, InferActionsTypes } from './../store';
+import { getListsTasks } from './taskReducer';
 const INITIALIZED_SUCCESS = 'SK/APP/INITIALIZED_SUCCESS';
 
 let initialState = {
@@ -27,8 +28,9 @@ export const actions = {
 export const initializeApp = () => (dispatch: ThunkDispatchType) => {
   let sidebarListsPromise = dispatch(getSidebarLists());
   let sidebarListsColorsPromise = dispatch(getSidebarListsColors());
+  let listsTasksPromise = dispatch(getListsTasks());
 
-  Promise.all([sidebarListsPromise, sidebarListsColorsPromise]).then(() => {
+  Promise.all([sidebarListsPromise, sidebarListsColorsPromise, listsTasksPromise]).then(() => {
     dispatch(actions.initializedSuccess());
   });
 };

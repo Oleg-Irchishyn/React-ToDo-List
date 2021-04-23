@@ -4,8 +4,16 @@ import styles from '../../../../styles/components/TasksForm.module.scss';
 import { maxLengthCreator, required } from '../../../../redux/utils/validators/validators';
 import { InjectedFormProps, reduxForm } from 'redux-form';
 import { Input, createField } from '../../../common/FormControls/FormControls';
+import { AppStateType } from '../../../../redux/store';
+import { getActiveSidebarList } from '../../../../redux/selectors/sidebarSelectors';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { setNewTaskToList } from '../../../../redux/reducers/taskReducer';
 
-const TasksForm: React.FC = () => {
+const TasksForm: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
+  activeListItem,
+  setNewTaskToList,
+}) => {
   const [visibleForm, setVisibleForm] = React.useState(false);
   const toggleVisibleForm = () => {
     setVisibleForm(!visibleForm);
@@ -79,4 +87,22 @@ export type AddNewPostFormValuesType = {
 
 type AddNewPostFormValuesTypeKeys = Extract<keyof AddNewPostFormValuesType, string>;
 
-export default TasksForm;
+const mapStateToProps = (state: AppStateType) => ({
+  activeListItem: getActiveSidebarList(state),
+});
+
+type MapStatePropsType = ReturnType<typeof mapStateToProps>;
+type MapDispatchPropsType = {
+  setNewTaskToList: (
+    id: string | number,
+    listId: string | number,
+    text: string | number,
+    completed: boolean,
+  ) => void;
+};
+
+export default compose<React.ComponentType>(
+  connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
+    setNewTaskToList,
+  }),
+)(TasksForm);

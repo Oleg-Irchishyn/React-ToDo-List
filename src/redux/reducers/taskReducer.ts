@@ -44,12 +44,12 @@ export const actions = {
   setIsLoaded: (payload: boolean) => ({ type: SET_IS_LOADED, payload } as const),
 };
 
-export const getSidebarLists = (): ThunkType => async (dispatch) => {
+export const getListsTasks = (): ThunkType => async (dispatch) => {
   let data = await appAPI.getTodoListsTasks();
   dispatch(actions.setListsTasks(data));
 };
 
-export const addNewTasksToList = (
+export const setNewTaskToList = (
   id: string | number,
   listId: string | number,
   text: string | number,

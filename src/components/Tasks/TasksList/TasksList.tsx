@@ -13,6 +13,7 @@ import {
 import { SingleTaskType } from '../../../redux/types/types';
 
 import { setNewSidebarListName } from '../../../redux/reducers/sidebarReducer';
+import { getListsTasks } from '../../../redux/reducers/taskReducer';
 
 type ownProps = {
   task: SingleTaskType;
@@ -22,7 +23,11 @@ const TasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> =
   lists,
   activeListItem,
   setNewSidebarListName,
+  getListsTasks,
 }) => {
+  React.useEffect(() => {
+    getListsTasks();
+  }, [getListsTasks]);
   const editActiveTaskName = (id: string | number, name: string) => {
     const newActiveListName = window.prompt(
       `Lists's Name`,
@@ -75,10 +80,12 @@ const mapStateToProps = (state: AppStateType) => ({
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 type MapDispatchPropsType = {
   setNewSidebarListName: (id: string | number, name: string) => void;
+  getListsTasks: () => void;
 };
 
 export default compose<React.ComponentType>(
   connect<MapStatePropsType, MapDispatchPropsType, ownProps, AppStateType>(mapStateToProps, {
     setNewSidebarListName,
+    getListsTasks,
   }),
 )(TasksList);
