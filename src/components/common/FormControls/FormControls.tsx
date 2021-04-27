@@ -24,7 +24,7 @@ const FormControl: React.FC<FormControlPropsType> = ({
   return (
     <div className={styles.formControl + ' ' + (hasError ? styles.error : '')}>
       <div>{children}</div>
-      {hasError && <span>"{error}</span>}
+      {hasError && <span>{error}</span>}
     </div>
   );
 };

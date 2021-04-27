@@ -7,10 +7,23 @@
 
 .formControl.error span {
   color: rgb(95, 30, 30);
+  padding: 3px 0 3px 25px;
 }
 
 .formSummaryError {
   border: 1px solid rgb(95, 30, 30);
   padding: 5px;
   color: rgb(95, 30, 30);
+}
+
+.formControl.error input::placeholder,
+.formControl.error textarea::placeholder {
+  opacity: 1;
+  transition: 0.2s ease;
+}
+
+.formControl.error input:focus::placeholder,
+.formControl.error textarea:focus::placeholder {
+  opacity: 0;
+  transition: 0.2s ease;
 }

@@ -2,7 +2,8 @@
 
 .tasks__form {
   position: relative;
-  padding: 30px 0 0 0;
+  padding: 60px 0 0 0;
+  width: 100%;
   &_new {
     position: relative;
     display: flex;
@@ -57,6 +58,68 @@
       color: $color-secondary;
       letter-spacing: 0.15px;
       transition: 0.2s ease;
+    }
+  }
+  .form__inner {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+
+    input {
+      padding: 10px 10px 10px 25px;
+      border: 1px solid $color-checkbox-border;
+      width: 70%;
+      font-size: 16px;
+    }
+    &__body {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-start;
+      margin: 2vh 0 2vh 0;
+      button {
+        -webkit-appearance: none;
+        appearance: none;
+        background: $btn-color;
+        border: 1px solid $btn-color;
+        font-size: 16px;
+        max-width: 145px;
+        width: 100%;
+        min-height: 34px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        color: $color-main;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: 0.2s ease;
+        &:hover {
+          box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.75);
+          transition: 0.2s ease;
+        }
+      }
+      span {
+        max-width: 90px;
+        width: 100%;
+        min-height: 34px;
+        font-size: 16px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        background: $color-checkbox-border;
+        border-radius: 4px;
+        margin: 0 0 0 2vw;
+        cursor: pointer;
+        transition: 0.2s ease;
+        &:hover {
+          box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.75);
+          transition: 0.2s ease;
+        }
+      }
     }
   }
 }

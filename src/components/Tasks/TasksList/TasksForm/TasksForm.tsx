@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import styles from '../../../../styles/components/TasksForm.module.scss';
 import { maxLengthCreator, required } from '../../../../redux/utils/validators/validators';
-import { InjectedFormProps, reduxForm } from 'redux-form';
+import { FormAction, InjectedFormProps, reduxForm, reset } from 'redux-form';
 import { Input, createField } from '../../../common/FormControls/FormControls';
 import { AppStateType } from '../../../../redux/store';
 import {
@@ -35,9 +35,7 @@ const TasksForm: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
     }
   }, []);
 
-  const onAddTask = (values: AddNewPostFormValuesType) => {
-    console.log(values.newTaskText);
-
+  const onAddTask = (values: AddNewPostFormValuesType, dispatch: (T: FormAction) => void) => {
     const newTaskObj = {
       id: uuidv4(),
       listId: activeListItem && activeListItem.id,
@@ -58,6 +56,12 @@ const TasksForm: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
     });
 
     addNewTaskToList(newTasksList);
+    dispatch(reset('addNewTaskForm'));
+    setVisibleForm(false);
+  };
+
+  const onCancelSubmit = () => {
+    setVisibleForm(false);
   };
 
   React.useEffect(() => {
@@ -76,7 +80,7 @@ const TasksForm: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
         </div>
       ) : (
         <div className={cn(styles.tasks__form_block)}>
-          <AddNewPostFormRedux onSubmit={onAddTask} />
+          <AddNewPostFormRedux onCancelSubmit={onCancelSubmit} onSubmit={onAddTask} />
         </div>
       )}
     </div>
@@ -88,16 +92,18 @@ const maxLength30 = maxLengthCreator(30);
 const AddNewTaskForm: React.FC<
   InjectedFormProps<AddNewPostFormValuesType, PropsType> & PropsType
 > = (props) => {
+  const { onCancelSubmit } = props;
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form className={cn(styles.form__inner)} onSubmit={props.handleSubmit}>
       <div>
-        {createField<AddNewPostFormValuesTypeKeys>('Post Message', 'newTaskText', Input, [
+        {createField<AddNewPostFormValuesTypeKeys>('Task name', 'newTaskText', Input, [
           required,
           maxLength30,
         ])}
       </div>
-      <div>
-        <button>Add post</button>
+      <div className={cn(styles.form__inner__body)}>
+        <button>Add task</button>
+        <span onClick={onCancelSubmit}>Cancel</span>
       </div>
     </form>
   );
@@ -107,7 +113,9 @@ const AddNewPostFormRedux = reduxForm<AddNewPostFormValuesType, PropsType>({
   form: 'addNewTaskForm',
 })(AddNewTaskForm);
 
-type PropsType = {};
+type PropsType = {
+  onCancelSubmit: () => void;
+};
 
 export type AddNewPostFormValuesType = {
   newTaskText: string | number;
