@@ -1,7 +1,7 @@
 import { createStore, combineReducers, compose, applyMiddleware, Action } from 'redux';
 import appReducer from './reducers/appReducer';
 import sidebarReducer from './reducers/sidebarReducer';
-import tasksReducer from './reducers/taskReducer';
+import tasksReducer from './reducers/tasksReducer';
 import thunkMiddleware, { ThunkAction } from 'redux-thunk';
 import { reducer as formReducer } from 'redux-form';
 

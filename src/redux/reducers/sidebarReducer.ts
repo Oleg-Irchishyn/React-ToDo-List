@@ -1,4 +1,4 @@
-import { itemsType, DBcolorsType } from '../types/types';
+import { itemsType, DBcolorsType, allTasksBtnType } from '../types/types';
 import { appAPI } from './../../api/api';
 import { BaseThunkType, InferActionsTypes } from '../store';
 import { FormAction } from 'redux-form';
@@ -16,7 +16,6 @@ let initialState = {
     {
       icon: null,
       name: 'All Tasks',
-      active: false,
     },
   ] as Array<allTasksBtnType>,
   sidebarListItems: [] as Array<itemsType>,
@@ -127,7 +126,6 @@ export const addNewSidebarList = (
 ): ThunkType => async (dispatch) => {
   try {
     let data = await appAPI.updateTodoLists(id, name, colorId);
-    dispatch(actions.setIsLoaded(true));
     dispatch(actions.setNewSidebarList(data));
   } catch (err) {
     throw new Error(`Promise has not been resolved properly`);
@@ -153,12 +151,6 @@ export const setNewSidebarListName = (id: string | number, newName: string): Thu
 };
 
 export type initialStateType = typeof initialState;
-
-type allTasksBtnType = {
-  icon?: JSX.Element | null;
-  name: string;
-  active?: boolean;
-};
 
 type ThunkType = BaseThunkType<ActionsTypes | FormAction>;
 

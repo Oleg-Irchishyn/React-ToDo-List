@@ -11,13 +11,15 @@ import {
 } from '../../../../redux/selectors/sidebarSelectors';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { setNewTaskToList, actions } from '../../../../redux/reducers/taskReducer';
+import { setNewTaskToList, actions } from '../../../../redux/reducers/tasksReducer';
 import { v4 as uuidv4 } from 'uuid';
 import { itemsTasksType } from '../../../../redux/types/types';
+import { getIsLoading } from '../../../../redux/selectors/tasksSelectors';
 
 const TasksForm: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
   items,
   activeListItem,
+  isLoading,
   setNewTaskToList,
   addNewTaskToList,
 }) => {
@@ -80,7 +82,11 @@ const TasksForm: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
         </div>
       ) : (
         <div className={cn(styles.tasks__form_block)}>
-          <AddNewPostFormRedux onCancelSubmit={onCancelSubmit} onSubmit={onAddTask} />
+          <AddNewPostFormRedux
+            isLoading={isLoading}
+            onCancelSubmit={onCancelSubmit}
+            onSubmit={onAddTask}
+          />
         </div>
       )}
     </div>
@@ -92,7 +98,7 @@ const maxLength30 = maxLengthCreator(30);
 const AddNewTaskForm: React.FC<
   InjectedFormProps<AddNewPostFormValuesType, PropsType> & PropsType
 > = (props) => {
-  const { onCancelSubmit } = props;
+  const { onCancelSubmit, isLoading } = props;
   return (
     <form className={cn(styles.form__inner)} onSubmit={props.handleSubmit}>
       <div>
@@ -102,7 +108,7 @@ const AddNewTaskForm: React.FC<
         ])}
       </div>
       <div className={cn(styles.form__inner__body)}>
-        <button>Add task</button>
+        <button disabled={isLoading}>Add task</button>
         <span onClick={onCancelSubmit}>Cancel</span>
       </div>
     </form>
@@ -115,6 +121,7 @@ const AddNewPostFormRedux = reduxForm<AddNewPostFormValuesType, PropsType>({
 
 type PropsType = {
   onCancelSubmit: () => void;
+  isLoading: boolean;
 };
 
 export type AddNewPostFormValuesType = {
@@ -126,6 +133,7 @@ type AddNewPostFormValuesTypeKeys = Extract<keyof AddNewPostFormValuesType, stri
 const mapStateToProps = (state: AppStateType) => ({
   items: getsidebarListItems(state),
   activeListItem: getActiveSidebarList(state),
+  isLoading: getIsLoading(state),
 });
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;

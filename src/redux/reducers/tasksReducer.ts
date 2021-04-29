@@ -1,6 +1,6 @@
-import { InferActionsTypes } from './../store';
-import { itemsTasksType } from './../types/types';
-import { appAPI } from './../../api/api';
+import { InferActionsTypes } from '../store';
+import { itemsTasksType } from '../types/types';
+import { appAPI } from '../../api/api';
 
 import { FormAction } from 'redux-form';
 import { BaseThunkType } from '../store';
@@ -25,6 +25,7 @@ const tasksReducer = (state = initialState, action: ActionsTypes): initialStateT
       return {
         ...state,
         tasks: [...state.tasks, action.payload],
+        isLoading: true,
       };
     case SET_IS_LOADED:
       return {
@@ -58,7 +59,6 @@ export const setNewTaskToList = (
   try {
     let data = await appAPI.setNewTodoListTask(id, listId, text, completed);
     dispatch(actions.addNewTaskToList(data));
-    dispatch(actions.setIsLoaded(true));
   } catch (err) {
     throw new Error(`Promise has not been resolved properly`);
   } finally {

@@ -13,7 +13,7 @@ import {
 import { SingleTaskType } from '../../../redux/types/types';
 
 import { setNewSidebarListName } from '../../../redux/reducers/sidebarReducer';
-import { getListsTasks } from '../../../redux/reducers/taskReducer';
+import { getListsTasks } from '../../../redux/reducers/tasksReducer';
 
 type ownProps = {
   task: SingleTaskType;

@@ -11,7 +11,7 @@ import {
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import removeSvg from '../../../assets/images/remove.svg';
-import { itemsType } from '../../../redux/types/types';
+import { itemsType, allTasksBtnType } from '../../../redux/types/types';
 import {
   getSidebarLists,
   removeSidebarList,
@@ -52,12 +52,15 @@ const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
   return (
     <React.Fragment>
       <ul className={cn(styles.todo__sidebar_list)}>
-        {allTasksBtnList.map((item, index) => (
+        {allTasksBtnList.map((item: allTasksBtnType, index) => (
           <li
             key={index}
             className={cn({
-              [styles.active]: item.active && item.active ? true : false,
-            })}>
+              [styles.active]: activeListItem === null,
+            })}
+            onClick={() => {
+              selectActiveSidebarList(null);
+            }}>
             <i>{(item.icon = listIcon)}</i>
             <span>{item.name}</span>
           </li>

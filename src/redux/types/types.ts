@@ -32,3 +32,8 @@ export type itemsColorType = {
   hex: string;
   name: string;
 };
+
+export type allTasksBtnType = {
+  icon?: JSX.Element | null;
+  name: string;
+};

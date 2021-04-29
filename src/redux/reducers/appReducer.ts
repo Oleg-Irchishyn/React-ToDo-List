@@ -1,7 +1,7 @@
 import { getSidebarLists, getSidebarListsColors } from './sidebarReducer';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppStateType, InferActionsTypes } from './../store';
-import { getListsTasks } from './taskReducer';
+import { getListsTasks } from './tasksReducer';
 const INITIALIZED_SUCCESS = 'SK/APP/INITIALIZED_SUCCESS';
 
 let initialState = {
