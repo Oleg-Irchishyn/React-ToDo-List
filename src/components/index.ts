@@ -4,5 +4,6 @@ export { default as AddList } from './Sidebar/AddList/AddList';
 export { default as ColorBadges } from './Sidebar/AddList/ColorBadges/ColorBadges';
 export { default as Tasks } from './Tasks/Tasks';
 export { default as TasksList } from './Tasks/TasksList/TasksList';
+export { default as AllTasksLists } from './Tasks/TasksList/AllTasksLists';
 export { default as TasksListItems } from './Tasks/TasksList/TasksListItems/TasksListItems';
 export { default as TasksForm } from './Tasks/TasksList/TasksForm/TasksForm';

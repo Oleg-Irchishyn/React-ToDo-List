@@ -11,7 +11,6 @@ import {
   getsidebarListItems,
 } from '../../../redux/selectors/sidebarSelectors';
 import { SingleTaskType } from '../../../redux/types/types';
-
 import { setNewSidebarListName } from '../../../redux/reducers/sidebarReducer';
 import { getListsTasks } from '../../../redux/reducers/tasksReducer';
 
@@ -42,11 +41,7 @@ const TasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> =
       {activeListItem && (
         <div className={cn(styles.todo__tasks_list)}>
           <div className={cn(styles.list_title_wrapper)}>
-            {!activeListItem || !activeListItem.tasks || activeListItem.tasks.length <= 0 ? (
-              <h2 className={cn(styles.list_title_hollow)}>No tasks</h2>
-            ) : (
-              <h2 className={cn(styles.list_title)}>{activeListItem && activeListItem.name}</h2>
-            )}
+            <h2 className={cn(styles.list_title)}>{activeListItem && activeListItem.name}</h2>
             {activeListItem && activeListItem.tasks && activeListItem.tasks.length > 0 && (
               <img
                 src={editIcon}
@@ -55,6 +50,13 @@ const TasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> =
               />
             )}
           </div>
+
+          {!activeListItem ||
+            !activeListItem.tasks ||
+            (activeListItem.tasks.length <= 0 && (
+              <h2 className={cn(styles.list_title_hollow)}>No tasks :(</h2>
+            ))}
+
           {lists &&
             activeListItem &&
             activeListItem.tasks &&
@@ -62,10 +64,7 @@ const TasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> =
               // @ts-ignore
               <TasksListItems key={task.id} task={task} />
             ))}
-          {
-            // @ts-ignore
-            <TasksForm /*activeListItem={activeListItem} */ />
-          }
+          {<TasksForm />}
         </div>
       )}
     </React.Fragment>

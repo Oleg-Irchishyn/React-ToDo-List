@@ -5,9 +5,9 @@
   display: flex;
   flex-wrap: wrap;
   flex: 1;
-  padding: 57px;
   background: #fff;
   &_list {
+    padding: 57px;
     position: relative;
     display: flex;
     flex-wrap: wrap;
@@ -43,16 +43,6 @@
         padding: 0 0 20px 0;
         width: 100%;
       }
-
-      .list_title_hollow {
-        font-family: $font-secondary;
-        font-size: 32px;
-        line-height: 39px;
-        font-weight: 700;
-        color: $color-empty;
-        text-align: center;
-        width: 100%;
-      }
       img {
         position: absolute;
         right: 0;
@@ -69,6 +59,16 @@
           transition: 0.2s ease;
         }
       }
+    }
+    .list_title_hollow {
+      font-family: $font-secondary;
+      font-size: 32px;
+      line-height: 39px;
+      font-weight: 700;
+      color: $color-empty;
+      text-align: left;
+      width: 100%;
+      padding: 60px 0 0 0;
     }
   }
 }
