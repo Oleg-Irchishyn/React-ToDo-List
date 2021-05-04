@@ -13,11 +13,13 @@ const Tasks: React.FC<MapStatePropsType & ownProps> = ({ activeListItem, lists }
   return (
     <div className={cn(styles.todo__tasks)}>
       <Route exact path="/">
-        {activeListItem === null &&
+        {lists &&
           //@ts-ignore
           lists.map((list) => <AllTasksLists list={list} key={list.id} />)}
       </Route>
-      <TasksList />
+      <Route path="/lists/:id">
+        <TasksList />
+      </Route>
     </div>
   );
 };
