@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles/components/App.module.scss';
-import { Route, Switch } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
@@ -18,9 +18,15 @@ const SuspendedProfile = withSuspense(ProfileContainer);
 
 const App: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
   ({ initializeApp, initialized }) => {
+    const history = useHistory();
+
     React.useEffect(() => {
       initializeApp();
     }, [initializeApp]);
+
+    React.useEffect(() => {
+      history.push(`/`);
+    }, [history]);
 
     if (!initialized) {
       return <Preloader />;
@@ -34,10 +40,7 @@ const App: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
           })}>
           <Sidebar />
           <Tasks />
-          <Switch>
-            <Route exact path="/404" render={() => <div>404 NOT FOUND</div>} />
-            {/*<Route path="/profile/:userId?" render={() => <SuspendedProfile />} />*/}
-          </Switch>
+          {/*<Route path="/profile/:userId?" render={() => <SuspendedProfile />} />*/}
         </div>
       </div>
     );

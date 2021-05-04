@@ -29,7 +29,9 @@ const AllTasksList: React.FC<MapDispatchPropsType & ownProps> = ({
       {list && (
         <div className={cn(styles.todo__tasks_list)}>
           <div className={cn(styles.list_title_wrapper)}>
-            <h2 className={cn(styles.list_title)}>{list && list.name}</h2>
+            <h2 style={{ color: list.color }} className={cn(styles.list_title)}>
+              {list && list.name}
+            </h2>
             {list && list.tasks && list.tasks.length > 0 && (
               <img
                 src={editIcon}

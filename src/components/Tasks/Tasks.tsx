@@ -4,29 +4,31 @@ import styles from '../../styles/components/Tasks.module.scss';
 import { Route, Switch } from 'react-router-dom';
 import { TasksList, AllTasksLists } from '../';
 import { AppStateType } from '../../redux/store';
-import { getActiveSidebarList, getsidebarListItems } from '../../redux/selectors/sidebarSelectors';
+import { getsidebarListItems } from '../../redux/selectors/sidebarSelectors';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { itemsType } from '../../redux/types/types';
 
-const Tasks: React.FC<MapStatePropsType & ownProps> = ({ activeListItem, lists }) => {
+const Tasks: React.FC<MapStatePropsType & ownProps> = ({ lists }) => {
   return (
     <div className={cn(styles.todo__tasks)}>
-      <Route exact path="/">
-        {lists &&
-          //@ts-ignore
-          lists.map((list) => <AllTasksLists list={list} key={list.id} />)}
-      </Route>
-      <Route path="/lists/:id">
-        <TasksList />
-      </Route>
+      <Switch>
+        <Route exact path="/">
+          {lists &&
+            //@ts-ignore
+            lists.map((list) => <AllTasksLists list={list} key={list.id} />)}
+        </Route>
+        <Route path="/lists/:id">
+          <TasksList />
+        </Route>
+        <Route path="*" render={() => <div>404 NOT FOUND</div>} />
+      </Switch>
     </div>
   );
 };
 
 const mapStateToProps = (state: AppStateType) => ({
   lists: getsidebarListItems(state),
-  activeListItem: getActiveSidebarList(state),
 });
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
