@@ -7,36 +7,33 @@ import styles from '../../../../styles/components/ColorBages.module.scss';
 import cn from 'classnames';
 import { actions, getSidebarListsColors } from '../../../../redux/reducers/sidebarReducer';
 
-const ColorBadges: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
-  colors,
-  selectedColor,
-  setSelectedColor,
-  getSidebarListsColors,
-}) => {
-  React.useEffect(() => {
-    getSidebarListsColors();
-  }, [getSidebarListsColors]);
-  const onColorClick = (id: string | number) => {
-    setSelectedColor(id);
-  };
-  return (
-    <div className={styles.add_list_popup__colors}>
-      <ul className={styles.colors_badges}>
-        {colors &&
-          colors.map((item) => (
-            <li
-              key={item.id}
-              onClick={() => onColorClick(item.id)}
-              className={cn({
-                [styles.active]: selectedColor === item.id,
-              })}>
-              <i style={{ background: `${item.hex}` }}></i>
-            </li>
-          ))}
-      </ul>
-    </div>
-  );
-};
+const ColorBadges: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
+  ({ colors, selectedColor, setSelectedColor, getSidebarListsColors }) => {
+    React.useEffect(() => {
+      getSidebarListsColors();
+    }, [getSidebarListsColors]);
+    const onColorClick = (id: string | number) => {
+      setSelectedColor(id);
+    };
+    return (
+      <div className={styles.add_list_popup__colors}>
+        <ul className={styles.colors_badges}>
+          {colors &&
+            colors.map((item) => (
+              <li
+                key={item.id}
+                onClick={() => onColorClick(item.id)}
+                className={cn({
+                  [styles.active]: selectedColor === item.id,
+                })}>
+                <i style={{ background: `${item.hex}` }}></i>
+              </li>
+            ))}
+        </ul>
+      </div>
+    );
+  },
+);
 
 const mapStateToProps = (state: AppStateType) => ({
   colors: getDBcolors(state),

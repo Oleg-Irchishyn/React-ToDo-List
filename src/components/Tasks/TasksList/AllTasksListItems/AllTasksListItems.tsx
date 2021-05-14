@@ -6,32 +6,20 @@ import { connect } from 'react-redux';
 import { AppStateType } from '../../../../redux/store';
 import { SingleTaskType } from '../../../../redux/types/types';
 import closeImg from '../../../../assets/images/close.svg';
-import { removeTaskFromList } from '../../../../redux/reducers/tasksReducer';
 
 type ownProps = {
   task: SingleTaskType;
 };
 
-const TasksListItems: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = React.memo(
-  ({ task, removeTaskFromList }) => {
-    const onRemoveTask = (task: SingleTaskType) => {
-      if (window.confirm('Do you want to remove this task?')) {
-        removeTaskFromList(task.id);
-      }
-    };
-
+const AllTasksListItems: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = React.memo(
+  ({ task }) => {
     return (
       <div className={cn(styles.tasks_list__items)}>
         <div className={cn(styles.item, styles.item_checkbox)}>
           <input id={`task - ${task.id}`} type="checkbox" />
           <label htmlFor={`task - ${task.id}`}></label>
           <input type="text" value={task.text} />
-          <img
-            src={closeImg}
-            alt="delete task"
-            className={cn(styles.delete_icon)}
-            onClick={(e) => onRemoveTask(task)}
-          />
+          <img src={closeImg} alt="delete task" className={cn(styles.delete_icon)} />
         </div>
       </div>
     );
@@ -39,14 +27,10 @@ const TasksListItems: React.FC<MapStatePropsType & MapDispatchPropsType & ownPro
 );
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
-type MapDispatchPropsType = {
-  removeTaskFromList: (id: string | number) => void;
-};
+type MapDispatchPropsType = {};
 
 const mapStateToProps = (state: AppStateType) => ({});
 
 export default compose<React.ComponentType>(
-  connect<MapStatePropsType, MapDispatchPropsType, ownProps, AppStateType>(mapStateToProps, {
-    removeTaskFromList,
-  }),
-)(TasksListItems);
+  connect<MapStatePropsType, MapDispatchPropsType, ownProps, AppStateType>(mapStateToProps, {}),
+)(AllTasksListItems);

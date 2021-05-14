@@ -34,7 +34,6 @@ const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = React.me
     }, [getSidebarLists]);
 
     const history = useHistory();
-    // React.useEffect(() => {}, [items, history.location.pathname]);
     React.useEffect(() => {
       const itemId = history.location.pathname.split('lists/')[1];
 
@@ -42,6 +41,7 @@ const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = React.me
       if (item) {
         selectActiveSidebarList(item);
       }
+      console.log(item);
     }, [history.location.pathname]);
 
     const listIcon = (
@@ -67,6 +67,7 @@ const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = React.me
     const onClickItem = (item: itemsType) => {
       history.push(`/lists/${item.id}`);
       selectActiveSidebarList(item);
+      console.log('click');
     };
 
     return (

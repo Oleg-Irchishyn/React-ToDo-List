@@ -9,7 +9,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { itemsType } from '../../redux/types/types';
 
-const Tasks: React.FC<MapStatePropsType & ownProps> = ({ lists }) => {
+const Tasks: React.FC<MapStatePropsType & ownProps> = React.memo(({ lists }) => {
   return (
     <div className={cn(styles.todo__tasks)}>
       <Switch>
@@ -25,7 +25,7 @@ const Tasks: React.FC<MapStatePropsType & ownProps> = ({ lists }) => {
       </Switch>
     </div>
   );
-};
+});
 
 const mapStateToProps = (state: AppStateType) => ({
   lists: getsidebarListItems(state),
