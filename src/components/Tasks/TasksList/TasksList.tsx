@@ -18,57 +18,60 @@ type ownProps = {
   task: SingleTaskType;
 };
 
-const TasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = React.memo(
-  ({ lists, activeListItem, setNewSidebarListName, getListsTasks }) => {
-    React.useEffect(() => {
-      getListsTasks();
-    }, [getListsTasks]);
-    const editActiveTaskName = (id: string | number, name: string) => {
-      const newActiveListName = window.prompt(
-        `Lists's Name`,
-        (name = String(activeListItem && activeListItem.name)),
-      );
-      if (newActiveListName) {
-        setNewSidebarListName(id, newActiveListName);
-      }
-    };
-    return (
-      <React.Fragment>
-        {activeListItem && (
-          <div className={cn(styles.todo__tasks_list)}>
-            <div className={cn(styles.list_title_wrapper)}>
-              <h2 style={{ color: activeListItem.color }} className={cn(styles.list_title)}>
-                {activeListItem && activeListItem.name}
-              </h2>
-              {activeListItem && activeListItem.tasks && activeListItem.tasks.length > 0 && (
-                <img
-                  src={editIcon}
-                  alt="edit"
-                  onClick={() => editActiveTaskName(activeListItem.id, activeListItem.name)}
-                />
-              )}
-            </div>
-
-            {!activeListItem ||
-              !activeListItem.tasks ||
-              (activeListItem.tasks.length <= 0 && (
-                <h2 className={cn(styles.list_title_hollow)}>No tasks :(</h2>
-              ))}
-
-            {lists &&
-              activeListItem &&
-              activeListItem.tasks &&
-              activeListItem.tasks.map((task) => (
-                // @ts-ignore
-                <TasksListItems key={task.id} task={task} />
-              ))}
-            {<TasksForm />}
-          </div>
-        )}
-      </React.Fragment>
+const TasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = ({
+  lists,
+  activeListItem,
+  setNewSidebarListName,
+  getListsTasks,
+}) => {
+  React.useEffect(() => {
+    getListsTasks();
+  }, [getListsTasks]);
+  const editActiveTaskName = (id: string | number, name: string) => {
+    const newActiveListName = window.prompt(
+      `Lists's Name`,
+      (name = String(activeListItem && activeListItem.name)),
     );
-  },
-);
+    if (newActiveListName) {
+      setNewSidebarListName(id, newActiveListName);
+    }
+  };
+  return (
+    <React.Fragment>
+      {activeListItem && (
+        <div className={cn(styles.todo__tasks_list)}>
+          <div className={cn(styles.list_title_wrapper)}>
+            <h2 style={{ color: activeListItem.color }} className={cn(styles.list_title)}>
+              {activeListItem && activeListItem.name}
+            </h2>
+            {activeListItem && activeListItem.tasks && activeListItem.tasks.length > 0 && (
+              <img
+                src={editIcon}
+                alt="edit"
+                onClick={() => editActiveTaskName(activeListItem.id, activeListItem.name)}
+              />
+            )}
+          </div>
+
+          {!activeListItem ||
+            !activeListItem.tasks ||
+            (activeListItem.tasks.length <= 0 && (
+              <h2 className={cn(styles.list_title_hollow)}>No tasks :(</h2>
+            ))}
+
+          {lists &&
+            activeListItem &&
+            activeListItem.tasks &&
+            activeListItem.tasks.map((task) => (
+              // @ts-ignore
+              <TasksListItems key={task.id} task={task} />
+            ))}
+          {<TasksForm />}
+        </div>
+      )}
+    </React.Fragment>
+  );
+};
 
 const mapStateToProps = (state: AppStateType) => ({
   lists: getsidebarListItems(state),

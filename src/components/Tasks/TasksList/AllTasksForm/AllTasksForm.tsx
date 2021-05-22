@@ -8,84 +8,90 @@ import { AppStateType } from '../../../../redux/store';
 import { getsidebarListItems } from '../../../../redux/selectors/sidebarSelectors';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { setNewTaskToList, actions } from '../../../../redux/reducers/tasksReducer';
+import { setNewTaskToList, actions, getListsTasks } from '../../../../redux/reducers/tasksReducer';
 import { v4 as uuidv4 } from 'uuid';
 import { itemsTasksType, itemsType } from '../../../../redux/types/types';
 import { getIsLoading } from '../../../../redux/selectors/tasksSelectors';
 
-const AllTasksForm: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = React.memo(
-  ({ items, isLoading, list, setNewTaskToList, addNewTaskToList }) => {
-    const [visibleForm, setVisibleForm] = React.useState(false);
-    const toggleVisibleForm = () => {
-      setVisibleForm(!visibleForm);
+const AllTasksForm: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = ({
+  items,
+  getListsTasks,
+  isLoading,
+  list,
+  setNewTaskToList,
+  addNewTaskToList,
+}) => {
+  const [visibleForm, setVisibleForm] = React.useState(false);
+  const toggleVisibleForm = () => {
+    setVisibleForm(!visibleForm);
+  };
+
+  const formRef = React.useRef<HTMLDivElement>(null);
+
+  const handleFormOutsideClick = React.useCallback((e: any) => {
+    const path = e.path || (e.composedPath && e.composedPath());
+    if (!path.includes(formRef.current)) {
+      setVisibleForm(false);
+    }
+  }, []);
+
+  const onAddTask = (values: AddNewPostFormValuesType, dispatch: (T: FormAction) => void) => {
+    const newTaskObj = {
+      id: uuidv4(),
+      listId: list && list.id,
+      text: values.newTaskText,
+      completed: false,
     };
 
-    const formRef = React.useRef<HTMLDivElement>(null);
+    const { id, listId, text, completed } = newTaskObj;
+    setNewTaskToList(id, listId, text, completed);
 
-    const handleFormOutsideClick = React.useCallback((e: any) => {
-      const path = e.path || (e.composedPath && e.composedPath());
-      if (!path.includes(formRef.current)) {
-        setVisibleForm(false);
-      }
-    }, []);
-
-    const onAddTask = (values: AddNewPostFormValuesType, dispatch: (T: FormAction) => void) => {
-      const newTaskObj = {
-        id: uuidv4(),
-        listId: list && list.id,
-        text: values.newTaskText,
-        completed: false,
-      };
-
-      const { id, listId, text, completed } = newTaskObj;
-      setNewTaskToList(id, listId, text, completed);
-
-      const newTasksList: any = items.map((item) => {
-        if (item.id === listId) {
-          if (item.tasks) {
-            item.tasks = [...item.tasks, newTaskObj];
-          }
+    const newTasksList: any = items.map((item) => {
+      if (item.id === listId) {
+        if (item.tasks) {
+          item.tasks = [...item.tasks, newTaskObj];
         }
-        return item;
-      });
+      }
+      return item;
+    });
 
-      addNewTaskToList(newTasksList);
-      dispatch(reset('addExtraNewTaskForm'));
-      setVisibleForm(false);
+    addNewTaskToList(newTasksList);
+    dispatch(reset('addExtraNewTaskForm'));
+    getListsTasks();
+    setVisibleForm(false);
+  };
+
+  const onCancelSubmit = () => {
+    setVisibleForm(false);
+  };
+
+  React.useEffect(() => {
+    document.body.addEventListener('click', handleFormOutsideClick);
+    return () => {
+      document.body.removeEventListener('click', handleFormOutsideClick);
     };
+  }, [handleFormOutsideClick]);
 
-    const onCancelSubmit = () => {
-      setVisibleForm(false);
-    };
-
-    React.useEffect(() => {
-      document.body.addEventListener('click', handleFormOutsideClick);
-      return () => {
-        document.body.removeEventListener('click', handleFormOutsideClick);
-      };
-    }, [handleFormOutsideClick]);
-
-    return (
-      <div className={cn(styles.tasks__form)} ref={formRef}>
-        {!visibleForm ? (
-          <div className={cn(styles.tasks__form_new)} onClick={toggleVisibleForm}>
-            <i className={cn(styles.add_icon)}></i>
-            <span>New Task</span>
-          </div>
-        ) : (
-          <div className={cn(styles.tasks__form_block)}>
-            <AddExtraNewPostFormRedux
-              isLoading={isLoading}
-              onCancelSubmit={onCancelSubmit}
-              onSubmit={onAddTask}
-              list={list}
-            />
-          </div>
-        )}
-      </div>
-    );
-  },
-);
+  return (
+    <div className={cn(styles.tasks__form)} ref={formRef}>
+      {!visibleForm ? (
+        <div className={cn(styles.tasks__form_new)} onClick={toggleVisibleForm}>
+          <i className={cn(styles.add_icon)}></i>
+          <span>New Task</span>
+        </div>
+      ) : (
+        <div className={cn(styles.tasks__form_block)}>
+          <AddExtraNewPostFormRedux
+            isLoading={isLoading}
+            onCancelSubmit={onCancelSubmit}
+            onSubmit={onAddTask}
+            list={list}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
 
 const maxLength30 = maxLengthCreator(30);
 
@@ -143,11 +149,13 @@ type MapDispatchPropsType = {
     completed: boolean,
   ) => void;
   addNewTaskToList: (obj: itemsTasksType) => void;
+  getListsTasks: () => void;
 };
 
 export default compose<React.ComponentType>(
   connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
     setNewTaskToList,
+    getListsTasks,
     addNewTaskToList: actions.addNewTaskToList,
   }),
 )(AllTasksForm);

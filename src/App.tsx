@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './styles/components/App.module.scss';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
@@ -17,9 +18,15 @@ const SuspendedProfile = withSuspense(ProfileContainer);
 
 const App: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
   ({ initializeApp, initialized }) => {
+    const history = useHistory();
+
     React.useEffect(() => {
       initializeApp();
     }, [initializeApp]);
+
+    React.useEffect(() => {
+      history.push(`/`);
+    }, [history]);
 
     if (!initialized) {
       return <Preloader />;

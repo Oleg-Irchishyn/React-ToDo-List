@@ -7,6 +7,10 @@ export const getsidebarListItems = (state: AppStateType) => {
   });
 };
 
+export const getPuresidebarListItems = (state: AppStateType) => {
+  return state.sidebar.sidebarListItems;
+};
+
 export const getaddListButtonItems = (state: AppStateType) => {
   return state.sidebar.addListButtonItems;
 };

@@ -6,6 +6,5 @@ export { default as Tasks } from './Tasks/Tasks';
 export { default as TasksList } from './Tasks/TasksList/TasksList';
 export { default as AllTasksLists } from './Tasks/TasksList/AllTasksLists';
 export { default as TasksListItems } from './Tasks/TasksList/TasksListItems/TasksListItems';
-export { default as AllTasksListItems } from './Tasks/TasksList/AllTasksListItems/AllTasksListItems';
 export { default as TasksForm } from './Tasks/TasksList/TasksForm/TasksForm';
 export { default as AllTasksForm } from './Tasks/TasksList/AllTasksForm/AllTasksForm';
