@@ -13,7 +13,11 @@ import { connect } from 'react-redux';
 import { ColorBadges } from '../../index';
 import closeImg from '../../../assets/images/close.svg';
 import { v4 as uuidv4 } from 'uuid';
-import { actions, addNewSidebarList } from '../../../redux/reducers/sidebarReducer';
+import {
+  actions,
+  addNewSidebarList,
+  getSidebarLists,
+} from '../../../redux/reducers/sidebarReducer';
 import { itemsType } from '../../../redux/types/types';
 
 const AddList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
@@ -23,6 +27,7 @@ const AddList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
   isLoading,
   setSelectedColor,
   addNewSidebarList,
+  getSidebarLists,
 }) => {
   const [visiblePopup, setVisiblePopup] = React.useState(false);
   const [inputValue, setInputValue] = React.useState('');
@@ -45,6 +50,7 @@ const AddList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
     };
     const { id, name, colorId } = newList;
     addNewSidebarList(id, name, colorId);
+    getSidebarLists();
     onClosePopup();
   };
 
@@ -119,11 +125,13 @@ type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 type MapDispatchPropsType = {
   setSelectedColor: (color: string | number) => void;
   addNewSidebarList: (id: string | number, name: string, colorId: string | number) => void;
+  getSidebarLists: () => void;
 };
 
 export default compose<React.ComponentType>(
   connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
     setSelectedColor: actions.setSelectedColor,
     addNewSidebarList,
+    getSidebarLists,
   }),
 )(AddList);

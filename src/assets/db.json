@@ -6,324 +6,69 @@
       "colorId": 5
     },
     {
-      "name": "Front-Endsz7778889",
-      "id": 2,
-      "colorId": 5
+      "id": "b8b6f711-81b7-4268-89dd-eaeb738835ef",
+      "name": "gopro",
+      "colorId": 6
     },
     {
-      "id": 4,
-      "name": "Booksyos",
-      "colorId": 2
-    },
-    {
-      "name": "React JS Todo List Course",
-      "colorId": 7,
-      "id": 7
-    },
-    {
-      "id": "7907371a-f397-4832-a73a-bfa56747dce2",
-      "name": "kgkgko",
+      "id": "7a558b6d-437d-4b29-9f4c-86482ed7e7be",
+      "name": "perdak65",
       "colorId": 4
-    },
-    {
-      "id": "a70500bf-3586-460f-a68d-5455bb49f60d",
-      "name": "uuu",
-      "colorId": 7
     }
   ],
   "tasks": [
     {
-      "id": 1,
-      "listId": 2,
-      "text": "Изучить JavaScript",
-      "completed": true
-    },
-    {
-      "id": 2,
-      "listId": 2,
-      "text": "Изучить паттерны проектирования",
-      "completed": false
-    },
-    {
-      "id": 3,
-      "listId": 2,
-      "text": "ReactJS Hooks (useState, useReducer, useEffect и т.д.)",
-      "completed": true
-    },
-    {
-      "id": 4,
-      "listId": 2,
-      "text": "Redux (redux-observable, redux-saga)",
-      "completed": false
-    },
-    {
-      "listId": 2,
-      "text": "123",
-      "completed": true,
-      "id": 5
-    },
-    {
+      "id": "ae650761-82d5-4a36-a94e-3c30035df2e1",
       "listId": 1,
-      "text": "test",
-      "completed": false,
-      "id": 6
+      "text": "new task",
+      "completed": false
     },
     {
+      "id": "61acc3f1-fc00-438c-93ff-8bda4514b7b9",
       "listId": 1,
-      "text": "qweqwe",
-      "completed": false,
-      "id": 7
+      "text": "add new task",
+      "completed": false
     },
     {
+      "id": "9df1f7af-6ea9-41e1-89e1-702b9d82fbfc",
       "listId": 1,
-      "text": "qweqwe",
-      "completed": true,
-      "id": 8
+      "text": "add new task",
+      "completed": false
     },
     {
+      "id": "4d59115c-b9c6-4790-b8db-d7f25585c260",
       "listId": 1,
-      "text": "123",
-      "completed": false,
-      "id": 9
-    },
-    {
-      "listId": 4,
-      "text": "Купить 1984!",
-      "completed": true,
-      "id": 10
-    },
-    {
-      "listId": 2,
-      "text": "222",
-      "completed": true,
-      "id": 12
-    },
-    {
-      "listId": 7,
-      "text": "Сделали сайдбар",
-      "completed": true,
-      "id": 15
-    },
-    {
-      "listId": 7,
-      "text": "Сделали список задач",
-      "completed": true,
-      "id": 16
-    },
-    {
-      "listId": 7,
-      "text": "Сделали удаление и редактирование задач и списков",
-      "completed": true,
-      "id": 17
-    },
-    {
-      "id": "dfe179a9-59d6-4a34-a5e5-0859da86cbf0",
-      "listId": 7,
-      "text": "yo",
+      "text": "delete new task",
       "completed": false
     },
     {
-      "id": "5f43b3ff-443b-49c0-afdf-fb934d85cfaa",
-      "listId": 7,
-      "text": "fafa",
-      "completed": false
-    },
-    {
-      "id": "d1154f7f-340f-45c9-8baa-a53aec1f441b",
-      "listId": 7,
-      "text": "gag",
-      "completed": false
-    },
-    {
-      "id": "ba7be5cc-6cdb-4931-a3db-882b769098ab",
-      "listId": 7,
-      "text": "haha",
-      "completed": false
-    },
-    {
-      "id": "6cf05045-f402-4632-8a94-0b942380c546",
-      "listId": null,
-      "text": "gagaga",
-      "completed": false
-    },
-    {
-      "id": "d3043435-28a7-4fc3-a7bd-a6381c242e55",
-      "listId": null,
-      "text": "agagag",
-      "completed": false
-    },
-    {
-      "id": "2dfae42c-0cc4-4fef-8c4f-9db540ab4765",
-      "listId": null,
-      "text": "gagagagag",
-      "completed": false
-    },
-    {
-      "id": "07b016bc-daf8-45e2-af6a-8c1840d1003c",
-      "listId": "209dd5c5-8254-4bdd-9d2d-f1c334c0bcf3",
-      "text": "o",
-      "completed": false
-    },
-    {
-      "id": "b784d8d1-2ece-4877-b38d-87871002773c",
-      "listId": 2,
-      "text": "jfj",
-      "completed": false
-    },
-    {
-      "id": "9a117d58-79a2-428b-96e5-cf18456f8535",
-      "listId": 2,
-      "text": "jfjf",
-      "completed": false
-    },
-    {
-      "id": "6333a021-b907-4cbf-be79-4bdef350a3ff",
-      "listId": 2,
-      "text": "jfjfj",
-      "completed": false
-    },
-    {
-      "id": "eb0f6647-c0b5-4d31-b95e-fa1726287315",
-      "listId": null,
-      "text": "fafa",
-      "completed": false
-    },
-    {
-      "id": "bafe9425-f9ee-4d5e-a8a4-2e452cacb5d4",
-      "listId": null,
-      "text": "gag",
-      "completed": false
-    },
-    {
-      "id": "fdd34b73-026d-49b8-9d06-5537431a142d",
-      "listId": null,
-      "text": "agagag",
-      "completed": false
-    },
-    {
-      "id": "1262c5e7-8938-4fbf-80e7-0c0281d4b1d6",
-      "listId": null,
-      "text": "hohoho",
-      "completed": false
-    },
-    {
-      "id": "be04e8f3-8921-40a0-b0d6-0080c877df15",
-      "listId": null,
-      "text": "1",
-      "completed": false
-    },
-    {
-      "id": "19b52bfa-2950-4fbe-a973-b877f3845456",
-      "listId": null,
-      "text": "yo",
-      "completed": false
-    },
-    {
-      "id": "5ce6e4a7-d226-4396-ac47-1025eda78ec5",
+      "id": "21348149-1e0a-495d-80b7-791729b0b0f2",
       "listId": 1,
-      "text": "gaga",
+      "text": "mudak",
       "completed": false
     },
     {
-      "id": "3c4939d6-eec7-4d37-a486-23c71c2823a4",
-      "listId": 1,
-      "text": "uuu",
+      "id": "9a01dfa2-8fd5-4ad1-92de-58c54ba53f3f",
+      "listId": "b8b6f711-81b7-4268-89dd-eaeb738835ef",
+      "text": "gotopro",
       "completed": false
     },
     {
-      "id": "b1dd2f04-c469-4793-9b10-6552f631fe28",
-      "listId": 1,
-      "text": "fafa",
+      "id": "3ab7eb95-5eea-49b0-8c5e-77427784d4ee",
+      "listId": "b8b6f711-81b7-4268-89dd-eaeb738835ef",
+      "text": "gotopro2",
       "completed": false
     },
     {
-      "id": "ce499ebe-6fac-41f9-ba86-fe3870904114",
-      "listId": 1,
-      "text": "lilly",
+      "id": "9ad39272-9dfd-4aca-befd-ad1bd2c04b4e",
+      "listId": "b8b6f711-81b7-4268-89dd-eaeb738835ef",
+      "text": "mudak",
       "completed": false
     },
     {
-      "id": "5c0bbcb0-676f-4cc5-8f13-6b27a370be33",
-      "listId": "2cb51edc-b3c9-4cc8-a0e5-1c584414f352",
-      "text": "buy some keygen",
-      "completed": false
-    },
-    {
-      "id": "7c96d941-07f6-4d04-8eb0-5e385950218e",
-      "listId": "2cb51edc-b3c9-4cc8-a0e5-1c584414f352",
-      "text": "gagag",
-      "completed": false
-    },
-    {
-      "id": "e0f7d5aa-441d-4195-ad79-edf9f03ac4b1",
-      "listId": "2cb51edc-b3c9-4cc8-a0e5-1c584414f352",
-      "text": "123",
-      "completed": false
-    },
-    {
-      "id": "7e25b4b3-e3fe-447b-b1a3-277d920c032a",
-      "listId": "19c703b3-94a4-4f46-be71-79171e2027ec",
-      "text": "fafa",
-      "completed": false
-    },
-    {
-      "id": "53b306fe-041b-4e51-83ab-b3f8bde765ea",
-      "listId": "19c703b3-94a4-4f46-be71-79171e2027ec",
-      "text": "hello",
-      "completed": false
-    },
-    {
-      "id": "04ac4c19-4164-456c-9b26-f8e8d2856edc",
-      "listId": "19c703b3-94a4-4f46-be71-79171e2027ec",
-      "text": "yolo",
-      "completed": false
-    },
-    {
-      "id": "bcb7cd77-581a-4e90-a1c1-21110e50c59d",
-      "listId": "19c703b3-94a4-4f46-be71-79171e2027ec",
-      "text": "iii",
-      "completed": false
-    },
-    {
-      "id": "94ac32b4-958d-4143-a3f7-c518f29a7dba",
-      "listId": 1,
-      "text": "eli lilly",
-      "completed": false
-    },
-    {
-      "id": "d8ffeb35-875d-4eb4-aa5a-7f6aff553ccf",
-      "listId": "d74c7ea2-3d79-4c9a-bdfd-ff6b5f867639",
-      "text": "mamamia",
-      "completed": false
-    },
-    {
-      "id": "e2e26289-ae95-4283-b62e-0dd912e8e27c",
-      "listId": 1,
-      "text": "fafa",
-      "completed": false
-    },
-    {
-      "id": "77d1d468-b8bf-4432-b7e6-6d01c9d6a186",
-      "listId": "7907371a-f397-4832-a73a-bfa56747dce2",
-      "text": "buy some keygen",
-      "completed": false
-    },
-    {
-      "id": "c4397665-6726-40ad-80a1-3b1af4a25ed8",
-      "listId": "fb224ecb-ef46-4507-a93c-333281b4c49f",
-      "text": "buy some keygen",
-      "completed": false
-    },
-    {
-      "id": "97fe1252-f399-4732-bde6-9d374e4c6f98",
-      "listId": "a70500bf-3586-460f-a68d-5455bb49f60d",
-      "text": "iii",
-      "completed": false
-    },
-    {
-      "id": "04462c28-0dca-44d5-bb31-1faa9adc5dd7",
-      "listId": "a70500bf-3586-460f-a68d-5455bb49f60d",
-      "text": "lhlhl",
+      "id": "3b0b095e-ce94-44fa-b802-c13d31f45d7c",
+      "listId": "7a558b6d-437d-4b29-9f4c-86482ed7e7be",
+      "text": "perdak&",
       "completed": false
     }
   ],

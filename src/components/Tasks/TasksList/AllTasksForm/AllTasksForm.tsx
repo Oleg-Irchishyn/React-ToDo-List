@@ -9,6 +9,7 @@ import { getsidebarListItems } from '../../../../redux/selectors/sidebarSelector
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { setNewTaskToList, actions, getListsTasks } from '../../../../redux/reducers/tasksReducer';
+import { getSidebarLists } from '../../../../redux/reducers/sidebarReducer';
 import { v4 as uuidv4 } from 'uuid';
 import { itemsTasksType, itemsType } from '../../../../redux/types/types';
 import { getIsLoading } from '../../../../redux/selectors/tasksSelectors';
@@ -16,6 +17,7 @@ import { getIsLoading } from '../../../../redux/selectors/tasksSelectors';
 const AllTasksForm: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = ({
   items,
   getListsTasks,
+  getSidebarLists,
   isLoading,
   list,
   setNewTaskToList,
@@ -56,7 +58,7 @@ const AllTasksForm: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps
     });
 
     addNewTaskToList(newTasksList);
-    dispatch(reset('addExtraNewTaskForm'));
+    getSidebarLists();
     getListsTasks();
     setVisibleForm(false);
   };
@@ -150,12 +152,14 @@ type MapDispatchPropsType = {
   ) => void;
   addNewTaskToList: (obj: itemsTasksType) => void;
   getListsTasks: () => void;
+  getSidebarLists: () => void;
 };
 
 export default compose<React.ComponentType>(
   connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
     setNewTaskToList,
     getListsTasks,
+    getSidebarLists,
     addNewTaskToList: actions.addNewTaskToList,
   }),
 )(AllTasksForm);

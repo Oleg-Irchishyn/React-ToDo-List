@@ -22,9 +22,10 @@ const tasksReducer = (state = initialState, action: ActionsTypes): initialStateT
         tasks: action.payload,
       };
     case ADD_NEW_TASK_TO_LIST:
+      const NewTaskLIst = [...state.tasks, action.payload];
       return {
         ...state,
-        tasks: [...state.tasks, action.payload],
+        tasks: NewTaskLIst,
         isLoading: true,
       };
     case SET_IS_LOADED:
@@ -50,21 +51,23 @@ export const getListsTasks = (): ThunkType => async (dispatch) => {
   dispatch(actions.setListsTasks(data));
 };
 
-export const setNewTaskToList = (
-  id: string | number,
-  listId: string | number | null,
-  text: string | number,
-  completed: boolean,
-): ThunkType => async (dispatch) => {
-  try {
-    let data = await appAPI.setNewTodoListTask(id, listId, text, completed);
-    dispatch(actions.addNewTaskToList(data));
-  } catch (err) {
-    throw new Error(`Promise has not been resolved properly`);
-  } finally {
-    dispatch(actions.setIsLoaded(false));
-  }
-};
+export const setNewTaskToList =
+  (
+    id: string | number,
+    listId: string | number | null,
+    text: string | number,
+    completed: boolean,
+  ): ThunkType =>
+  async (dispatch) => {
+    try {
+      let data = await appAPI.setNewTodoListTask(id, listId, text, completed);
+      dispatch(actions.addNewTaskToList(data));
+    } catch (err) {
+      throw new Error(`Promise has not been resolved properly`);
+    } finally {
+      dispatch(actions.setIsLoaded(false));
+    }
+  };
 
 type ThunkType = BaseThunkType<ActionsTypes | FormAction>;
 
