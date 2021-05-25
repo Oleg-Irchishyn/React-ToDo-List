@@ -145,10 +145,7 @@
       max-width: 100%;
       box-sizing: border-box;
       transition: 0.4s ease;
-    }
-    input:focus {
       border-bottom: 1px solid $color-checkbox-border;
-      transition: 0.4s ease;
     }
     .delete_icon {
       position: absolute;
@@ -157,10 +154,23 @@
       opacity: 0;
       transition: 0.4s ease;
       cursor: pointer;
+      width: 20px;
+      height: 20px;
+    }
+    .edit_icon {
+      position: absolute;
+      top: 0;
+      right: calc(0% + 40px);
+      opacity: 0;
+      transition: 0.4s ease;
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
     }
     &:hover,
     &:focus {
-      .delete_icon {
+      .delete_icon,
+      .edit_icon {
         opacity: 0.5;
         transition: 0.4s ease;
       }

@@ -15,8 +15,8 @@ export type DBcolorsType = {
 
 export type SingleTaskType = {
   id: string | number;
-  listId: number;
-  text: number;
+  listId: string | number | null;
+  text: string | number;
   completed: boolean;
 };
 

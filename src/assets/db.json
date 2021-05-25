@@ -1,12 +1,25 @@
 {
   "lists": [
     {
-      "id": "7b4a9205-a7e2-4eb9-832a-6ee1b7e0a94f",
-      "name": "yolop",
-      "colorId": 4
+      "id": "f5f4ef6a-7a2a-4e32-9731-c5e9f9674e5f",
+      "name": "Finish dealing with todo project",
+      "colorId": 2
     }
   ],
-  "tasks": [],
+  "tasks": [
+    {
+      "id": "a5ff03c1-226a-4cd4-9c14-24564ff54194",
+      "listId": "f5f4ef6a-7a2a-4e32-9731-c5e9f9674e5f",
+      "text": "let's finish it within current",
+      "completed": false
+    },
+    {
+      "id": "c92e79c7-180c-4294-9f37-a10baa480011",
+      "listId": "f5f4ef6a-7a2a-4e32-9731-c5e9f9674e5f",
+      "text": "or leave it for future?",
+      "completed": false
+    }
+  ],
   "colors": [
     {
       "id": 1,

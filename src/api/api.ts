@@ -52,4 +52,9 @@ export const appAPI = {
       .delete(`tasks/` + id)
       .then((response) => response.data) as Promise<SingleTaskType>;
   },
+  renameTodoListTask: (id: string | number, newVal: string | number) => {
+    return instance
+      .patch<itemsTasksType>(`tasks/` + id, { text: newVal })
+      .then((response) => response.data);
+  },
 };
