@@ -8,6 +8,7 @@ import { BaseThunkType } from '../store';
 const ADD_NEW_TASK_TO_LIST = 'todo/tasks/ADD_NEW_TASK_TO_LIST';
 const SET_LISTS_TASKS = 'todo/tasks/SET_LISTS_TASKS';
 const SET_IS_LOADED = 'todo/tasks/SET_IS_LOADING';
+const DELETE_TASK = 'todo/tasks/DELETE_TASK';
 
 let initialState = {
   tasks: [] as Array<itemsTasksType>,
@@ -33,6 +34,14 @@ const tasksReducer = (state = initialState, action: ActionsTypes): initialStateT
         ...state,
         isLoading: action.payload,
       };
+    case DELETE_TASK: {
+      const newTasksList = state.tasks.filter((item) => item.id !== action.id);
+      return {
+        ...state,
+        tasks: newTasksList,
+      };
+    }
+
     default:
       return state;
   }
@@ -44,12 +53,24 @@ export const actions = {
   setListsTasks: (tasks: Array<itemsTasksType>) =>
     ({ type: SET_LISTS_TASKS, payload: tasks } as const),
   setIsLoaded: (payload: boolean) => ({ type: SET_IS_LOADED, payload } as const),
+  deleteTask: (id: string | number) =>
+    ({
+      type: DELETE_TASK,
+      id,
+    } as const),
 };
 
 export const getListsTasks = (): ThunkType => async (dispatch) => {
   let data = await appAPI.getTodoListsTasks();
   dispatch(actions.setListsTasks(data));
 };
+
+export const deleteTodoListTask =
+  (id: string | number): ThunkType =>
+  async (dispatch) => {
+    await appAPI.removeTodoListTask(id);
+    dispatch(actions.deleteTask(id));
+  };
 
 export const setNewTaskToList =
   (

@@ -136,7 +136,7 @@
       font-weight: 500;
       font-size: 16px;
       color: $color-black;
-      padding: 0 10px 0 0;
+      padding: 0 10px 10px 0;
       margin: 0 0 0 35px;
       border: none;
       border-bottom: 1px solid transparent;
@@ -149,6 +149,21 @@
     input:focus {
       border-bottom: 1px solid $color-checkbox-border;
       transition: 0.4s ease;
+    }
+    .delete_icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      opacity: 0;
+      transition: 0.4s ease;
+      cursor: pointer;
+    }
+    &:hover,
+    &:focus {
+      .delete_icon {
+        opacity: 0.5;
+        transition: 0.4s ease;
+      }
     }
   }
   .item:last-of-type {
