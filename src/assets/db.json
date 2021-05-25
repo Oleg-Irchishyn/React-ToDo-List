@@ -1,47 +1,12 @@
 {
   "lists": [
     {
-      "id": 1,
-      "name": "Salesd8089",
-      "colorId": 5
-    },
-    {
-      "id": "607b3e7c-d81a-4175-9554-979fd40fc248",
-      "name": "yoyoyo",
-      "colorId": 7
-    },
-    {
-      "id": "4eb9a09b-3d80-4f7a-9bf1-54092cb75c6c",
-      "name": "шш",
-      "colorId": 5
+      "id": "7b4a9205-a7e2-4eb9-832a-6ee1b7e0a94f",
+      "name": "yolop",
+      "colorId": 4
     }
   ],
-  "tasks": [
-    {
-      "id": "ae650761-82d5-4a36-a94e-3c30035df2e1",
-      "listId": 1,
-      "text": "new task",
-      "completed": false
-    },
-    {
-      "id": "61acc3f1-fc00-438c-93ff-8bda4514b7b9",
-      "listId": 1,
-      "text": "add new task",
-      "completed": false
-    },
-    {
-      "id": "f62eb568-a871-43da-acf4-de37e6fcca95",
-      "listId": "607b3e7c-d81a-4175-9554-979fd40fc248",
-      "text": "yo?",
-      "completed": false
-    },
-    {
-      "id": "ccfcbcfe-fc2b-4b26-943f-a6032bd46ab9",
-      "listId": "4eb9a09b-3d80-4f7a-9bf1-54092cb75c6c",
-      "text": "г?",
-      "completed": false
-    }
-  ],
+  "tasks": [],
   "colors": [
     {
       "id": 1,

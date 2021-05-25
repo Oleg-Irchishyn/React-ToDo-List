@@ -19,12 +19,12 @@ let initialState = {
     },
   ] as Array<allTasksBtnType>,
   sidebarListItems: [] as Array<itemsType>,
-  addListButtonItems: ([
+  addListButtonItems: [
     {
       icon: null,
       name: 'Add List',
     },
-  ] as unknown) as Array<itemsType>,
+  ] as unknown as Array<itemsType>,
   colors: [] as Array<DBcolorsType>,
   selectedColor: 1 as string | number,
   isRemovable: true as boolean,
@@ -54,6 +54,7 @@ const sidebarReducer = (state = initialState, action: ActionsTypes): initialStat
         activeSidebarList: null,
       };
     }
+
     case SET_LISTS_COLORS:
       return {
         ...state,
@@ -119,36 +120,36 @@ export const getSidebarListsColors = (): ThunkType => async (dispatch) => {
   dispatch(actions.setListsColors(data));
 };
 
-export const addNewSidebarList = (
-  id: string | number,
-  name: string,
-  colorId: string | number,
-): ThunkType => async (dispatch) => {
-  try {
-    let data = await appAPI.updateTodoLists(id, name, colorId);
-    dispatch(actions.setNewSidebarList(data));
-  } catch (err) {
-    throw new Error(`Promise has not been resolved properly`);
-  } finally {
-    dispatch(actions.setIsLoaded(false));
-  }
-};
+export const addNewSidebarList =
+  (id: string | number, name: string, colorId: string | number): ThunkType =>
+  async (dispatch) => {
+    try {
+      let data = await appAPI.updateTodoLists(id, name, colorId);
+      dispatch(actions.setNewSidebarList(data));
+    } catch (err) {
+      throw new Error(`Promise has not been resolved properly`);
+    } finally {
+      dispatch(actions.setIsLoaded(false));
+    }
+  };
 
-export const removeSidebarList = (id: string | number): ThunkType => async (dispatch) => {
-  await appAPI.removeTodoList(id);
-  dispatch(actions.deleteSidebarList(id));
-};
+export const removeSidebarList =
+  (id: string | number): ThunkType =>
+  async (dispatch) => {
+    await appAPI.removeTodoList(id);
+    dispatch(actions.deleteSidebarList(id));
+  };
 
-export const setNewSidebarListName = (id: string | number, newName: string): ThunkType => async (
-  dispatch,
-) => {
-  try {
-    await appAPI.renameTodoList(id, newName);
-    dispatch(actions.changeSidebarListName(id, newName));
-  } catch (err) {
-    throw new Error(`Promise has not been resolved properly`);
-  }
-};
+export const setNewSidebarListName =
+  (id: string | number, newName: string): ThunkType =>
+  async (dispatch) => {
+    try {
+      await appAPI.renameTodoList(id, newName);
+      dispatch(actions.changeSidebarListName(id, newName));
+    } catch (err) {
+      throw new Error(`Promise has not been resolved properly`);
+    }
+  };
 
 export type initialStateType = typeof initialState;
 

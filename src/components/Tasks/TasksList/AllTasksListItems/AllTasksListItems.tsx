@@ -6,20 +6,20 @@ import { connect } from 'react-redux';
 import { AppStateType } from '../../../../redux/store';
 import { SingleTaskType } from '../../../../redux/types/types';
 import closeImg from '../../../../assets/images/close.svg';
-import { deleteTodoListTask, getListsTasks } from '../../../../redux/reducers/tasksReducer';
-import { getSidebarLists } from '../../../../redux/reducers/sidebarReducer';
+import { deleteTodoListTask } from '../../../../redux/reducers/tasksReducer';
+import { getPuresidebarListItems } from '../../../../redux/selectors/sidebarSelectors';
+import { getAllTasks } from '../../../../redux/selectors/tasksSelectors';
 
 type ownProps = {
   task: SingleTaskType;
 };
 
 const AllTasksListItems: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = React.memo(
-  ({ task }) => {
+  ({ task, allTasks, allSideBarLists }) => {
+    React.useEffect(() => {}, [allTasks, allSideBarLists]);
     const onDeleteTask = (id: string | number) => {
       if (window.confirm('Do you want to delete this task?')) {
         deleteTodoListTask(id);
-        getListsTasks();
-        getSidebarLists();
       }
     };
     return (
@@ -43,16 +43,15 @@ const AllTasksListItems: React.FC<MapStatePropsType & MapDispatchPropsType & own
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 type MapDispatchPropsType = {
   deleteTodoListTask: (id: string | number) => void;
-  getListsTasks: () => void;
-  getSidebarLists: () => void;
 };
 
-const mapStateToProps = (state: AppStateType) => ({});
+const mapStateToProps = (state: AppStateType) => ({
+  allTasks: getAllTasks(state),
+  allSideBarLists: getPuresidebarListItems(state),
+});
 
 export default compose<React.ComponentType>(
   connect<MapStatePropsType, MapDispatchPropsType, ownProps, AppStateType>(mapStateToProps, {
     deleteTodoListTask,
-    getListsTasks,
-    getSidebarLists,
   }),
 )(AllTasksListItems);

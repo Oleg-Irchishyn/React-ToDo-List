@@ -17,7 +17,6 @@ const AllTasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps
   allTasks,
   allSideBarLists,
   setNewSidebarListName,
-  getListsTasks,
 }) => {
   React.useEffect(() => {}, [allTasks, allSideBarLists]);
 

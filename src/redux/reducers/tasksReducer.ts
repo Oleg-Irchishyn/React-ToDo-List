@@ -1,9 +1,9 @@
 import { InferActionsTypes } from '../store';
 import { itemsTasksType } from '../types/types';
 import { appAPI } from '../../api/api';
-
 import { FormAction } from 'redux-form';
 import { BaseThunkType } from '../store';
+import { getSidebarLists } from './sidebarReducer';
 
 const ADD_NEW_TASK_TO_LIST = 'todo/tasks/ADD_NEW_TASK_TO_LIST';
 const SET_LISTS_TASKS = 'todo/tasks/SET_LISTS_TASKS';
@@ -70,6 +70,8 @@ export const deleteTodoListTask =
   async (dispatch) => {
     await appAPI.removeTodoListTask(id);
     dispatch(actions.deleteTask(id));
+    dispatch(getSidebarLists());
+    dispatch(getListsTasks());
   };
 
 export const setNewTaskToList =
@@ -83,6 +85,8 @@ export const setNewTaskToList =
     try {
       let data = await appAPI.setNewTodoListTask(id, listId, text, completed);
       dispatch(actions.addNewTaskToList(data));
+      dispatch(getSidebarLists());
+      dispatch(getListsTasks());
     } catch (err) {
       throw new Error(`Promise has not been resolved properly`);
     } finally {
