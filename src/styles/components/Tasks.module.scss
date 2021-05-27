@@ -6,6 +6,17 @@
   flex-wrap: wrap;
   flex: 1;
   background: #fff;
+  .todo__all_tasks_list {
+    .list_title {
+      transition: 0.2s ease;
+      cursor: pointer;
+      &:hover,
+      &:focus {
+        text-shadow: 2px 2px 8px $color-black;
+        transition: 0.2s ease;
+      }
+    }
+  }
   &_list {
     padding: 57px;
     position: relative;

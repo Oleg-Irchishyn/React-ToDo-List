@@ -7,17 +7,24 @@ import { AppStateType } from '../../../redux/store';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { itemsType } from '../../../redux/types/types';
-import { setNewSidebarListName, getSidebarLists } from '../../../redux/reducers/sidebarReducer';
+import {
+  setNewSidebarListName,
+  getSidebarLists,
+  actions,
+} from '../../../redux/reducers/sidebarReducer';
 import { getListsTasks } from '../../../redux/reducers/tasksReducer';
 import { getAllTasks } from '../../../redux/selectors/tasksSelectors';
 import { getPuresidebarListItems } from '../../../redux/selectors/sidebarSelectors';
+import { useHistory } from 'react-router-dom';
 
 const AllTasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = ({
   list,
   allTasks,
   allSideBarLists,
   setNewSidebarListName,
+  selectActiveSidebarList,
 }) => {
+  const history = useHistory();
   React.useEffect(() => {}, [allTasks, allSideBarLists]);
 
   const editActiveTaskName = (id: string | number, name: string) => {
@@ -27,12 +34,20 @@ const AllTasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps
     }
     getSidebarLists();
   };
+
+  const redirectToActiveList = (list: itemsType) => {
+    selectActiveSidebarList(list);
+    history.push(`/lists/${list.id}`);
+  };
   return (
     <React.Fragment>
       {list && (
-        <div className={cn(styles.todo__tasks_list)}>
+        <div className={cn(styles.todo__tasks_list, styles.todo__all_tasks_list)}>
           <div className={cn(styles.list_title_wrapper)}>
-            <h2 style={{ color: list.color }} className={cn(styles.list_title)}>
+            <h2
+              style={{ color: list.color }}
+              className={cn(styles.list_title)}
+              onClick={() => redirectToActiveList(list)}>
               {list && list.name}
             </h2>
             {list && list.tasks && list.tasks.length >= 0 && (
@@ -81,6 +96,7 @@ type MapDispatchPropsType = {
   setNewSidebarListName: (id: string | number, name: string) => void;
   getListsTasks: () => void;
   getSidebarLists: () => void;
+  selectActiveSidebarList: (obj: itemsType | null) => void;
 };
 
 export default compose<React.ComponentType>(
@@ -88,5 +104,6 @@ export default compose<React.ComponentType>(
     setNewSidebarListName,
     getListsTasks,
     getSidebarLists,
+    selectActiveSidebarList: actions.selectActiveSidebarList,
   }),
 )(AllTasksList);
