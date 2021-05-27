@@ -10,6 +10,7 @@ const SET_LISTS_TASKS = 'todo/tasks/SET_LISTS_TASKS';
 const SET_IS_LOADED = 'todo/tasks/SET_IS_LOADING';
 const DELETE_TASK = 'todo/tasks/DELETE_TASK';
 const CHANGE_TASK_VALUE = 'todo/tasks/CHANGE_TASK_NAME';
+const CHANGE_TASK_COMPLETION = 'todo/tasks/CHANGE_TASK_COMPLETION';
 
 let initialState = {
   tasks: [] as Array<itemsTasksType>,
@@ -55,6 +56,19 @@ const tasksReducer = (state = initialState, action: ActionsTypes): initialStateT
         tasks: newTaskValue,
       };
     }
+    case CHANGE_TASK_COMPLETION: {
+      const newTaskValue = state.tasks.map((item) => {
+        if (item.id === action.id) {
+          item.completed = action.completed;
+        }
+        return item;
+      });
+
+      return {
+        ...state,
+        tasks: newTaskValue,
+      };
+    }
 
     default:
       return state;
@@ -74,6 +88,8 @@ export const actions = {
     } as const),
   changeTaskValue: (id: string | number, text: string | number) =>
     ({ type: CHANGE_TASK_VALUE, id, text } as const),
+  changeTaskCompletion: (id: string | number, completed: boolean) =>
+    ({ type: CHANGE_TASK_COMPLETION, id, completed } as const),
 };
 
 export const getListsTasks = (): ThunkType => async (dispatch) => {
@@ -114,6 +130,18 @@ export const setNewTaskValue =
     try {
       await appAPI.renameTodoListTask(id, newVal);
       dispatch(actions.changeTaskValue(id, newVal));
+      dispatch(getSidebarLists());
+    } catch (err) {
+      throw new Error(`Promise has not been resolved properly`);
+    }
+  };
+
+export const toggleTaskCompletion =
+  (id: string | number, listId: string | number | null, completed: boolean): ThunkType =>
+  async (dispatch) => {
+    try {
+      await appAPI.toggleTodoListTaskCompletion(id, listId, completed);
+      dispatch(actions.changeTaskCompletion(id, completed));
       dispatch(getSidebarLists());
     } catch (err) {
       throw new Error(`Promise has not been resolved properly`);

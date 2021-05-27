@@ -7,7 +7,11 @@ import { AppStateType } from '../../../../redux/store';
 import { SingleTaskType } from '../../../../redux/types/types';
 import closeImg from '../../../../assets/images/close.svg';
 import editImg from '../../../../assets/images/edit.svg';
-import { deleteTodoListTask, setNewTaskValue } from '../../../../redux/reducers/tasksReducer';
+import {
+  deleteTodoListTask,
+  setNewTaskValue,
+  toggleTaskCompletion,
+} from '../../../../redux/reducers/tasksReducer';
 import { getPuresidebarListItems } from '../../../../redux/selectors/sidebarSelectors';
 import { getAllTasks } from '../../../../redux/selectors/tasksSelectors';
 
@@ -16,7 +20,8 @@ type ownProps = {
 };
 
 const AllTasksListItems: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = React.memo(
-  ({ task, allTasks, allSideBarLists, setNewTaskValue }) => {
+  ({ task, allTasks, allSideBarLists, setNewTaskValue, toggleTaskCompletion }) => {
+    let [completion, setCompletion] = React.useState(!task.completed);
     React.useEffect(() => {}, [allTasks, allSideBarLists]);
     const onDeleteTask = (id: string | number) => {
       if (window.confirm('Do you want to delete this task?')) {
@@ -29,10 +34,22 @@ const AllTasksListItems: React.FC<MapStatePropsType & MapDispatchPropsType & own
         setNewTaskValue(id, newTaskValue);
       }
     };
+    const handleToggleTaskCompletion = React.useCallback(
+      (id: string | number, listId: string | number | null, completion: boolean) => {
+        setCompletion(!completion);
+        toggleTaskCompletion(id, listId, completion);
+      },
+      [],
+    );
     return (
       <div className={cn(styles.tasks_list__items)}>
         <div className={cn(styles.item, styles.item_checkbox)}>
-          <input id={`task - ${task.id}`} type="checkbox" />
+          <input
+            id={`task - ${task.id}`}
+            type="checkbox"
+            checked={!completion}
+            onChange={() => handleToggleTaskCompletion(task.id, task.listId, completion)}
+          />
           <label htmlFor={`task - ${task.id}`}></label>
           <input type="text" readOnly value={task.text} />
           <img
@@ -57,6 +74,11 @@ type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 type MapDispatchPropsType = {
   deleteTodoListTask: (id: string | number) => void;
   setNewTaskValue: (id: string | number, newVal: string | number) => void;
+  toggleTaskCompletion: (
+    id: string | number,
+    listId: string | number | null,
+    completed: boolean,
+  ) => void;
 };
 
 const mapStateToProps = (state: AppStateType) => ({
@@ -68,5 +90,6 @@ export default compose<React.ComponentType>(
   connect<MapStatePropsType, MapDispatchPropsType, ownProps, AppStateType>(mapStateToProps, {
     deleteTodoListTask,
     setNewTaskValue,
+    toggleTaskCompletion,
   }),
 )(AllTasksListItems);

@@ -57,4 +57,13 @@ export const appAPI = {
       .patch<itemsTasksType>(`tasks/` + id, { text: newVal })
       .then((response) => response.data);
   },
+  toggleTodoListTaskCompletion: (
+    id: string | number,
+    listId: string | number | null,
+    completed: boolean,
+  ) => {
+    return instance
+      .patch<itemsTasksType>(`tasks/` + id, { listId, completed })
+      .then((response) => response.data);
+  },
 };
