@@ -35,7 +35,7 @@ const AllTasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps
             <h2 style={{ color: list.color }} className={cn(styles.list_title)}>
               {list && list.name}
             </h2>
-            {list && list.tasks && list.tasks.length > 0 && (
+            {list && list.tasks && list.tasks.length >= 0 && (
               <img
                 src={editIcon}
                 alt="edit"
