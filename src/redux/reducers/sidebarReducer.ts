@@ -91,42 +91,30 @@ const sidebarReducer = (state = initialState, action: ActionsTypes): initialStat
       };
     }
     case CHANGE_ACTIVE_LIST_TASK_VALUE: {
-      if (
-        state.activeSidebarList &&
-        state.activeSidebarList.tasks != undefined &&
-        state.activeSidebarList &&
-        state.activeSidebarList.tasks != null
-      ) {
+      if (state.activeSidebarList && state.activeSidebarList.tasks) {
+        const newTaskName = state.activeSidebarList.tasks.map((item) => {
+          if (item.id === action.id) {
+            item.text = action.text;
+          }
+          return item;
+        });
         return {
           ...state,
           activeSidebarList: {
             ...state.activeSidebarList,
-            tasks: {
-              ...state.activeSidebarList.tasks.map((item) => {
-                if (item.id === action.id) {
-                  item.text = action.text;
-                }
-                return item;
-              }),
-            },
+            tasks: newTaskName,
           },
         };
       }
     }
     case DELETE_ACTIVE_LIST_TASK: {
-      if (
-        state.activeSidebarList &&
-        state.activeSidebarList.tasks != undefined &&
-        state.activeSidebarList &&
-        state.activeSidebarList.tasks != null
-      ) {
+      if (state.activeSidebarList && state.activeSidebarList.tasks) {
+        const newTaskList = state.activeSidebarList.tasks.filter((item) => item.id === action.id);
         return {
           ...state,
           activeSidebarList: {
             ...state.activeSidebarList,
-            tasks: {
-              ...state.activeSidebarList.tasks.filter((item) => item.id === action.id),
-            },
+            tasks: newTaskList,
           },
         };
       }

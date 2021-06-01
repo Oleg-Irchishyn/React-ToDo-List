@@ -34,12 +34,14 @@ const TasksListItems: React.FC<MapStatePropsType & MapDispatchPropsType & ownPro
     const onDeleteTask = (id: string | number) => {
       if (window.confirm('Do you want to delete this task?')) {
         deleteTodoListTask(id);
+        deleteActiveListTask(id);
       }
     };
     const onEditTaskValue = (id: string | number, text: string | number) => {
       const newTaskValue = window.prompt(`Task's Name`, (text = String(text)));
       if (newTaskValue) {
         setNewTaskValue(id, newTaskValue);
+        changeActiveListTaskValue(id, newTaskValue);
       }
     };
 
