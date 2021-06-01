@@ -10,6 +10,8 @@ const SET_LISTS_COLORS = 'todo/sidebar/SET_LISTS_COLORS';
 const SET_IS_LOADED = 'todo/sidebar/SET_IS_LOADING';
 const SELECT_ACTIVE_SIDEBAR_LIST = 'todo/sidebar/SELECT_ACTIVE_SIDEBAR_LIST';
 const CHANGE_ACTIVE_SIDEBAR_LIST_NAME = 'todo/sidebar/CHANGE_ACTIVE_SIDEBAR_LIST_NAME';
+const CHANGE_ACTIVE_LIST_TASK_VALUE = 'todo/sidebar/CHANGE_ACTIVE_LIST_TASK_VALUE';
+const DELETE_ACTIVE_LIST_TASK = 'todo/sidebar/DELETE_ACTIVE_LIST_TASK';
 
 let initialState = {
   allTasksBtnList: [
@@ -83,11 +85,51 @@ const sidebarReducer = (state = initialState, action: ActionsTypes): initialStat
         }
         return item;
       });
-
       return {
         ...state,
         sidebarListItems: newSidebarListItems,
       };
+    }
+    case CHANGE_ACTIVE_LIST_TASK_VALUE: {
+      if (
+        state.activeSidebarList &&
+        state.activeSidebarList.tasks != undefined &&
+        state.activeSidebarList &&
+        state.activeSidebarList.tasks != null
+      ) {
+        return {
+          ...state,
+          activeSidebarList: {
+            ...state.activeSidebarList,
+            tasks: {
+              ...state.activeSidebarList.tasks.map((item) => {
+                if (item.id === action.id) {
+                  item.text = action.text;
+                }
+                return item;
+              }),
+            },
+          },
+        };
+      }
+    }
+    case DELETE_ACTIVE_LIST_TASK: {
+      if (
+        state.activeSidebarList &&
+        state.activeSidebarList.tasks != undefined &&
+        state.activeSidebarList &&
+        state.activeSidebarList.tasks != null
+      ) {
+        return {
+          ...state,
+          activeSidebarList: {
+            ...state.activeSidebarList,
+            tasks: {
+              ...state.activeSidebarList.tasks.filter((item) => item.id === action.id),
+            },
+          },
+        };
+      }
     }
     default:
       return state;
@@ -108,6 +150,13 @@ export const actions = {
     ({ type: SELECT_ACTIVE_SIDEBAR_LIST, payload: obj } as const),
   changeSidebarListName: (id: string | number, name: string) =>
     ({ type: CHANGE_ACTIVE_SIDEBAR_LIST_NAME, id, name } as const),
+  deleteActiveListTask: (id: string | number) =>
+    ({
+      type: DELETE_ACTIVE_LIST_TASK,
+      id,
+    } as const),
+  changeActiveListTaskValue: (id: string | number, text: string | number) =>
+    ({ type: CHANGE_ACTIVE_LIST_TASK_VALUE, id, text } as const),
 };
 
 export const getSidebarLists = (): ThunkType => async (dispatch) => {

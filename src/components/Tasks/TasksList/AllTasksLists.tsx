@@ -15,7 +15,6 @@ import {
 import { getListsTasks } from '../../../redux/reducers/tasksReducer';
 import { getAllTasks } from '../../../redux/selectors/tasksSelectors';
 import { getPuresidebarListItems } from '../../../redux/selectors/sidebarSelectors';
-import { useHistory } from 'react-router-dom';
 
 const AllTasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = ({
   list,
@@ -24,7 +23,6 @@ const AllTasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps
   setNewSidebarListName,
   selectActiveSidebarList,
 }) => {
-  const history = useHistory();
   React.useEffect(() => {}, [allTasks, allSideBarLists]);
 
   const editActiveTaskName = (id: string | number, name: string) => {
@@ -37,7 +35,6 @@ const AllTasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps
 
   const redirectToActiveList = (list: itemsType) => {
     selectActiveSidebarList(list);
-    history.push(`/lists/${list.id}`);
   };
   return (
     <React.Fragment>

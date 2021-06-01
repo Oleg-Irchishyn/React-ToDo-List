@@ -12,6 +12,7 @@ import {
   setNewTaskValue,
   toggleTaskCompletion,
 } from '../../../../redux/reducers/tasksReducer';
+import { actions } from '../../../../redux/reducers/sidebarReducer';
 import { getPuresidebarListItems } from '../../../../redux/selectors/sidebarSelectors';
 import { getAllTasks } from '../../../../redux/selectors/tasksSelectors';
 
@@ -20,7 +21,14 @@ type ownProps = {
 };
 
 const TasksListItems: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = React.memo(
-  ({ task, deleteTodoListTask, setNewTaskValue, toggleTaskCompletion }) => {
+  ({
+    task,
+    deleteTodoListTask,
+    setNewTaskValue,
+    toggleTaskCompletion,
+    changeActiveListTaskValue,
+    deleteActiveListTask,
+  }) => {
     let [completion, setCompletion] = React.useState(!task.completed);
 
     const onDeleteTask = (id: string | number) => {
@@ -81,6 +89,8 @@ type MapDispatchPropsType = {
     listId: string | number | null,
     completed: boolean,
   ) => void;
+  changeActiveListTaskValue: (id: string | number, text: string | number) => void;
+  deleteActiveListTask: (id: string | number) => void;
 };
 
 const mapStateToProps = (state: AppStateType) => ({
@@ -93,5 +103,7 @@ export default compose<React.ComponentType>(
     deleteTodoListTask,
     setNewTaskValue,
     toggleTaskCompletion,
+    changeActiveListTaskValue: actions.changeActiveListTaskValue,
+    deleteActiveListTask: actions.deleteActiveListTask,
   }),
 )(TasksListItems);
