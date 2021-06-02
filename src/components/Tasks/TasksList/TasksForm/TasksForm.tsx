@@ -23,6 +23,7 @@ const TasksForm: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
   isLoading,
   setNewTaskToList,
   addNewTaskToList,
+  getSidebarLists,
   getListsTasks,
 }) => {
   const [visibleForm, setVisibleForm] = React.useState(false);
@@ -54,6 +55,9 @@ const TasksForm: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
       if (item.id === listId) {
         if (item.tasks) {
           item.tasks = [...item.tasks, newTaskObj];
+          if (activeListItem && activeListItem.tasks) {
+            activeListItem.tasks = item.tasks;
+          }
         }
       }
       return item;
