@@ -4,6 +4,7 @@ import { appAPI } from '../../api/api';
 import { FormAction } from 'redux-form';
 import { BaseThunkType } from '../store';
 import { getSidebarLists } from './sidebarReducer';
+import { startCase } from 'lodash';
 
 const ADD_NEW_TASK_TO_LIST = 'todo/tasks/ADD_NEW_TASK_TO_LIST';
 const SET_LISTS_TASKS = 'todo/tasks/SET_LISTS_TASKS';
@@ -117,6 +118,7 @@ export const setNewTaskToList =
       let data = await appAPI.setNewTodoListTask(id, listId, text, completed);
       dispatch(actions.addNewTaskToList(data));
       dispatch(getSidebarLists());
+      dispatch(getListsTasks());
     } catch (err) {
       throw new Error(`Promise has not been resolved properly`);
     } finally {

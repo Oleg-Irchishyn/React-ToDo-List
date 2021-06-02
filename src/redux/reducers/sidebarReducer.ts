@@ -109,7 +109,8 @@ const sidebarReducer = (state = initialState, action: ActionsTypes): initialStat
     }
     case DELETE_ACTIVE_LIST_TASK: {
       if (state.activeSidebarList && state.activeSidebarList.tasks) {
-        const newTaskList = state.activeSidebarList.tasks.filter((item) => item.id === action.id);
+        const newTaskList = state.activeSidebarList.tasks.filter((item) => item.id !== action.id);
+
         return {
           ...state,
           activeSidebarList: {
