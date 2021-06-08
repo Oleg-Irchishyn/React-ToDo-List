@@ -1,4 +1,4 @@
-import { itemsType, DBcolorsType, allTasksBtnType } from '../types/types';
+import { itemsType, DBcolorsType, allTasksBtnType, itemsTasksType } from '../types/types';
 import { appAPI } from './../../api/api';
 import { BaseThunkType, InferActionsTypes } from '../store';
 import { FormAction } from 'redux-form';

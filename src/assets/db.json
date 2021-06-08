@@ -1,76 +1,45 @@
 {
   "lists": [
     {
-      "id": "e719b5c2-adda-4a93-a439-ae78e5f30b02",
-      "name": "test",
+      "id": "7983ce67-b3e4-493a-bc95-d39ab02aec4d",
+      "name": "seld semen",
       "colorId": 2
+    },
+    {
+      "id": "7ad0474a-850f-4fe3-9cc3-ea86c09e6511",
+      "name": "sledochka",
+      "colorId": 7
     }
   ],
   "tasks": [
     {
-      "id": "27b9420c-5874-4634-b6ef-ed38778a177e",
-      "listId": "e719b5c2-adda-4a93-a439-ae78e5f30b02",
-      "text": "test1",
+      "id": "0ad2a47e-3de7-468a-aa68-7d5ef2231c89",
+      "listId": "7983ce67-b3e4-493a-bc95-d39ab02aec4d",
+      "text": "ramen",
       "completed": false
     },
     {
-      "id": "be397044-96b2-423f-872f-7ac3e92c0002",
-      "listId": "e719b5c2-adda-4a93-a439-ae78e5f30b02",
-      "text": "test21",
+      "id": "6826f283-922e-4500-aab0-24a493d7ffcc",
+      "listId": "7983ce67-b3e4-493a-bc95-d39ab02aec4d",
+      "text": "pilorama",
       "completed": false
     },
     {
-      "id": "76c118c0-594f-4a68-8778-944027372b0b",
-      "listId": "e719b5c2-adda-4a93-a439-ae78e5f30b02",
-      "text": "test23",
+      "id": "5316ab38-8504-45cb-bab4-bfdbb9eabdc9",
+      "listId": "7983ce67-b3e4-493a-bc95-d39ab02aec4d",
+      "text": "magnitofon",
       "completed": false
     },
     {
-      "id": "1e37c2d1-3ca6-4adc-a670-683706b78598",
-      "listId": "e719b5c2-adda-4a93-a439-ae78e5f30b02",
-      "text": "test24",
+      "id": "d53c1376-4ec3-4d40-ab0d-e71c40068aa7",
+      "listId": "7ad0474a-850f-4fe3-9cc3-ea86c09e6511",
+      "text": "s okulele",
       "completed": false
     },
     {
-      "id": "412884fa-afdb-4b82-8bbc-40f9725a0406",
-      "listId": "e719b5c2-adda-4a93-a439-ae78e5f30b02",
-      "text": "test25",
-      "completed": false
-    },
-    {
-      "id": "464ba31f-7cfa-493c-8308-1678ed0d694f",
-      "listId": "e719b5c2-adda-4a93-a439-ae78e5f30b02",
-      "text": "yo",
-      "completed": false
-    },
-    {
-      "id": "a0ee93e4-2726-4cb3-85d2-8a639421d4cf",
-      "listId": "e719b5c2-adda-4a93-a439-ae78e5f30b02",
-      "text": "yo2",
-      "completed": false
-    },
-    {
-      "id": "9c446d45-e390-4d3c-a596-12c5801eed74",
-      "listId": "e719b5c2-adda-4a93-a439-ae78e5f30b02",
-      "text": "yo3",
-      "completed": false
-    },
-    {
-      "id": "60930756-c3f9-4d64-9ac1-e96b613c999e",
-      "listId": "e719b5c2-adda-4a93-a439-ae78e5f30b02",
-      "text": "yo105",
-      "completed": false
-    },
-    {
-      "id": "90bc7854-1e0d-48e6-80f1-27ab587d6a13",
-      "listId": "e719b5c2-adda-4a93-a439-ae78e5f30b02",
-      "text": "yo106",
-      "completed": false
-    },
-    {
-      "id": "10083cc5-fb48-4496-b357-9e6f1d5948f1",
-      "listId": "e719b5c2-adda-4a93-a439-ae78e5f30b02",
-      "text": "yo108",
+      "id": "434a791e-1be8-4e4e-85ee-97ddd5fe5c1f",
+      "listId": "7ad0474a-850f-4fe3-9cc3-ea86c09e6511",
+      "text": "skitik",
       "completed": false
     }
   ],

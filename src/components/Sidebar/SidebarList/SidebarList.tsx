@@ -33,7 +33,6 @@ const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
   }, [getSidebarLists]);
 
   const history = useHistory();
-  // React.useEffect(() => {}, [items, history.location.pathname]);
   React.useEffect(() => {
     const itemId = history.location.pathname.split('lists/')[1];
 

@@ -12,10 +12,11 @@ import {
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { setNewTaskToList, actions, getListsTasks } from '../../../../redux/reducers/tasksReducer';
-import { getSidebarLists } from '../../../../redux/reducers/sidebarReducer';
+import { getSidebarLists, actions as sbActions } from '../../../../redux/reducers/sidebarReducer';
 import { v4 as uuidv4 } from 'uuid';
-import { itemsTasksType } from '../../../../redux/types/types';
+import { itemsTasksType, itemsType } from '../../../../redux/types/types';
 import { getIsLoading } from '../../../../redux/selectors/tasksSelectors';
+import { useHistory } from 'react-router-dom';
 
 const TasksForm: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
   items,
@@ -25,7 +26,9 @@ const TasksForm: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
   addNewTaskToList,
   getSidebarLists,
   getListsTasks,
+  selectActiveSidebarList,
 }) => {
+  const history = useHistory();
   const [visibleForm, setVisibleForm] = React.useState(false);
   const toggleVisibleForm = () => {
     setVisibleForm(!visibleForm);
@@ -55,13 +58,22 @@ const TasksForm: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
       if (item.id === listId) {
         if (item.tasks) {
           item.tasks = [...item.tasks, newTaskObj];
-          if (activeListItem && activeListItem.tasks) {
-            activeListItem.tasks = item.tasks;
-          }
         }
       }
       return item;
     });
+
+    if (activeListItem) {
+      items.map((item) => {
+        if (item.id === activeListItem.id) {
+          selectActiveSidebarList(item);
+          history.push(`/lists/${item.id}`);
+          //@ts-ignore
+          activeListItem.tasks = [...item.tasks];
+        }
+        return item;
+      });
+    }
 
     addNewTaskToList(newTasksList);
     getSidebarLists();
@@ -153,6 +165,7 @@ type MapDispatchPropsType = {
   addNewTaskToList: (obj: itemsTasksType) => void;
   getListsTasks: () => void;
   getSidebarLists: () => void;
+  selectActiveSidebarList: (obj: itemsType | null) => void;
 };
 
 export default compose<React.ComponentType>(
@@ -161,5 +174,6 @@ export default compose<React.ComponentType>(
     addNewTaskToList: actions.addNewTaskToList,
     getSidebarLists,
     getListsTasks,
+    selectActiveSidebarList: sbActions.selectActiveSidebarList,
   }),
 )(TasksForm);

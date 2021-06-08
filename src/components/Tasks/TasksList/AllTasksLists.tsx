@@ -3,6 +3,7 @@ import cn from 'classnames';
 import styles from '../../../styles/components/Tasks.module.scss';
 import editIcon from '../../../assets/images/edit.svg';
 import { TasksListItems, AllTasksForm } from '../../index';
+import { useHistory } from 'react-router-dom';
 import { AppStateType } from '../../../redux/store';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -24,6 +25,7 @@ const AllTasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps
   selectActiveSidebarList,
 }) => {
   React.useEffect(() => {}, [allTasks, allSideBarLists]);
+  const history = useHistory();
 
   const editActiveTaskName = (id: string | number, name: string) => {
     const newActiveListName = window.prompt(`Lists's Name`, (name = String(list && list.name)));
@@ -35,6 +37,7 @@ const AllTasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps
 
   const redirectToActiveList = (list: itemsType) => {
     selectActiveSidebarList(list);
+    history.push(`/lists/${list.id}`);
   };
   return (
     <React.Fragment>
