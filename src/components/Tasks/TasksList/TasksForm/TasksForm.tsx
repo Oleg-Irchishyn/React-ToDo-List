@@ -11,106 +11,96 @@ import {
 } from '../../../../redux/selectors/sidebarSelectors';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { setNewTaskToList, actions, getListsTasks } from '../../../../redux/reducers/tasksReducer';
-import { getSidebarLists, actions as sbActions } from '../../../../redux/reducers/sidebarReducer';
+import { setNewTaskToList, actions } from '../../../../redux/reducers/tasksReducer';
+import { actions as sbActions } from '../../../../redux/reducers/sidebarReducer';
 import { v4 as uuidv4 } from 'uuid';
 import { itemsTasksType, itemsType } from '../../../../redux/types/types';
 import { getIsLoading } from '../../../../redux/selectors/tasksSelectors';
 import { useHistory } from 'react-router-dom';
 
-const TasksForm: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
-  items,
-  activeListItem,
-  isLoading,
-  setNewTaskToList,
-  addNewTaskToList,
-  getSidebarLists,
-  getListsTasks,
-  selectActiveSidebarList,
-}) => {
-  const history = useHistory();
-  const [visibleForm, setVisibleForm] = React.useState(false);
-  const toggleVisibleForm = () => {
-    setVisibleForm(!visibleForm);
-  };
-
-  const formRef = React.useRef<HTMLDivElement>(null);
-
-  const handleFormOutsideClick = React.useCallback((e: any) => {
-    const path = e.path || (e.composedPath && e.composedPath());
-    if (!path.includes(formRef.current)) {
-      setVisibleForm(false);
-    }
-  }, []);
-
-  const onAddTask = (values: AddNewPostFormValuesType, dispatch: (T: FormAction) => void) => {
-    const newTaskObj = {
-      id: uuidv4(),
-      listId: activeListItem && activeListItem.id,
-      text: values.newTaskText,
-      completed: false,
+const TasksForm: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
+  ({
+    items,
+    activeListItem,
+    isLoading,
+    setNewTaskToList,
+    addNewTaskToList,
+    selectActiveSidebarList,
+  }) => {
+    const history = useHistory();
+    const [visibleForm, setVisibleForm] = React.useState(false);
+    const toggleVisibleForm = () => {
+      setVisibleForm(!visibleForm);
     };
 
-    const { id, listId, text, completed } = newTaskObj;
-    setNewTaskToList(id, listId, text, completed);
+    const formRef = React.useRef<HTMLDivElement>(null);
 
-    const newTasksList: any = items.map((item) => {
-      if (item.id === listId) {
-        if (item.tasks) {
-          item.tasks = [...item.tasks, newTaskObj];
-        }
+    const handleFormOutsideClick = React.useCallback((e: any) => {
+      const path = e.path || (e.composedPath && e.composedPath());
+      if (!path.includes(formRef.current)) {
+        setVisibleForm(false);
       }
-      return item;
-    });
+    }, []);
 
-    if (activeListItem) {
-      items.map((item) => {
-        if (item.id === activeListItem.id) {
-          selectActiveSidebarList(item);
-          history.push(`/lists/${item.id}`);
-          //@ts-ignore
-          activeListItem.tasks = [...item.tasks];
+    const onAddTask = (values: AddNewPostFormValuesType, dispatch: (T: FormAction) => void) => {
+      const newTaskObj = {
+        id: uuidv4(),
+        listId: activeListItem && activeListItem.id,
+        text: values.newTaskText,
+        completed: false,
+      };
+
+      const { id, listId, text, completed } = newTaskObj;
+      setNewTaskToList(id, listId, text, completed);
+
+      const newTasksList: any = items.map((item) => {
+        if (item.id === listId) {
+          if (item.tasks) {
+            item.tasks = [...item.tasks, newTaskObj];
+            if (activeListItem) {
+              if (item.id === activeListItem.id) {
+                activeListItem.tasks = [...item.tasks];
+              }
+            }
+          }
         }
         return item;
       });
-    }
-
-    addNewTaskToList(newTasksList);
-    getSidebarLists();
-    getListsTasks();
-    setVisibleForm(false);
-  };
-
-  const onCancelSubmit = () => {
-    setVisibleForm(false);
-  };
-
-  React.useEffect(() => {
-    document.body.addEventListener('click', handleFormOutsideClick);
-    return () => {
-      document.body.removeEventListener('click', handleFormOutsideClick);
+      addNewTaskToList(newTasksList);
+      setVisibleForm(false);
     };
-  }, [handleFormOutsideClick]);
 
-  return (
-    <div className={cn(styles.tasks__form)} ref={formRef}>
-      {!visibleForm ? (
-        <div className={cn(styles.tasks__form_new)} onClick={toggleVisibleForm}>
-          <i className={cn(styles.add_icon)}></i>
-          <span>New Task</span>
-        </div>
-      ) : (
-        <div className={cn(styles.tasks__form_block)}>
-          <AddNewPostFormRedux
-            isLoading={isLoading}
-            onCancelSubmit={onCancelSubmit}
-            onSubmit={onAddTask}
-          />
-        </div>
-      )}
-    </div>
-  );
-};
+    const onCancelSubmit = () => {
+      setVisibleForm(false);
+    };
+
+    React.useEffect(() => {
+      document.body.addEventListener('click', handleFormOutsideClick);
+      return () => {
+        document.body.removeEventListener('click', handleFormOutsideClick);
+      };
+    }, [handleFormOutsideClick]);
+
+    return (
+      <div className={cn(styles.tasks__form)} ref={formRef}>
+        {!visibleForm ? (
+          <div className={cn(styles.tasks__form_new)} onClick={toggleVisibleForm}>
+            <i className={cn(styles.add_icon)}></i>
+            <span>New Task</span>
+          </div>
+        ) : (
+          <div className={cn(styles.tasks__form_block)}>
+            <AddNewPostFormRedux
+              isLoading={isLoading}
+              onCancelSubmit={onCancelSubmit}
+              onSubmit={onAddTask}
+            />
+          </div>
+        )}
+      </div>
+    );
+  },
+);
 
 const maxLength30 = maxLengthCreator(30);
 
@@ -163,8 +153,6 @@ type MapDispatchPropsType = {
     completed: boolean,
   ) => void;
   addNewTaskToList: (obj: itemsTasksType) => void;
-  getListsTasks: () => void;
-  getSidebarLists: () => void;
   selectActiveSidebarList: (obj: itemsType | null) => void;
 };
 
@@ -172,8 +160,6 @@ export default compose<React.ComponentType>(
   connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
     setNewTaskToList,
     addNewTaskToList: actions.addNewTaskToList,
-    getSidebarLists,
-    getListsTasks,
     selectActiveSidebarList: sbActions.selectActiveSidebarList,
   }),
 )(TasksForm);

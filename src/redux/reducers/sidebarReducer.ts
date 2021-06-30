@@ -184,6 +184,7 @@ export const setNewSidebarListName =
     try {
       await appAPI.renameTodoList(id, newName);
       dispatch(actions.changeSidebarListName(id, newName));
+      window.location.reload();
     } catch (err) {
       throw new Error(`Promise has not been resolved properly`);
     }

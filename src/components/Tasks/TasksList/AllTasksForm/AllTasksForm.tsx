@@ -8,16 +8,13 @@ import { AppStateType } from '../../../../redux/store';
 import { getsidebarListItems } from '../../../../redux/selectors/sidebarSelectors';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { setNewTaskToList, actions, getListsTasks } from '../../../../redux/reducers/tasksReducer';
-import { getSidebarLists } from '../../../../redux/reducers/sidebarReducer';
+import { setNewTaskToList, actions } from '../../../../redux/reducers/tasksReducer';
 import { v4 as uuidv4 } from 'uuid';
 import { itemsTasksType, itemsType } from '../../../../redux/types/types';
 import { getIsLoading } from '../../../../redux/selectors/tasksSelectors';
 
-const AllTasksForm: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = ({
+const AllTasksForm: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = React.memo(({
   items,
-  getListsTasks,
-  getSidebarLists,
   isLoading,
   list,
   setNewTaskToList,
@@ -58,8 +55,6 @@ const AllTasksForm: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps
     });
 
     addNewTaskToList(newTasksList);
-    getSidebarLists();
-    getListsTasks();
     setVisibleForm(false);
   };
 
@@ -93,7 +88,8 @@ const AllTasksForm: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps
       )}
     </div>
   );
-};
+},
+);
 
 const maxLength30 = maxLengthCreator(30);
 
@@ -151,15 +147,11 @@ type MapDispatchPropsType = {
     completed: boolean,
   ) => void;
   addNewTaskToList: (obj: itemsTasksType) => void;
-  getListsTasks: () => void;
-  getSidebarLists: () => void;
 };
 
 export default compose<React.ComponentType>(
   connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
     setNewTaskToList,
-    getListsTasks,
-    getSidebarLists,
     addNewTaskToList: actions.addNewTaskToList,
   }),
 )(AllTasksForm);

@@ -10,14 +10,12 @@ import { connect } from 'react-redux';
 import { itemsType } from '../../../redux/types/types';
 import {
   setNewSidebarListName,
-  getSidebarLists,
   actions,
 } from '../../../redux/reducers/sidebarReducer';
-import { getListsTasks } from '../../../redux/reducers/tasksReducer';
 import { getAllTasks } from '../../../redux/selectors/tasksSelectors';
 import { getPuresidebarListItems } from '../../../redux/selectors/sidebarSelectors';
 
-const AllTasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = ({
+const AllTasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = React.memo(({
   list,
   allTasks,
   allSideBarLists,
@@ -32,7 +30,6 @@ const AllTasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps
     if (newActiveListName) {
       setNewSidebarListName(id, newActiveListName);
     }
-    getSidebarLists();
   };
 
   const redirectToActiveList = (list: itemsType) => {
@@ -59,11 +56,13 @@ const AllTasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps
             )}
           </div>
 
-          {!list ||
-            !list.tasks ||
-            (list.tasks.length <= 0 && (
-              <h2 className={cn(styles.list_title_hollow)}>No tasks :(</h2>
-            ))}
+          {list && list.tasks && list.tasks.length <= 0 && (
+            <h2 className={cn(styles.list_title_hollow)}>No tasks :(</h2>
+          )}
+
+          {list && list.tasks === undefined && (
+            <h2 className={cn(styles.list_title_hollow)}>No tasks :(</h2>
+          )}
 
           {list &&
             list.tasks &&
@@ -80,7 +79,8 @@ const AllTasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps
       )}
     </React.Fragment>
   );
-};
+},
+);
 
 type ownProps = {
   list: itemsType;
@@ -94,16 +94,12 @@ const mapStateToProps = (state: AppStateType) => ({
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 type MapDispatchPropsType = {
   setNewSidebarListName: (id: string | number, name: string) => void;
-  getListsTasks: () => void;
-  getSidebarLists: () => void;
   selectActiveSidebarList: (obj: itemsType | null) => void;
 };
 
 export default compose<React.ComponentType>(
   connect<MapStatePropsType, MapDispatchPropsType, ownProps, AppStateType>(mapStateToProps, {
     setNewSidebarListName,
-    getListsTasks,
-    getSidebarLists,
     selectActiveSidebarList: actions.selectActiveSidebarList,
   }),
 )(AllTasksList);

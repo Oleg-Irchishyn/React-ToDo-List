@@ -1,45 +1,9 @@
 {
-  "lists": [
-    {
-      "id": "7983ce67-b3e4-493a-bc95-d39ab02aec4d",
-      "name": "seld semen",
-      "colorId": 2
-    },
-    {
-      "id": "7ad0474a-850f-4fe3-9cc3-ea86c09e6511",
-      "name": "sledochka",
-      "colorId": 7
-    }
-  ],
+  "lists": [],
   "tasks": [
     {
-      "id": "0ad2a47e-3de7-468a-aa68-7d5ef2231c89",
-      "listId": "7983ce67-b3e4-493a-bc95-d39ab02aec4d",
-      "text": "ramen",
-      "completed": false
-    },
-    {
-      "id": "6826f283-922e-4500-aab0-24a493d7ffcc",
-      "listId": "7983ce67-b3e4-493a-bc95-d39ab02aec4d",
-      "text": "pilorama",
-      "completed": false
-    },
-    {
-      "id": "5316ab38-8504-45cb-bab4-bfdbb9eabdc9",
-      "listId": "7983ce67-b3e4-493a-bc95-d39ab02aec4d",
-      "text": "magnitofon",
-      "completed": false
-    },
-    {
-      "id": "d53c1376-4ec3-4d40-ab0d-e71c40068aa7",
-      "listId": "7ad0474a-850f-4fe3-9cc3-ea86c09e6511",
-      "text": "s okulele",
-      "completed": false
-    },
-    {
-      "id": "434a791e-1be8-4e4e-85ee-97ddd5fe5c1f",
-      "listId": "7ad0474a-850f-4fe3-9cc3-ea86c09e6511",
-      "text": "skitik",
+      "id": "48dbc8e4-4e46-49be-b7f4-2f3e8c459f87",
+      "text": "glgl",
       "completed": false
     }
   ],

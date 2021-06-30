@@ -117,6 +117,7 @@ export const setNewTaskToList =
       let data = await appAPI.setNewTodoListTask(id, listId, text, completed);
       dispatch(actions.addNewTaskToList(data));
       dispatch(getSidebarLists());
+      window.location.reload();
     } catch (err) {
       throw new Error(`Promise has not been resolved properly`);
     } finally {
