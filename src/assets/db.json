@@ -1,5 +1,16 @@
 {
-  "lists": [],
+  "lists": [
+    {
+      "id": "ef634e35-6e32-4b66-85c8-54213bfeddb6",
+      "name": "tata1",
+      "colorId": 7
+    },
+    {
+      "id": "4430450d-3b27-4823-ad87-2f02a4e2f780",
+      "name": "25",
+      "colorId": 5
+    }
+  ],
   "tasks": [
     {
       "id": "48dbc8e4-4e46-49be-b7f4-2f3e8c459f87",

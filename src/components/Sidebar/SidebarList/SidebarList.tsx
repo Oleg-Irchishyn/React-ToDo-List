@@ -32,7 +32,13 @@ const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = React.me
       if (item) {
         selectActiveSidebarList(item);
       }
-    }, [history]);
+
+      if (activeListItem !== null) {
+        history.push(`/lists/${activeListItem.id}`);
+        selectActiveSidebarList(activeListItem);
+      }
+
+    }, [activeListItem, history.location.pathname]);
 
     const listIcon = (
       <svg
@@ -50,7 +56,9 @@ const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = React.me
 
     const onRemove = (item: itemsType) => {
       if (window.confirm('Do you want to remove this list?')) {
+        selectActiveSidebarList(null);
         removeSidebarList(item.id);
+        window.location.replace("/");
       }
     };
 
