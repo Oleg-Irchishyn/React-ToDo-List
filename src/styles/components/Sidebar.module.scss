@@ -14,7 +14,7 @@
   height: 100%;
   padding: 50px 20px 50px 20px;
   border-right: 1px solid #f1f1f1;
-  background: #e5e5e5;
+  background: #f7f3cc;
   &_list {
     display: flex;
     flex-direction: column;
@@ -175,6 +175,18 @@
       margin: 0;
     }
   }
+  &_open_arrow {
+    position: absolute;
+    top: 50%;
+    right: -10%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+
+    svg {
+      font-size: 24px;
+      color: rgb(17, 1, 51);
+    }
+  }
 }
 .todo__sidebar_add_btn_wrapper {
   position: relative;
@@ -187,15 +199,16 @@
     justify-content: space-between;
     align-items: center;
     position: absolute;
-    max-width: 100%;
+    max-width: 235px;
     width: 235px;
     min-height: 148px;
     left: 0;
     top: calc(0% + 30px);
-    background: #ffffff;
+    background: #e9ebf3;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.05);
     border-radius: 10px;
     padding: 18px;
+    z-index: 10;
     &__close_btn {
       position: absolute;
       right: calc(0% - 10px);

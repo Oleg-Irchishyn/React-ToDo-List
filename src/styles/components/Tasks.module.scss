@@ -18,14 +18,13 @@
     }
   }
   &_list {
-    padding: 57px;
+    padding: 20px 40px 40px 20px;
     position: relative;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    width: 100%;
     .list_title_wrapper {
       position: relative;
       display: flex;

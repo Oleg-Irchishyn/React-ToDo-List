@@ -1,14 +1,24 @@
 {
   "lists": [
     {
-      "id": "ef634e35-6e32-4b66-85c8-54213bfeddb6",
-      "name": "tata1",
-      "colorId": 7
+      "id": "0eead3ea-3d40-4ae7-a355-6268a7a054a8",
+      "name": "yes",
+      "colorId": 4
     },
     {
-      "id": "4430450d-3b27-4823-ad87-2f02a4e2f780",
-      "name": "25",
-      "colorId": 5
+      "id": "68f579f4-6d0b-49b0-964e-ae9856fbc720",
+      "name": "yes2",
+      "colorId": 3
+    },
+    {
+      "id": "42ee7f8f-6fe3-4b7b-b103-fa9a7889ea35",
+      "name": "gag",
+      "colorId": 4
+    },
+    {
+      "id": "96406eed-44cd-456d-8987-53291fb36b18",
+      "name": "gaga",
+      "colorId": 6
     }
   ],
   "tasks": [

@@ -10,7 +10,6 @@ import { AppStateType } from './redux/store';
 import { initializeApp } from './redux/reducers/appReducer';
 import { getInitializeApp } from './redux/selectors/appSelectors';
 import cn from 'classnames';
-import { getActiveSidebarList } from './redux/selectors/sidebarSelectors';
 
 /* React Lazy example
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
@@ -18,7 +17,7 @@ const SuspendedProfile = withSuspense(ProfileContainer);
 */
 
 const App: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
-  ({ initializeApp, initialized, activeListItem }) => {
+  ({ initializeApp, initialized }) => {
     const history = useHistory();
 
     React.useEffect(() => {
@@ -30,11 +29,11 @@ const App: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
     }
 
     return (
-      <div className={cn(styles.todo, {})}>
-        <div
-          className={cn(styles.todo__wrapper, {
-            container: true,
-          })}>
+      <div
+        className={cn(styles.todo, {
+          container: true,
+        })}>
+        <div className={cn(styles.todo__wrapper)}>
           <Sidebar />
           <Tasks />
           {/*<Route path="/profile/:userId?" render={() => <SuspendedProfile />} />*/}
@@ -46,7 +45,6 @@ const App: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
 
 const mapStateToProps = (state: AppStateType) => ({
   initialized: getInitializeApp(state),
-  activeListItem: getActiveSidebarList(state),
 });
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;

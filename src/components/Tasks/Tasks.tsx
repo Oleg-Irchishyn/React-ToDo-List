@@ -10,22 +10,28 @@ import { connect } from 'react-redux';
 import { itemsType } from '../../redux/types/types';
 import { getSidebarLists } from '../../redux/reducers/sidebarReducer';
 import { getListsTasks } from '../../redux/reducers/tasksReducer';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 const Tasks: React.FC<MapStatePropsType & ownProps> = React.memo(({ lists, activeListItem }) => {
   return (
     <div className={cn(styles.todo__tasks)}>
-      <Switch>
-        <Route exact path="/">
-          {lists &&
+      <Scrollbars
+        style={{ width: '100%', height: '100%' }}
+        thumbSize={30}
+        renderThumbVertical={(props) => <div {...props} className="thumb_vertical" />}>
+        <Switch>
+          <Route exact path="/">
+            {lists &&
+              //@ts-ignore
+              lists.map((list) => <AllTasksLists list={list} key={list.id} />)}
+          </Route>
+          {
             //@ts-ignore
-            lists.map((list) => <AllTasksLists list={list} key={list.id} />)}
-        </Route>
-        {
-          //@ts-ignore
-          <Route path="/lists/:id" render={() => <TasksList activeListItem={activeListItem} />} />
-        }
-        <Route path="*" render={() => <div>404 NOT FOUND</div>} />
-      </Switch>
+            <Route path="/lists/:id" render={() => <TasksList activeListItem={activeListItem} />} />
+          }
+          <Route path="*" render={() => <div>404 NOT FOUND</div>} />
+        </Switch>
+      </Scrollbars>
     </div>
   );
 });
