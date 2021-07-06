@@ -38,3 +38,7 @@ export const getIsLoading = (state: AppStateType) => {
 export const getActiveSidebarList = (state: AppStateType) => {
   return state.sidebar.activeSidebarList;
 };
+
+export const getElemVisibility = (state: AppStateType) => {
+  return state.sidebar.visibility;
+};

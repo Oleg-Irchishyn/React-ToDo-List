@@ -12,6 +12,7 @@ const SELECT_ACTIVE_SIDEBAR_LIST = 'todo/sidebar/SELECT_ACTIVE_SIDEBAR_LIST';
 const CHANGE_ACTIVE_SIDEBAR_LIST_NAME = 'todo/sidebar/CHANGE_ACTIVE_SIDEBAR_LIST_NAME';
 const CHANGE_ACTIVE_LIST_TASK_VALUE = 'todo/sidebar/CHANGE_ACTIVE_LIST_TASK_VALUE';
 const DELETE_ACTIVE_LIST_TASK = 'todo/sidebar/DELETE_ACTIVE_LIST_TASK';
+const SET_VISIBILITY_OF_ELEMENTS = 'todo/sidebar/SET_VISIBILITY_OF_ELEMENTS';
 
 let initialState = {
   allTasksBtnList: [
@@ -32,6 +33,7 @@ let initialState = {
   isRemovable: true as boolean,
   isLoading: false as boolean,
   activeSidebarList: null as itemsType | null,
+  visibility: false as boolean,
 };
 
 const sidebarReducer = (state = initialState, action: ActionsTypes): initialStateType => {
@@ -56,7 +58,12 @@ const sidebarReducer = (state = initialState, action: ActionsTypes): initialStat
         activeSidebarList: null,
       };
     }
-
+    case SET_VISIBILITY_OF_ELEMENTS: {
+      return {
+        ...state,
+        visibility: action.payload,
+      };
+    }
     case SET_LISTS_COLORS:
       return {
         ...state,
@@ -146,6 +153,8 @@ export const actions = {
     } as const),
   changeActiveListTaskValue: (id: string | number, text: string | number) =>
     ({ type: CHANGE_ACTIVE_LIST_TASK_VALUE, id, text } as const),
+  setVisibilityOfElements: (val: boolean) =>
+    ({ type: SET_VISIBILITY_OF_ELEMENTS, payload: val } as const),
 };
 
 export const getSidebarLists = (): ThunkType => async (dispatch) => {

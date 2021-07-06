@@ -20,11 +20,12 @@ import {
 } from '../../../redux/reducers/sidebarReducer';
 import { itemsType } from '../../../redux/types/types';
 
-const AddList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
+const AddList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = ({
   items,
   colors,
   selectedColor,
   isLoading,
+  visibility,
   setSelectedColor,
   addNewSidebarList,
   getSidebarLists,
@@ -82,6 +83,7 @@ const AddList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
             key={index}
             className={cn({
               [styles.active]: '',
+              [styles.shrink_sidebar_add_list_btn]: visibility === true,
             })}>
             <span>{item.name}</span>
           </li>
@@ -120,6 +122,10 @@ const mapStateToProps = (state: AppStateType) => ({
   selectedColor: getselectedColor(state),
   isLoading: getIsLoading(state),
 });
+
+type ownProps = {
+  visibility: boolean;
+};
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 type MapDispatchPropsType = {

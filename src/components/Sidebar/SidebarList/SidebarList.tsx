@@ -15,12 +15,13 @@ import removeSvg from '../../../assets/images/remove.svg';
 import { itemsType, allTasksBtnType } from '../../../redux/types/types';
 import { removeSidebarList, actions } from '../../../redux/reducers/sidebarReducer';
 
-const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
+const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = React.memo(
   ({
     items,
     allTasksBtnList,
     isRemovable,
     activeListItem,
+    visibility,
     removeSidebarList,
     selectActiveSidebarList,
   }) => {
@@ -37,7 +38,6 @@ const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = React.me
         history.push(`/lists/${activeListItem.id}`);
         selectActiveSidebarList(activeListItem);
       }
-
     }, [activeListItem, history.location.pathname]);
 
     const listIcon = (
@@ -58,7 +58,7 @@ const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = React.me
       if (window.confirm('Do you want to remove this list?')) {
         selectActiveSidebarList(null);
         removeSidebarList(item.id);
-        window.location.replace("/");
+        window.location.replace('/');
       }
     };
 
@@ -75,6 +75,7 @@ const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = React.me
               key={index}
               className={cn({
                 [styles.active]: activeListItem === null,
+                [styles.shrink_sidebar_elements]: visibility === true,
               })}
               onClick={() => {
                 selectActiveSidebarList(null);
@@ -90,6 +91,7 @@ const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = React.me
               key={`${item.id}_${index}`}
               className={cn({
                 [styles.active]: activeListItem && activeListItem.id === item.id,
+                [styles.shrink_sidebar_elements]: visibility === true,
               })}
               onClick={onClickItem ? () => onClickItem(item) : undefined}>
               <i>{<i style={{ background: `${item.color}` }} className={styles.badge}></i>}</i>
@@ -119,6 +121,10 @@ const mapStateToProps = (state: AppStateType) => ({
   isRemovable: getIsRemovable(state),
   activeListItem: getActiveSidebarList(state),
 });
+
+type ownProps = {
+  visibility: boolean;
+};
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 type MapDispatchPropsType = {

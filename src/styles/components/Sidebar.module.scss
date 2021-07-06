@@ -178,10 +178,14 @@
   &_open_arrow {
     position: absolute;
     top: 50%;
-    right: -10%;
-    transform: translate(-50%, -50%);
+    right: calc(0% - 25px);
+    transform: translate(-50%, -50%) rotate(-180deg);
     z-index: 10;
-
+    display: none;
+    transition: 0.4s ease;
+    @include xs-devices {
+      display: block;
+    }
     svg {
       font-size: 24px;
       color: rgb(17, 1, 51);
@@ -287,4 +291,30 @@
       color: $color-main;
     }
   }
+}
+
+.shrink_sidebar {
+  transition: 0.4s ease;
+  max-width: 60px !important;
+}
+
+.shrink_sidebar_elements {
+  transition: 0.4s ease;
+  span {
+    display: none !important;
+    font-size: 0;
+  }
+}
+
+.shrink_sidebar_add_list_btn {
+  transition: 0.4s ease;
+  span {
+    font-size: 0;
+  }
+}
+
+.shrink_arrow {
+  right: calc(0% - 15px);
+  transform: rotate(0deg);
+  transition: 0.4s ease;
 }
