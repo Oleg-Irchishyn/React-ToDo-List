@@ -293,28 +293,33 @@
   }
 }
 
-.shrink_sidebar {
-  transition: 0.4s ease;
-  max-width: 60px !important;
-}
-
-.shrink_sidebar_elements {
-  transition: 0.4s ease;
-  span {
-    display: none !important;
-    font-size: 0;
+@include xs-devices {
+  .grow_sidebar {
+    max-width: 100%;
   }
-}
-
-.shrink_sidebar_add_list_btn {
-  transition: 0.4s ease;
-  span {
-    font-size: 0;
+  .shrink_sidebar {
+    transition: 0.4s ease;
+    max-width: 60px !important;
   }
-}
 
-.shrink_arrow {
-  right: calc(0% - 15px);
-  transform: rotate(0deg);
-  transition: 0.4s ease;
+  .shrink_sidebar_elements {
+    transition: 0.4s ease;
+    span {
+      display: none !important;
+      font-size: 0;
+    }
+  }
+
+  .shrink_sidebar_add_list_btn {
+    transition: 0.4s ease;
+    span {
+      font-size: 0;
+    }
+  }
+
+  .shrink_arrow {
+    right: calc(0% - 15px);
+    transform: rotate(0deg);
+    transition: 0.4s ease;
+  }
 }

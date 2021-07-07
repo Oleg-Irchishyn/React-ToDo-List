@@ -12,6 +12,9 @@ import { actions } from '../../redux/reducers/sidebarReducer';
 
 const Sidebar: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
   ({ visibility, setVisibilityOfElements }) => {
+    React.useEffect(() => {
+      localStorage.setItem('visibility', JSON.stringify(visibility));
+    });
     const element = <FontAwesomeIcon icon={faArrowAltCircleRight} />;
     const [val = visibility, setVal] = React.useState(!visibility);
     const toggleElemetsVisibility = () => {
@@ -23,16 +26,10 @@ const Sidebar: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
       <div
         className={cn(styles.todo__sidebar, {
           [styles.shrink_sidebar]: visibility === true,
+          [styles.grow_sidebar]: visibility === false,
         })}>
-        {
-          //@ts-ignore
-          <SidebarList visibility={visibility} />
-        }
-        {
-          //@ts-ignore
-          <AddList visibility={visibility} />
-        }
-
+        <SidebarList />
+        <AddList />
         <div
           className={cn(styles.todo__sidebar_open_arrow, {
             [styles.shrink_arrow]: visibility === true,

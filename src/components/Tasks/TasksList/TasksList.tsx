@@ -6,11 +6,9 @@ import { TasksListItems, TasksForm } from '../../index';
 import { AppStateType } from '../../../redux/store';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import {
-  getsidebarListItems,
-} from '../../../redux/selectors/sidebarSelectors';
+import { getsidebarListItems } from '../../../redux/selectors/sidebarSelectors';
 import { itemsType, SingleTaskType } from '../../../redux/types/types';
-import { setNewSidebarListName} from '../../../redux/reducers/sidebarReducer';
+import { setNewSidebarListName } from '../../../redux/reducers/sidebarReducer';
 
 type ownProps = {
   task: SingleTaskType;
@@ -78,6 +76,5 @@ type MapDispatchPropsType = {
 export default compose<React.ComponentType>(
   connect<MapStatePropsType, MapDispatchPropsType, ownProps, AppStateType>(mapStateToProps, {
     setNewSidebarListName,
-
   }),
 )(TasksList);

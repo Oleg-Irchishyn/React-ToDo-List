@@ -18,7 +18,8 @@ const Tasks: React.FC<MapStatePropsType & ownProps> = React.memo(({ lists, activ
       <Scrollbars
         style={{ width: '100%', height: '100%' }}
         thumbSize={30}
-        renderThumbVertical={(props) => <div {...props} className="thumb_vertical" />}>
+        renderThumbVertical={(props) => <div {...props} className="thumb_vertical" />}
+        renderThumbHorizontal={(props) => <div {...props} className="thumb_horizontal" />}>
         <Switch>
           <Route exact path="/">
             {lists &&

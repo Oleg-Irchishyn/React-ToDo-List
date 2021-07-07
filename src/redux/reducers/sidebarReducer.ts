@@ -33,7 +33,7 @@ let initialState = {
   isRemovable: true as boolean,
   isLoading: false as boolean,
   activeSidebarList: null as itemsType | null,
-  visibility: false as boolean,
+  visibility: JSON.parse(localStorage.getItem('visibility') || 'false'),
 };
 
 const sidebarReducer = (state = initialState, action: ActionsTypes): initialStateType => {

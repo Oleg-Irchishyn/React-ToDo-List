@@ -6,6 +6,7 @@ import {
   getDBcolors,
   getselectedColor,
   getIsLoading,
+  getElemVisibility,
 } from '../../../redux/selectors/sidebarSelectors';
 import { AppStateType } from '../../../redux/store';
 import { compose } from 'redux';
@@ -20,7 +21,7 @@ import {
 } from '../../../redux/reducers/sidebarReducer';
 import { itemsType } from '../../../redux/types/types';
 
-const AddList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = ({
+const AddList: React.FC<MapStatePropsType & MapDispatchPropsType> = ({
   items,
   colors,
   selectedColor,
@@ -121,11 +122,8 @@ const mapStateToProps = (state: AppStateType) => ({
   items: getaddListButtonItems(state),
   selectedColor: getselectedColor(state),
   isLoading: getIsLoading(state),
+  visibility: getElemVisibility(state),
 });
-
-type ownProps = {
-  visibility: boolean;
-};
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 type MapDispatchPropsType = {

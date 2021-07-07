@@ -8,6 +8,7 @@ import {
   getIsRemovable,
   getsidebarListItems,
   getActiveSidebarList,
+  getElemVisibility,
 } from '../../../redux/selectors/sidebarSelectors';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -15,7 +16,7 @@ import removeSvg from '../../../assets/images/remove.svg';
 import { itemsType, allTasksBtnType } from '../../../redux/types/types';
 import { removeSidebarList, actions } from '../../../redux/reducers/sidebarReducer';
 
-const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = React.memo(
+const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
   ({
     items,
     allTasksBtnList,
@@ -120,11 +121,8 @@ const mapStateToProps = (state: AppStateType) => ({
   allTasksBtnList: getallTasksBtnList(state),
   isRemovable: getIsRemovable(state),
   activeListItem: getActiveSidebarList(state),
+  visibility: getElemVisibility(state),
 });
-
-type ownProps = {
-  visibility: boolean;
-};
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 type MapDispatchPropsType = {

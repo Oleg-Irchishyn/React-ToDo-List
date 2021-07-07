@@ -25,6 +25,9 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    @include xs-devices {
+      padding: 20px;
+    }
     .list_title_wrapper {
       position: relative;
       display: flex;
@@ -51,6 +54,10 @@
         border-bottom: 1px solid #f2f2f2;
         padding: 0 0 20px 0;
         width: 100%;
+        @include xs-devices {
+          font-size: 24px;
+          line-height: normal;
+        }
       }
       img {
         position: absolute;
@@ -78,6 +85,10 @@
       text-align: left;
       width: 100%;
       padding: 60px 0 0 0;
+      @include xs-devices {
+        font-size: 24px;
+        line-height: normal;
+      }
     }
   }
 }
@@ -166,6 +177,11 @@
       cursor: pointer;
       width: 20px;
       height: 20px;
+      @include xs-devices {
+        top: calc(0% - 20px);
+        width: 15px;
+        height: 15px;
+      }
     }
     .edit_icon {
       position: absolute;
@@ -176,6 +192,12 @@
       cursor: pointer;
       width: 20px;
       height: 20px;
+      @include xs-devices {
+        top: calc(0% - 20px);
+        right: calc(0% + 25px);
+        width: 15px;
+        height: 15px;
+      }
     }
     &:hover,
     &:focus {
