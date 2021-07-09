@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import styles from '../../styles/components/Tasks.module.scss';
 import { Route, Switch } from 'react-router-dom';
-import { TasksList, AllTasksLists } from '../';
+import { TasksList, AllTasksLists, ErrorPage } from '../';
 import { AppStateType } from '../../redux/store';
 import { getActiveSidebarList, getsidebarListItems } from '../../redux/selectors/sidebarSelectors';
 import { compose } from 'redux';
@@ -30,7 +30,7 @@ const Tasks: React.FC<MapStatePropsType & ownProps> = React.memo(({ lists, activ
             //@ts-ignore
             <Route path="/lists/:id" render={() => <TasksList activeListItem={activeListItem} />} />
           }
-          <Route path="*" render={() => <div>404 NOT FOUND</div>} />
+          <Route path="*" render={() => <ErrorPage />} />
         </Switch>
       </Scrollbars>
     </div>

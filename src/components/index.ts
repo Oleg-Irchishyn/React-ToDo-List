@@ -9,3 +9,4 @@ export { default as AllTasksListItems } from './Tasks/TasksList/AllTasksListItem
 export { default as TasksListItems } from './Tasks/TasksList/TasksListItems/TasksListItems';
 export { default as TasksForm } from './Tasks/TasksList/TasksForm/TasksForm';
 export { default as AllTasksForm } from './Tasks/TasksList/AllTasksForm/AllTasksForm';
+export { default as ErrorPage } from './404/404';
