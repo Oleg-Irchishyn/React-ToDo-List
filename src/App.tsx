@@ -9,11 +9,12 @@ import { AppStateType } from './redux/store';
 import { initializeApp } from './redux/reducers/appReducer';
 import { getInitializeApp } from './redux/selectors/appSelectors';
 import cn from 'classnames';
+import { withSuspense } from './hoc/WithSuspense';
 
-/* React Lazy example
-const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
-const SuspendedProfile = withSuspense(ProfileContainer);
-*/
+
+const TasksContainer = React.lazy(() => import('./components/Tasks/Tasks'));
+const SuspendedTasks = withSuspense(TasksContainer);
+
 
 const App: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
   ({ initializeApp, initialized }) => {
@@ -32,8 +33,8 @@ const App: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
         })}>
         <div className={cn(styles.todo__wrapper)}>
           <Sidebar />
-          <Tasks />
-          {/*<Route path="/profile/:userId?" render={() => <SuspendedProfile />} />*/}
+          <SuspendedTasks />
+         
         </div>
       </div>
     );

@@ -3,7 +3,7 @@ import styles from './../../styles/components/Sidebar.module.scss';
 import cn from 'classnames';
 import { SidebarList, AddList } from '../';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowAltCircleRight, faHandPointDown } from '@fortawesome/free-solid-svg-icons';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../redux/store';
@@ -16,6 +16,7 @@ const Sidebar: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
       localStorage.setItem('visibility', JSON.stringify(visibility));
     });
     const element = <FontAwesomeIcon icon={faArrowAltCircleRight} />;
+    const handElement = <FontAwesomeIcon icon={faHandPointDown} />;
     const [val = visibility, setVal] = React.useState(!visibility);
     const toggleElemetsVisibility = () => {
       setVal(!val);
@@ -30,6 +31,10 @@ const Sidebar: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
         })}>
         <SidebarList />
         <AddList />
+        <div className={cn(styles.todo__sidebar_hand_point, {
+          [styles.todo__sidebar_hand_point_disabled]: visibility === false,
+        }
+          )}>{handElement}</div>
         <div
           className={cn(styles.todo__sidebar_open_arrow, {
             [styles.shrink_arrow]: visibility === true,

@@ -191,6 +191,30 @@
       color: rgb(17, 1, 51);
     }
   }
+  &_hand_point {
+    position: absolute;
+    top: 50%; 
+    transform: translate(-50%, -140%);
+    right: calc(0% - 21px);
+    z-index: 10;
+    display: none;
+    animation: handMovement 2s ease-in-out infinite both; 
+    animation-direction: alternate-reverse;
+    opacity: 1;
+    cursor: pointer;
+    &_disabled {
+      pointer-events: none;
+      opacity: 0;
+      animation: none;
+    }
+    @include xs-devices {
+      display: block;
+    }
+    svg {
+      font-size: 24px;
+      color: rgb(17, 1, 51);
+    }
+  }
 }
 .todo__sidebar_add_btn_wrapper {
   position: relative;
@@ -321,5 +345,16 @@
     right: calc(0% - 15px);
     transform: rotate(0deg);
     transition: 0.4s ease;
+  }
+}
+
+@keyframes handMovement  {
+  10%   {
+    transform: translate(-50%, -140%);
+    opacity: 1;
+  }
+   100% {
+    transform: translate(-50%, -105%) rotate(-360deg);
+    opacity: .5;
   }
 }
