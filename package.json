@@ -1,8 +1,8 @@
 {
-  "name": "react-todo-list",
+  "name": "react-todo-lists-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": " https://react-todo-list.herokuapp.com",
+  "homepage": "https://react-todo-lists-app.herokuapp.com",
   "dependencies": {
     "@babel/core": "7.8.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
