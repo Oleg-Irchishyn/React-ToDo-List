@@ -10,16 +10,17 @@ import { initializeApp } from './redux/reducers/appReducer';
 import { getInitializeApp } from './redux/selectors/appSelectors';
 import cn from 'classnames';
 import { withSuspense } from './hoc/WithSuspense';
-
+import { useHistory } from 'react-router-dom';
 
 const TasksContainer = React.lazy(() => import('./components/Tasks/Tasks'));
 const SuspendedTasks = withSuspense(TasksContainer);
 
-
 const App: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
   ({ initializeApp, initialized }) => {
+    const history = useHistory();
     React.useEffect(() => {
       initializeApp();
+      history.push(`/`);
     }, [initialized]);
 
     if (!initialized) {
@@ -34,7 +35,6 @@ const App: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
         <div className={cn(styles.todo__wrapper)}>
           <Sidebar />
           <SuspendedTasks />
-         
         </div>
       </div>
     );
