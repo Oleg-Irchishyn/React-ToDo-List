@@ -13,6 +13,7 @@ const CHANGE_ACTIVE_SIDEBAR_LIST_NAME = 'todo/sidebar/CHANGE_ACTIVE_SIDEBAR_LIST
 const CHANGE_ACTIVE_LIST_TASK_VALUE = 'todo/sidebar/CHANGE_ACTIVE_LIST_TASK_VALUE';
 const DELETE_ACTIVE_LIST_TASK = 'todo/sidebar/DELETE_ACTIVE_LIST_TASK';
 const SET_VISIBILITY_OF_ELEMENTS = 'todo/sidebar/SET_VISIBILITY_OF_ELEMENTS';
+const FILTER_ACTIVELIST_TASKS = 'todo/sidebar/FILTER_ACTIVELIST_TASKS';
 
 let initialState = {
   allTasksBtnList: [
@@ -127,6 +128,23 @@ const sidebarReducer = (state = initialState, action: ActionsTypes): initialStat
         };
       }
     }
+    case FILTER_ACTIVELIST_TASKS: {
+      if (state.activeSidebarList && state.activeSidebarList.tasks) {
+        const filteredTaskList = [...state.activeSidebarList.tasks.filter((obj) => {
+             //@ts-ignore
+          if (obj.text.toLowerCase().indexOf(action.text.toLowerCase()) >= 0) {
+           return obj
+          }
+        })];
+        return {
+          ...state,
+          activeSidebarList: {
+            ...state.activeSidebarList,
+            tasks: filteredTaskList,
+          },
+        };
+      }
+    }
     default:
       return state;
   }
@@ -155,6 +173,8 @@ export const actions = {
     ({ type: CHANGE_ACTIVE_LIST_TASK_VALUE, id, text } as const),
   setVisibilityOfElements: (val: boolean) =>
     ({ type: SET_VISIBILITY_OF_ELEMENTS, payload: val } as const),
+    filterActiveSidebarListTasks: (text: string | number | any) =>
+    ({ type: FILTER_ACTIVELIST_TASKS, text } as const),
 };
 
 export const getSidebarLists = (): ThunkType => async (dispatch) => {
@@ -193,7 +213,7 @@ export const setNewSidebarListName =
     try {
       await appAPI.renameTodoList(id, newName);
       dispatch(actions.changeSidebarListName(id, newName));
-      window.location.reload();
+      // window.location.reload();
     } catch (err) {
       throw new Error(`Promise has not been resolved properly`);
     }

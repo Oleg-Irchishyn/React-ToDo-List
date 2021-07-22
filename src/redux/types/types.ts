@@ -16,14 +16,14 @@ export type DBcolorsType = {
 export type SingleTaskType = {
   id: string | number;
   listId: string | number | null;
-  text: string | number;
+  text: string | number | any;
   completed: boolean;
 };
 
 export type itemsTasksType = {
   id: string | number;
   listId: string | number | null;
-  text: string | number;
+  text: string | number | any;
   completed: boolean;
 };
 

@@ -8,7 +8,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { getsidebarListItems } from '../../../redux/selectors/sidebarSelectors';
 import { itemsType, SingleTaskType } from '../../../redux/types/types';
-import { setNewSidebarListName } from '../../../redux/reducers/sidebarReducer';
+import { setNewSidebarListName, actions } from '../../../redux/reducers/sidebarReducer';
 
 type ownProps = {
   task: SingleTaskType;
@@ -16,7 +16,7 @@ type ownProps = {
 };
 
 const TasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = React.memo(
-  ({ lists, activeListItem, setNewSidebarListName }) => {
+  ({ lists, activeListItem, setNewSidebarListName, filterActiveSidebarListTasks }) => {
     const editActiveTaskName = (id: string | number, name: string) => {
       const newActiveListName = window.prompt(
         `Lists's Name`,
@@ -26,6 +26,15 @@ const TasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> =
         setNewSidebarListName(id, newActiveListName);
       }
     };
+    const [searchQuery, setSearchQuery] = React.useState('');
+
+    const filtetTasks = (text: string | number | any) => {
+      setSearchQuery(text);
+      filterActiveSidebarListTasks(text);
+    };
+
+    console.log(searchQuery);
+
     return (
       <React.Fragment>
         {activeListItem && (
@@ -39,6 +48,19 @@ const TasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> =
                 alt="edit"
                 onClick={() => editActiveTaskName(activeListItem.id, activeListItem.name)}
               />
+              {activeListItem && activeListItem.tasks && activeListItem.tasks.length > 0 && (
+                <div className={cn(styles.list__search)}>
+                  {
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      placeholder="...Search task"
+                      onChange={(e) => filtetTasks(e.target.value)}
+                    />
+                  }
+                  <span>&#9906;</span>
+                </div>
+              )}
             </div>
 
             {activeListItem && activeListItem.tasks && activeListItem.tasks.length <= 0 && (
@@ -71,10 +93,12 @@ const mapStateToProps = (state: AppStateType) => ({
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 type MapDispatchPropsType = {
   setNewSidebarListName: (id: string | number, name: string) => void;
+  filterActiveSidebarListTasks: (text: string | number | any) => void;
 };
 
 export default compose<React.ComponentType>(
   connect<MapStatePropsType, MapDispatchPropsType, ownProps, AppStateType>(mapStateToProps, {
     setNewSidebarListName,
+    filterActiveSidebarListTasks: actions.filterActiveSidebarListTasks,
   }),
 )(TasksList);

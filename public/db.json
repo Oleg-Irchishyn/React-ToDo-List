@@ -1,9 +1,9 @@
 {
   "lists": [
     {
-      "id": "52bd54a4-9ce0-405b-a092-d8cc623465d4",
-      "name": "test data",
-      "colorId": 4
+      "id": "38bc3afe-6700-431c-a7ec-dcf3478b7e35",
+      "name": "test",
+      "colorId": 3
     }
   ],
   "tasks": [
@@ -13,10 +13,10 @@
       "completed": false
     },
     {
-      "id": "b9f53aaf-724a-4cc2-afc1-ed91668869c4",
-      "listId": "52bd54a4-9ce0-405b-a092-d8cc623465d4",
-      "text": "I am your venice and desire",
-      "completed": true
+      "id": "e466f076-9ab7-4699-9ab2-8733702dc63a",
+      "listId": "38bc3afe-6700-431c-a7ec-dcf3478b7e35",
+      "text": "just some ordinary message",
+      "completed": false
     }
   ],
   "colors": [
