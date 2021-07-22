@@ -16,18 +16,9 @@ import { actions as sbActions } from '../../../../redux/reducers/sidebarReducer'
 import { v4 as uuidv4 } from 'uuid';
 import { itemsTasksType, itemsType } from '../../../../redux/types/types';
 import { getIsLoading } from '../../../../redux/selectors/tasksSelectors';
-import { useHistory } from 'react-router-dom';
 
 const TasksForm: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
-  ({
-    items,
-    activeListItem,
-    isLoading,
-    setNewTaskToList,
-    addNewTaskToList,
-    selectActiveSidebarList,
-  }) => {
-    const history = useHistory();
+  ({ items, activeListItem, isLoading, setNewTaskToList, addNewTaskToList }) => {
     const [visibleForm, setVisibleForm] = React.useState(false);
     const toggleVisibleForm = () => {
       setVisibleForm(!visibleForm);
@@ -153,13 +144,11 @@ type MapDispatchPropsType = {
     completed: boolean,
   ) => void;
   addNewTaskToList: (obj: itemsTasksType) => void;
-  selectActiveSidebarList: (obj: itemsType | null) => void;
 };
 
 export default compose<React.ComponentType>(
   connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
     setNewTaskToList,
     addNewTaskToList: actions.addNewTaskToList,
-    selectActiveSidebarList: sbActions.selectActiveSidebarList,
   }),
 )(TasksForm);

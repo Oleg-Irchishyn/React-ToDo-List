@@ -27,19 +27,6 @@ const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = React.me
     selectActiveSidebarList,
   }) => {
     var history = useHistory();
-    React.useEffect(() => {
-      const itemId = history.location.pathname.split('lists/')[1];
-
-      const item = items.find((item) => item.id === Number(itemId) || item.id === String(itemId));
-      if (item) {
-        selectActiveSidebarList(item);
-      }
-
-      if (activeListItem !== null) {
-        history.push(`/lists/${activeListItem.id}`);
-        selectActiveSidebarList(activeListItem);
-      }
-    }, [activeListItem, history.location.pathname]);
 
     const listIcon = (
       <svg
