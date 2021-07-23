@@ -3,7 +3,7 @@ import cn from 'classnames';
 import styles from '../../../styles/components/Tasks.module.scss';
 import editIcon from '../../../assets/images/edit.svg';
 import { TasksListItems, AllTasksForm } from '../../index';
-import { useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { AppStateType } from '../../../redux/store';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -13,9 +13,15 @@ import { getAllTasks } from '../../../redux/selectors/tasksSelectors';
 import { getPuresidebarListItems } from '../../../redux/selectors/sidebarSelectors';
 
 const AllTasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = React.memo(
-  ({ list, allTasks, allSideBarLists, setNewSidebarListName, selectActiveSidebarList }) => {
+  ({
+    list,
+    allTasks,
+    allSideBarLists,
+    history,
+    setNewSidebarListName,
+    selectActiveSidebarList,
+  }) => {
     React.useEffect(() => {}, [allTasks, allSideBarLists]);
-    const history = useHistory();
 
     const editActiveTaskName = (id: string | number, name: string) => {
       const newActiveListName = window.prompt(`Lists's Name`, (name = String(list && list.name)));
@@ -76,6 +82,7 @@ const AllTasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps
 
 type ownProps = {
   list: itemsType;
+  history: any;
 };
 
 const mapStateToProps = (state: AppStateType) => ({
@@ -94,4 +101,5 @@ export default compose<React.ComponentType>(
     setNewSidebarListName,
     selectActiveSidebarList: actions.selectActiveSidebarList,
   }),
+  withRouter,
 )(AllTasksList);

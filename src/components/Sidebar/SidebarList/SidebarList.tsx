@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../../../styles/components/Sidebar.module.scss';
 import cn from 'classnames';
 import { AppStateType } from '../../../redux/store';
-import { useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import {
   getallTasksBtnList,
   getIsRemovable,
@@ -16,18 +16,17 @@ import removeSvg from '../../../assets/images/remove.svg';
 import { itemsType, allTasksBtnType } from '../../../redux/types/types';
 import { removeSidebarList, actions } from '../../../redux/reducers/sidebarReducer';
 
-const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
+const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = React.memo(
   ({
     items,
     allTasksBtnList,
     isRemovable,
     activeListItem,
     visibility,
+    history,
     removeSidebarList,
     selectActiveSidebarList,
   }) => {
-    var history = useHistory();
-
     const listIcon = (
       <svg
         width="18"
@@ -46,7 +45,7 @@ const SidebarList: React.FC<MapStatePropsType & MapDispatchPropsType> = React.me
       if (window.confirm('Do you want to remove this list?')) {
         selectActiveSidebarList(null);
         removeSidebarList(item.id);
-        window.location.replace('/');
+        history.push('/');
       }
     };
 
@@ -117,9 +116,14 @@ type MapDispatchPropsType = {
   selectActiveSidebarList: (obj: itemsType | null) => void;
 };
 
+type ownProps = {
+  history: any;
+};
+
 export default compose<React.ComponentType>(
   connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
     removeSidebarList,
     selectActiveSidebarList: actions.selectActiveSidebarList,
   }),
+  withRouter,
 )(SidebarList);

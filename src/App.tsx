@@ -4,20 +4,18 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { Preloader } from './components/common';
-import { Sidebar, Tasks } from './components/';
+import { Sidebar } from './components/';
 import { AppStateType } from './redux/store';
 import { initializeApp } from './redux/reducers/appReducer';
 import { getInitializeApp } from './redux/selectors/appSelectors';
 import cn from 'classnames';
 import { withSuspense } from './hoc/WithSuspense';
-import { useHistory } from 'react-router-dom';
 
 const TasksContainer = React.lazy(() => import('./components/Tasks/Tasks'));
 const SuspendedTasks = withSuspense(TasksContainer);
 
-const App: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
-  ({ initializeApp, initialized }) => {
-    const history = useHistory();
+const App: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = React.memo(
+  ({ initializeApp, initialized, history }) => {
     React.useEffect(() => {
       initializeApp();
       history.push(`/`);
@@ -26,6 +24,10 @@ const App: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
     if (!initialized) {
       return <Preloader />;
     }
+
+    window.onload = () => {
+      history.push(`/`);
+    };
 
     return (
       <div
@@ -44,6 +46,10 @@ const App: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
 const mapStateToProps = (state: AppStateType) => ({
   initialized: getInitializeApp(state),
 });
+
+type ownProps = {
+  history: any;
+};
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 type MapDispatchPropsType = {
