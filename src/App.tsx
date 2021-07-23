@@ -19,15 +19,15 @@ const App: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = React
     React.useEffect(() => {
       initializeApp();
       history.push(`/`);
+      if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+        history.push(`/`);
+        console.log('yo');
+      }
     }, [initialized]);
 
     if (!initialized) {
       return <Preloader />;
     }
-
-    window.onload = () => {
-      history.push(`/`);
-    };
 
     return (
       <div
