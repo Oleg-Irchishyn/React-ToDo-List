@@ -22,7 +22,6 @@ const Sidebar: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
       setVal(!val);
       setVisibilityOfElements(val);
     };
-    console.log(visibility);
     return (
       <div
         className={cn(styles.todo__sidebar, {
@@ -31,10 +30,12 @@ const Sidebar: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo(
         })}>
         <SidebarList />
         <AddList />
-        <div className={cn(styles.todo__sidebar_hand_point, {
-          [styles.todo__sidebar_hand_point_disabled]: visibility === false,
-        }
-          )}>{handElement}</div>
+        <div
+          className={cn(styles.todo__sidebar_hand_point, {
+            [styles.todo__sidebar_hand_point_disabled]: visibility === false,
+          })}>
+          {handElement}
+        </div>
         <div
           className={cn(styles.todo__sidebar_open_arrow, {
             [styles.shrink_arrow]: visibility === true,

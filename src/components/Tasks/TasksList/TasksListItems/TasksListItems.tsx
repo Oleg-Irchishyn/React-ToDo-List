@@ -48,7 +48,6 @@ const TasksListItems: React.FC<MapStatePropsType & MapDispatchPropsType & ownPro
     const handleToggleTaskCompletion = React.useCallback(
       (id: string | number, listId: string | number | null, completion: boolean) => {
         setCompletion(!completion);
-        console.log(completion);
         toggleTaskCompletion(id, listId, completion);
       },
       [],

@@ -33,8 +33,6 @@ const TasksList: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> =
       filterActiveSidebarListTasks(text);
     };
 
-    console.log(searchQuery);
-
     return (
       <React.Fragment>
         {activeListItem && (

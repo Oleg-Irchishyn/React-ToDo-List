@@ -4,6 +4,11 @@
       "id": "38bc3afe-6700-431c-a7ec-dcf3478b7e35",
       "name": "test task",
       "colorId": 3
+    },
+    {
+      "id": "f300badb-9b1f-46ab-8ae1-e2d8ce97ee91",
+      "name": "one more test task",
+      "colorId": 4
     }
   ],
   "tasks": [
@@ -16,6 +21,12 @@
       "id": "e466f076-9ab7-4699-9ab2-8733702dc63a",
       "listId": "38bc3afe-6700-431c-a7ec-dcf3478b7e35",
       "text": "just some ordinary text",
+      "completed": false
+    },
+    {
+      "id": "5ed3aeee-dc4e-486c-b7a2-566896977149",
+      "listId": "f300badb-9b1f-46ab-8ae1-e2d8ce97ee91",
+      "text": "adding one more task",
       "completed": false
     }
   ],

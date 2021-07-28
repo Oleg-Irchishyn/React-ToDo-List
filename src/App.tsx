@@ -21,7 +21,7 @@ const App: React.FC<MapStatePropsType & MapDispatchPropsType & ownProps> = React
       history.push(`/`);
       if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
         history.push(`/`);
-        console.log('yo');
+        console.log('reloaded');
       }
     }, [initialized]);
 
